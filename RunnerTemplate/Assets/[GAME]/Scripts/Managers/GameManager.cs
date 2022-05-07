@@ -1,0 +1,95 @@
+﻿using System.Collections;
+using System.Collections.Generic;
+using ElephantSDK;
+//using GameAnalyticsSDK;
+using UnityEngine;
+using UnityEngine.SceneManagement;
+
+    public class GameManager : MonoSingleton<GameManager> //, IGameAnalyticsATTListener 
+    {
+        private bool _isGameStarted;
+
+        private void Awake()
+        {
+            Input.multiTouchEnabled = false;
+            var level = PersistData.Instance.CurrentLevel;
+            Elephant.LevelStarted(level - 1);
+            Application.targetFrameRate = 60;
+        }
+
+        #region GameAnalitcs SDK
+
+        // void Start()
+        // {
+        //     if (Application.platform == RuntimePlatform.IPhonePlayer)
+        //     {
+        //         GameAnalytics.RequestTrackingAuthorization(this);
+        //     }
+        //     else
+        //     {
+        //         GameAnalytics.Initialize();
+        //     }
+        // }
+        //
+        // public void GameAnalyticsATTListenerNotDetermined()
+        // {
+        //     GameAnalytics.Initialize();
+        // }
+        //
+        // public void GameAnalyticsATTListenerRestricted()
+        // {
+        //     GameAnalytics.Initialize();
+        // }
+        //
+        // public void GameAnalyticsATTListenerDenied()
+        // {
+        //     GameAnalytics.Initialize();
+        // }
+        //
+        // public void GameAnalyticsATTListenerAuthorized()
+        // {
+        //     GameAnalytics.Initialize();
+        // }
+
+
+        #endregion
+
+        private void Update()
+        {
+            if (_isGameStarted) return;
+
+            if (Input.GetMouseButtonDown(0))
+            {
+                PlayerController.PlayerState = PlayerController.PlayerStates.Run;
+                EventManager.GameStart?.Invoke();
+                _isGameStarted = true;
+            }
+        }
+
+        public void RestartLevel()
+        {
+            var persistData = PersistData.Instance;
+            Elephant.LevelFailed(persistData.CurrentLevel - 1);
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+            persistData.Save();
+        }
+
+        public void NextLevel()
+        {
+            var persistData = PersistData.Instance;
+            Elephant.LevelCompleted(persistData.CurrentLevel - 1);
+
+            if (SceneManager.GetActiveScene().buildIndex == 11)
+            {
+                persistData.CurrentLevel++;
+                SceneManager.LoadScene(Random.Range(4, 11));
+            }
+            else
+            {
+                persistData.CurrentLevel++;
+                SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+            }
+            
+            persistData.Save();
+        }
+    }
