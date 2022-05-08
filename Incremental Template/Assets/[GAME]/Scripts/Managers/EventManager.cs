@@ -10,6 +10,8 @@ using UnityEngine.Events;
         public static UnityAction GameStart;
         public static UnityAction<float> CameraShake;
         public static UnityAction OnCollectable;
+        public static UnityAction OnGetIncome;
+        public static UnityAction OnIncrementalUpgrade;
         public static UnityAction OnObstacleHit;
     
 }

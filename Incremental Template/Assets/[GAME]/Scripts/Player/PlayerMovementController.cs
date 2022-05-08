@@ -6,12 +6,10 @@ using UnityEngine;
 
 public class PlayerMovementController : MonoBehaviour
 {
-    [Tooltip("Rotasyonlu Swerve Movement")] [SerializeField]
-    private PlayerSettings _playerSettings;
+    [SerializeField] private PlayerSettings _playerSettings;
     [SerializeField] private bool _swerveWithRotation = false;
-    [ConditionalHide("_swerveWithRotation", true)] [SerializeField]
-    private float _rotationAngle;
     private SwerveInputSystem _swerveInputSystem;
+    private bool _didIncomeSend;
 
     private void Awake()
     {
@@ -24,14 +22,7 @@ public class PlayerMovementController : MonoBehaviour
         {
             SwerveMovement();
             ClampPosition();
-
-            if (_swerveWithRotation)
-            {
-                if (CanRotate())
-                {
-                    RotationMovement();
-                }
-            }
+            GetIncome();
         }
     }
 
@@ -40,11 +31,6 @@ public class PlayerMovementController : MonoBehaviour
         float swerveAmount = Time.deltaTime * _playerSettings.SwerveSpeed * _swerveInputSystem.MoveFactorX;
         transform.Translate(0, 0, (_playerSettings.MovementSpeed * Time.deltaTime), Space.Self);
         transform.Translate(swerveAmount, 0, 0, Space.World);
-
-        if (swerveAmount == 0 )
-        {
-            ResetRotation();
-        }
     }
 
     private void ClampPosition()
@@ -54,32 +40,20 @@ public class PlayerMovementController : MonoBehaviour
             _playerSettings.MaxSwerveAmount);
         transform.position = transformPosition;
     }
-
-    private bool CanRotate()
+    
+    private void GetIncome()
     {
-        if (!Input.GetMouseButton(0))
+        if (!_didIncomeSend)
         {
-            ResetRotation();
+            if ((transform.position.z) % 1 <= .15f)
+            {
+                EventManager.OnGetIncome?.Invoke();
+                _didIncomeSend = true;
+            }
         }
-
-        if (_playerSettings.MaxSwerveAmount - Mathf.Abs(transform.localPosition.x) < float.Epsilon)
+        else
         {
-            ResetRotation();
-            return false;
+            _didIncomeSend = false;
         }
-
-        return true;
     }
-
-    private void RotationMovement()
-    {
-        float rotationMagnitude =
-            _swerveInputSystem.MoveFactorX * Time.deltaTime * _playerSettings.RotationSpeed;
-        float rotationDirection = Mathf.Sign(_swerveInputSystem.MoveFactorX);
-        transform.localRotation = Quaternion.Lerp(transform.localRotation,
-            Quaternion.Euler(0, _rotationAngle * rotationDirection, 0), Mathf.Abs(rotationMagnitude));
-    }
-
-    private void ResetRotation() => transform.localRotation =
-        Quaternion.Lerp(transform.localRotation, Quaternion.identity, Time.fixedDeltaTime * 10);
 }

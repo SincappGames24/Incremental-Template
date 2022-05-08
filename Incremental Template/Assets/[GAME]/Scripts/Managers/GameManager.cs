@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using ElephantSDK;
 //using GameAnalyticsSDK;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
 
     public class GameManager : MonoSingleton<GameManager> //, IGameAnalyticsATTListener 
@@ -57,13 +58,30 @@ using UnityEngine.SceneManagement;
         private void Update()
         {
             if (_isGameStarted) return;
-
+            
             if (Input.GetMouseButtonDown(0))
             {
-                PlayerController.PlayerState = PlayerController.PlayerStates.Run;
-                EventManager.GameStart?.Invoke();
-                _isGameStarted = true;
+                if (Application.platform == RuntimePlatform.IPhonePlayer || Application.platform == RuntimePlatform.Android)
+                {
+                    if (Input.touchCount > 0)
+                    {
+                        if (!EventSystem.current.IsPointerOverGameObject(Input.GetTouch(0).fingerId))
+                        {
+                            EventManager.GameStart?.Invoke();
+                            _isGameStarted = true;
+                        }
+                    }
+                }
+                else
+                {
+                    if (!EventSystem.current.IsPointerOverGameObject())
+                    {
+                        EventManager.GameStart?.Invoke();
+                        _isGameStarted = true;
+                    }
+                }
             }
+            
         }
 
         public void RestartLevel()

@@ -5,6 +5,8 @@ TagManager:
   serializedVersion: 2
   tags:
   - Target
+  - FxTemporaire
+  - Missile
   layers:
   - Default
   - TransparentFX
@@ -22,7 +24,7 @@ TagManager:
   - EnemyGroup
   - AttackedObject
   - Ground
-  - 
+  - Finish
   - 
   - 
   - 

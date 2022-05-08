@@ -7,7 +7,7 @@ public class PlayerController : MonoBehaviour
 {
     public enum PlayerStates
     {
-        //Idle,
+        Idle,
         Run,
         Dead,
         OnFinishWall,
@@ -15,20 +15,34 @@ public class PlayerController : MonoBehaviour
     }
 
     public static PlayerStates PlayerState;
-    private PlayerMoneyController _playerMoneyController;
+    private PlayerMovementController _playerMovementController;
+
+    private void OnEnable()
+    {
+        EventManager.GameStart += StartGame;
+        EventManager.OnGetIncome += GetIncome;
+    }
+
+    private void OnDisable()
+    {
+        EventManager.GameStart -= StartGame;
+        EventManager.OnGetIncome -= GetIncome;
+    }
 
     private void Start()
     {
-        _playerMoneyController = GetComponent<PlayerMoneyController>();
+        _playerMovementController = GetComponent<PlayerMovementController>();
+        PlayerState = PlayerStates.Idle;
     }
 
-    private void IncreaseMoney()
+    private void StartGame()
     {
-        _playerMoneyController.IncreaseMoney(50);
+        PlayerState = PlayerStates.Run;
     }
-
-    private void DecreaseMoney()
+    
+    private void GetIncome()
     {
-        _playerMoneyController.DecreaseMoney(50);
+        var persistData = PersistData.Instance;
+        persistData.Money += persistData.Income;
     }
 }
