@@ -10,13 +10,13 @@ public class SceneLoader : MonoBehaviour
     {
         var persistData = PersistData.Instance;
         
-        if (persistData.CurrentLevel > 11)
+        if (persistData.CurrentLevel + 1 > SceneManager.sceneCountInBuildSettings - 1)
         {
-            SceneManager.LoadScene(UnityEngine.Random.Range(4, 11));
+            SceneManager.LoadScene(UnityEngine.Random.Range(persistData.LevelLoopStartIndex, SceneManager.sceneCountInBuildSettings - 1));
         }
         else
         {
-            SceneManager.LoadScene(persistData.CurrentLevel);
+            SceneManager.LoadScene(persistData.CurrentLevel + 1);
         }
     }
 }

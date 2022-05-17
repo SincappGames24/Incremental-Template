@@ -45,7 +45,7 @@ public class InGameUIManager : MonoBehaviour
         _animator = GetComponent<Animator>();
         _playerPosition = FindObjectOfType<PlayerController>().transform;
         _finishPosition = GameObject.FindGameObjectWithTag("Finish").transform;
-        _levelText.SetText($"{PersistData.Instance.CurrentLevel - 1}");
+        _levelText.SetText($"{PersistData.Instance.CurrentLevel}");
         _playerStartPos_Z = _playerPosition.position.z;
         _totalDistance = Mathf.Abs(_playerStartPos_Z - _finishPosition.position.z);
         SetIncrementalUI();

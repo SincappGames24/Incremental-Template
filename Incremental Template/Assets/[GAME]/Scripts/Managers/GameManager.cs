@@ -14,7 +14,7 @@ using UnityEngine.SceneManagement;
         {
             Input.multiTouchEnabled = false;
             var level = PersistData.Instance.CurrentLevel;
-            Elephant.LevelStarted(level - 1);
+            Elephant.LevelStarted(level);
             Application.targetFrameRate = 60;
         }
 
@@ -87,7 +87,7 @@ using UnityEngine.SceneManagement;
         public void RestartLevel()
         {
             var persistData = PersistData.Instance;
-            Elephant.LevelFailed(persistData.CurrentLevel - 1);
+            Elephant.LevelFailed(persistData.CurrentLevel);
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
             persistData.Save();
         }
@@ -95,12 +95,12 @@ using UnityEngine.SceneManagement;
         public void NextLevel()
         {
             var persistData = PersistData.Instance;
-            Elephant.LevelCompleted(persistData.CurrentLevel - 1);
+            Elephant.LevelCompleted(persistData.CurrentLevel);
 
-            if (SceneManager.GetActiveScene().buildIndex == 11)
+            if (SceneManager.GetActiveScene().buildIndex == SceneManager.sceneCountInBuildSettings - 1)
             {
                 persistData.CurrentLevel++;
-                SceneManager.LoadScene(Random.Range(4, 11));
+                SceneManager.LoadScene(Random.Range(persistData.LevelLoopStartIndex, SceneManager.sceneCountInBuildSettings - 1));
             }
             else
             {
