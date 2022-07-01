@@ -5,10 +5,9 @@ using UnityEngine.Events;
 
     public static class EventManager
     {
-        public static UnityAction GameWin;
-        public static UnityAction GameLose;
-        public static UnityAction GameStart;
-        public static UnityAction<float> CameraShake;
+        public static UnityAction OnGameWin;
+        public static UnityAction OnGameLose;
+        public static UnityAction OnGameStart;
         public static UnityAction OnCollectable;
         public static UnityAction OnGetIncome;
         public static UnityAction OnIncrementalUpgrade;

@@ -9,12 +9,12 @@ public class HighScoreController : MonoBehaviour
 
     private void OnEnable()
     {
-        EventManager.GameWin += SetHighScoreOnWin;
+        EventManager.OnGameWin += SetHighScoreOnWin;
     }
 
     private void OnDisable()
     {
-        EventManager.GameWin -= SetHighScoreOnWin;
+        EventManager.OnGameWin -= SetHighScoreOnWin;
     }
 
     private void Start()

@@ -67,7 +67,7 @@ using UnityEngine.SceneManagement;
                     {
                         if (!EventSystem.current.IsPointerOverGameObject(Input.GetTouch(0).fingerId))
                         {
-                            EventManager.GameStart?.Invoke();
+                            EventManager.OnGameStart?.Invoke();
                             _isGameStarted = true;
                         }
                     }
@@ -76,7 +76,7 @@ using UnityEngine.SceneManagement;
                 {
                     if (!EventSystem.current.IsPointerOverGameObject())
                     {
-                        EventManager.GameStart?.Invoke();
+                        EventManager.OnGameStart?.Invoke();
                         _isGameStarted = true;
                     }
                 }

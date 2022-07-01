@@ -19,13 +19,13 @@ public class PlayerController : MonoBehaviour
 
     private void OnEnable()
     {
-        EventManager.GameStart += StartGame;
+        EventManager.OnGameStart += StartGame;
         EventManager.OnGetIncome += GetIncome;
     }
 
     private void OnDisable()
     {
-        EventManager.GameStart -= StartGame;
+        EventManager.OnGameStart -= StartGame;
         EventManager.OnGetIncome -= GetIncome;
     }
 

@@ -6,21 +6,6 @@ using UnityEngine.UI;
 
 public class IncrementalManager : MonoBehaviour
 {
-    [SerializeField] private Sprite _staminaNormalSprite;
-    [SerializeField] private Sprite _staminaNoMoneySprite;
-    [SerializeField] private Sprite _incomeNormalSprite;
-    [SerializeField] private Sprite _incomeNoMoneySprite;
-    [SerializeField] private Sprite _speedNormalSprite;
-    [SerializeField] private Sprite _speedNoMoneySprite;
-    [SerializeField] private Button _ageButton;
-    [SerializeField] private Button _incomeButton;
-    [SerializeField] private Button _speedButton;
-
-    private void Start()
-    {
-        CheckMoneySprites();
-    }
-
     public void IncreaseStamina()
     {
         var persistData = PersistData.Instance;
@@ -79,8 +64,6 @@ public class IncrementalManager : MonoBehaviour
         {
             currentCost *= 2;
         }
-        
-        CheckMoneySprites();
     }
 
     private void Upgrade(ref float incremental, float incrementAmount)
@@ -90,46 +73,5 @@ public class IncrementalManager : MonoBehaviour
         incremental += incrementAmount;
         EventManager.OnIncrementalUpgrade?.Invoke();
         persistData.Save();
-    }
-
-    private void CheckMoneySprites()
-    {
-        var persistData = PersistData.Instance;
-
-        if (persistData.StaminaLevel < persistData.MaxStaminaLevel &&
-            persistData.Money >= persistData.StaminaUpgradeCost)
-        {
-            _ageButton.image.sprite = _staminaNormalSprite;
-            _ageButton.interactable = true;
-        }
-        else
-        {
-            _ageButton.image.sprite = _staminaNoMoneySprite;
-            _ageButton.interactable = false;
-        }
-
-        if (persistData.IncomeLevel < persistData.MaxIncomeLevel &&
-            persistData.Money >= persistData.IncomeUpgradeCost)
-        {
-            _incomeButton.image.sprite = _incomeNormalSprite;
-            _incomeButton.interactable = true;
-        }
-        else
-        {
-            _incomeButton.image.sprite = _incomeNoMoneySprite;
-            _incomeButton.interactable = false;
-        }
-
-        if (persistData.SpeedLevel < persistData.MaxSpeedLevel &&
-            persistData.Money >= persistData.SpeedUpgradeCost)
-        {
-            _speedButton.image.sprite = _speedNormalSprite;
-            _speedButton.interactable = true;
-        }
-        else
-        {
-            _speedButton.image.sprite = _speedNoMoneySprite;
-            _speedButton.interactable = false;
-        }
     }
 }

@@ -59,6 +59,15 @@ public class PersistManager<T> : ScriptableObject where T : PersistManager<T>
             File.Delete(_persistFileLocation);
         }
     }
+    
+    public void ClearInGame()
+    {
+        PersistData newPersist = CreateInstance<PersistData>();
+        newPersist.CurrentLevel = PersistData.Instance.CurrentLevel;
+        var json = JsonUtility.ToJson(newPersist);
+        JsonUtility.FromJsonOverwrite(json, this);
+        newPersist.Save();
+    }
 }
 
 [AttributeUsage(AttributeTargets.Class)]

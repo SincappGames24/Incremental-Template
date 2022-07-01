@@ -30,16 +30,16 @@ using UnityEngine.UI;
 
         private void OnEnable()
         {
-            EventManager.GameWin += OpenGift;
-            EventManager.GameLose += OpenRestartUI;
+            EventManager.OnGameWin += OpenGift;
+            EventManager.OnGameLose += OpenRestartUI;
             _continueButton.onClick.AddListener(GameManager.Instance.NextLevel);
             _restartButton.onClick.AddListener(GameManager.Instance.RestartLevel);
         }
 
         private void OnDisable()
         {
-            EventManager.GameWin -= OpenGift;
-            EventManager.GameLose -= OpenRestartUI;
+            EventManager.OnGameWin -= OpenGift;
+            EventManager.OnGameLose -= OpenRestartUI;
             _continueButton.onClick.RemoveAllListeners();
             _restartButton.onClick.RemoveAllListeners();
         }

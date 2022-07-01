@@ -7,6 +7,7 @@ public class PersistData : PersistManager<PersistData>
   public int LevelLoopStartIndex = 4;
   public float Money = 1000;
   public float GiftFillAmount;
+  public int CurrentPlayerRank = 1000;
 
   #region Incrementals
   
@@ -42,7 +43,6 @@ public class PersistData : PersistManager<PersistData>
   #endregion
   
   #endregion
-  
   
   #region HighScore
 
