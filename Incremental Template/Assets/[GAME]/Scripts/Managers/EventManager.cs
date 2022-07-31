@@ -9,7 +9,7 @@ using UnityEngine.Events;
         public static UnityAction OnGameLose;
         public static UnityAction OnGameStart;
         public static UnityAction OnCollectable;
-        public static UnityAction OnGetIncome;
+        public static UnityAction OnIncomeChange;
         public static UnityAction OnIncrementalUpgrade;
         public static UnityAction OnObstacleHit;
     

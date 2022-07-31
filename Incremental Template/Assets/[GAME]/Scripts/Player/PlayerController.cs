@@ -20,13 +20,11 @@ public class PlayerController : MonoBehaviour
     private void OnEnable()
     {
         EventManager.OnGameStart += StartGame;
-        EventManager.OnGetIncome += GetIncome;
     }
 
     private void OnDisable()
     {
         EventManager.OnGameStart -= StartGame;
-        EventManager.OnGetIncome -= GetIncome;
     }
 
     private void Start()
@@ -38,11 +36,5 @@ public class PlayerController : MonoBehaviour
     private void StartGame()
     {
         PlayerState = PlayerStates.Run;
-    }
-    
-    private void GetIncome()
-    {
-        var persistData = PersistData.Instance;
-        persistData.Money += persistData.Income;
     }
 }

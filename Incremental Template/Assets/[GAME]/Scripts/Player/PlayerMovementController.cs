@@ -47,7 +47,7 @@ public class PlayerMovementController : MonoBehaviour
         {
             if ((transform.position.z) % 1 <= .15f)
             {
-                EventManager.OnGetIncome?.Invoke();
+                EventManager.OnIncomeChange?.Invoke();
                 _didIncomeSend = true;
             }
         }

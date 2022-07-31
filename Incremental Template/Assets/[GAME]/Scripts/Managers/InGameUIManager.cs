@@ -63,7 +63,7 @@ public class InGameUIManager : MonoBehaviour
     {
         EventManager.OnGameStart += GameStarted;
         EventManager.OnIncrementalUpgrade += SetIncrementalUI;
-        EventManager.OnGetIncome += UpdateMoneyText;
+        EventManager.OnIncomeChange += UpdateMoneyText;
         EventManager.OnGameWin += DisableInGameUI;
         EventManager.OnGameLose += DisableInGameUI;
     }
@@ -72,7 +72,7 @@ public class InGameUIManager : MonoBehaviour
     {
         EventManager.OnGameStart -= GameStarted;
         EventManager.OnIncrementalUpgrade -= SetIncrementalUI;
-        EventManager.OnGetIncome -= UpdateMoneyText;
+        EventManager.OnIncomeChange -= UpdateMoneyText;
         EventManager.OnGameWin -= DisableInGameUI;
         EventManager.OnGameLose -= DisableInGameUI;
     }
