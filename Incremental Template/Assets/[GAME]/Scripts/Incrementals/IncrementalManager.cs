@@ -42,7 +42,7 @@ public class IncrementalManager : MonoBehaviour
         Upgrade(ref persistData.Income, 1);
     }
 
-    private bool CheckMoneyAmount(int cost)
+    private bool CheckMoneyAmount(float cost)
     {
         var persistData = PersistData.Instance;
 
@@ -54,7 +54,7 @@ public class IncrementalManager : MonoBehaviour
         return currentLevel < maxLevel;
     }
 
-    private void Purchase(int costLimit, ref int currentCost, ref int currentLevel)
+    private void Purchase(int costLimit, ref float currentCost, ref int currentLevel)
     {
         var persistData = PersistData.Instance;
         currentLevel++;

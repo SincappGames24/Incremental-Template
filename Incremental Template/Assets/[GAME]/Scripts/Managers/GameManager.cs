@@ -110,4 +110,17 @@ using UnityEngine.SceneManagement;
             
             persistData.Save();
         }
+        
+        private void OnApplicationPause(bool pauseStatus)
+        {
+            if (pauseStatus)
+            {
+                PersistData.Instance.Save();
+            }
+        }
+
+        private void OnApplicationQuit()
+        {
+            //PersistData.Instance.Save();
+        }
     }

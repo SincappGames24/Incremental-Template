@@ -1729,7 +1729,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 0}
   m_AnchoredPosition: {x: 0, y: 26}
-  m_SizeDelta: {x: 0, y: 100}
+  m_SizeDelta: {x: 0, y: 417.46954}
   m_Pivot: {x: 0.5, y: 0}
 --- !u!1 &1456697943332304697
 GameObject:
@@ -1763,10 +1763,10 @@ MonoBehaviour:
   m_Padding:
     m_Left: 0
     m_Right: 0
-    m_Top: -405
+    m_Top: -101
     m_Bottom: 0
   m_ChildAlignment: 4
-  m_Spacing: -28.4
+  m_Spacing: -127.94
   m_ChildForceExpandWidth: 1
   m_ChildForceExpandHeight: 1
   m_ChildControlWidth: 0
@@ -9204,6 +9204,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6171424312387336721}
   - component: {fileID: 6171424312387336727}
+  - component: {fileID: 6171424312387336728}
   m_Layer: 5
   m_Name: 'EndGameUI '
   m_TagString: Untagged
@@ -9230,6 +9231,24 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &6171424312387336728
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6171424312387336726}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 515b6aed4be0d664e8cb90531494db9d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _continueButton: {fileID: 4205749995742717604}
+  _restartButton: {fileID: 5582924120787716648}
+  _giftPercentText: {fileID: 0}
+  _giftFillImage: {fileID: 0}
+  _continueButtonGift: {fileID: 0}
+  _firfir: {fileID: 0}
 --- !u!1 &6171424312674448908
 GameObject:
   m_ObjectHideFlags: 0
@@ -9320,6 +9339,7 @@ MonoBehaviour:
   _collectableSprite: {fileID: 8451577786125845546, guid: 4c40a9de2a446f64cbd5a1b8aef767c9,
     type: 3}
   _collectableTargetTransform: {fileID: 7973218715903559403}
+  _greyMat: {fileID: 2100000, guid: c9cd8acc14b95f44b948cecbbe1b1d7e, type: 2}
   _incrementalsObj: {fileID: 1456697943332304697}
   _ageButton: {fileID: 2129174971467684830}
   _incomeButton: {fileID: 2129174971549915888}
@@ -9350,7 +9370,7 @@ MonoBehaviour:
   m_ScaleFactor: 1
   m_ReferenceResolution: {x: 1080, y: 1920}
   m_ScreenMatchMode: 0
-  m_MatchWidthOrHeight: 0.5
+  m_MatchWidthOrHeight: 1
   m_PhysicalUnit: 3
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96

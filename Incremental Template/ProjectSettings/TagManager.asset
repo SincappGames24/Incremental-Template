@@ -22,7 +22,7 @@ TagManager:
   - Collectable
   - JumpingCheck
   - EnemyGroup
-  - AttackedObject
+  - Gate
   - Ground
   - Finish
   - 

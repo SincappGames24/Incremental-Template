@@ -15,6 +15,7 @@ public class InGameUIManager : MonoBehaviour
     [SerializeField] private TextMeshProUGUI _playerMoney;
     [SerializeField] private Transform _collectableSprite;
     [SerializeField] private Transform _collectableTargetTransform;
+    [SerializeField] private Material _greyMat;
 
     private Animator _animator;
 
@@ -53,7 +54,7 @@ public class InGameUIManager : MonoBehaviour
         _animator = GetComponent<Animator>();
         _playerPosition = FindObjectOfType<PlayerController>().transform;
         _finishPosition = GameObject.FindGameObjectWithTag("Finish").transform;
-        _levelText.SetText($"{PersistData.Instance.CurrentLevel}");
+        _levelText.SetText($"LEVEL {PersistData.Instance.CurrentLevel}");
         _playerStartPos_Z = _playerPosition.position.z;
         _totalDistance = Mathf.Abs(_playerStartPos_Z - _finishPosition.position.z);
         SetIncrementalUI();
@@ -96,24 +97,22 @@ public class InGameUIManager : MonoBehaviour
     {
         _playerMoney.SetText((PersistData.Instance.Money).ToString("f0"));
         FadeMoney();
+        SetIncrementalUI();
     }
 
     private void SetIncrementalUI()
     {
-        StartCoroutine(Sincapp.WaitAndAction(0, () =>
-        {
-            var persistData = PersistData.Instance;
-            _playerMoney.SetText(persistData.Money.ToString("0"));
+        var persistData = PersistData.Instance;
+        _playerMoney.SetText(persistData.Money.ToString("0"));
 
-            _staminaUpgradeMoney.SetText($"${persistData.StaminaUpgradeCost}");
-            _speedUpgradeMoney.SetText($"${persistData.SpeedUpgradeCost}");
-            _incomeUpgradeMoney.SetText($"${persistData.IncomeUpgradeCost}");
+        _staminaUpgradeMoney.SetText($"${persistData.StaminaUpgradeCost:0}");
+        _speedUpgradeMoney.SetText($"${persistData.SpeedUpgradeCost:0}");
+        _incomeUpgradeMoney.SetText($"${persistData.IncomeUpgradeCost:0}");
 
-            _incomeUpgradeLevel.SetText($"{persistData.IncomeLevel} LVL");
-            _staminaUpgradeLevel.SetText($"{persistData.StaminaLevel} LVL");
-            _speedUpgradeLevel.SetText($"{persistData.SpeedLevel} LVL");
-        }));
-
+        _incomeUpgradeLevel.SetText($"{persistData.IncomeLevel} LV");
+        _staminaUpgradeLevel.SetText($"{persistData.StaminaLevel} LV");
+        _speedUpgradeLevel.SetText($"{persistData.SpeedLevel} LV");
+            
         CheckIncrementalSprites();
     }
 
@@ -128,12 +127,12 @@ public class InGameUIManager : MonoBehaviour
         }
         else
         {
-            if (persistData.Money < persistData.StaminaUpgradeCost)
+            if (persistData.StaminaLevel >= persistData.MaxStaminaLevel)
             {
                 _staminaUpgradeMoney.SetText($"MAX LEVEL");
             }
 
-            _ageButton.interactable = false;
+            _ageButton.image.material = _greyMat;
         }
 
         if (persistData.IncomeLevel < persistData.MaxIncomeLevel &&
@@ -143,12 +142,12 @@ public class InGameUIManager : MonoBehaviour
         }
         else
         {
-            if (persistData.Money < persistData.IncomeUpgradeCost)
+            if (persistData.IncomeLevel >= persistData.MaxIncomeLevel)
             {
                 _incomeUpgradeMoney.SetText($"MAX LEVEL");
             }
 
-            _incomeButton.interactable = false;
+            _incomeButton.image.material = _greyMat;
         }
 
         if (persistData.SpeedLevel < persistData.MaxSpeedLevel &&
@@ -158,12 +157,12 @@ public class InGameUIManager : MonoBehaviour
         }
         else
         {
-            if (persistData.Money < persistData.SpeedUpgradeCost)
+            if (persistData.SpeedLevel >= persistData.MaxSpeedLevel)
             {
                 _speedUpgradeMoney.SetText($"MAX LEVEL");
             }
 
-            _speedButton.interactable = false;
+            _speedButton.image.material = _greyMat;
         }
     }
 

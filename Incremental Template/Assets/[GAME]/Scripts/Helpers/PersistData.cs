@@ -15,7 +15,7 @@ public class PersistData : PersistManager<PersistData>
 
   public float Stamina = 16;
   public int StaminaLevel = 1;
-  public int StaminaUpgradeCost = 10;
+  public float StaminaUpgradeCost = 10;
   public int MaxStaminaLevel = 40;
   public int MaxStaminaCost = 1000;
 
@@ -25,7 +25,7 @@ public class PersistData : PersistManager<PersistData>
 
   public float Speed = 10;
   public int SpeedLevel = 1;
-  public int SpeedUpgradeCost = 10;
+  public float SpeedUpgradeCost = 10;
   public int MaxSpeedLevel = 20;
   public int MaxSpeedCost = 1000;
 
@@ -36,7 +36,7 @@ public class PersistData : PersistManager<PersistData>
 
   public float Income=0.5f;
   public int IncomeLevel = 1;
-  public int IncomeUpgradeCost = 10;
+  public float IncomeUpgradeCost = 10;
   public int MaxIncomeLevel = 50;
   public int MaxIncomeCost = 1000;
 
