@@ -132,6 +132,7 @@ public class InGameUIManager : MonoBehaviour
                 _staminaUpgradeMoney.SetText($"MAX LEVEL");
             }
 
+            _ageButton.interactable = false;
             _ageButton.image.material = _greyMat;
         }
 
@@ -147,6 +148,7 @@ public class InGameUIManager : MonoBehaviour
                 _incomeUpgradeMoney.SetText($"MAX LEVEL");
             }
 
+            _incomeButton.interactable = false;
             _incomeButton.image.material = _greyMat;
         }
 
@@ -162,6 +164,7 @@ public class InGameUIManager : MonoBehaviour
                 _speedUpgradeMoney.SetText($"MAX LEVEL");
             }
 
+            _speedButton.interactable = false;
             _speedButton.image.material = _greyMat;
         }
     }
