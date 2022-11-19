@@ -59,11 +59,8 @@ public class IncrementalManager : MonoBehaviour
         var persistData = PersistData.Instance;
         currentLevel++;
         persistData.Money -= currentCost;
-
-        if (currentCost < costLimit)
-        {
-            currentCost *= 2;
-        }
+        currentCost *= 2;
+        currentCost = Mathf.Clamp(currentCost, 0, costLimit);
     }
 
     private void Upgrade(ref float incremental, float incrementAmount)
