@@ -13,8 +13,15 @@ using UnityEngine.SceneManagement;
         private void Awake()
         {
             Input.multiTouchEnabled = false;
-            var level = PersistData.Instance.CurrentLevel;
-            Elephant.LevelStarted(level);
+            var persistData = PersistData.Instance;
+            var level = persistData.CurrentLevel;
+            
+            if (!PlayerPrefsX.GetBool($"{persistData}_LevelStart"))
+            {
+                PlayerPrefsX.SetBool($"{persistData}_LevelStart", true);
+                Elephant.LevelStarted(level);
+            }
+            
             Application.targetFrameRate = 60;
         }
 
@@ -100,7 +107,7 @@ using UnityEngine.SceneManagement;
             if (SceneManager.GetActiveScene().buildIndex == SceneManager.sceneCountInBuildSettings - 1)
             {
                 persistData.CurrentLevel++;
-                SceneManager.LoadScene(Random.Range(persistData.LevelLoopStartIndex, SceneManager.sceneCountInBuildSettings - 1));
+                SceneManager.LoadScene(persistData.LevelLoopStartIndex);
             }
             else
             {

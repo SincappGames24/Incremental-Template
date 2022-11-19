@@ -2,6 +2,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using DG.Tweening;
+using ElephantSDK;
+using MoreMountains.NiceVibrations;
 using SincappStudio;
 using TMPro;
 using UnityEngine;
@@ -16,6 +18,7 @@ public class InGameUIManager : MonoBehaviour
     [SerializeField] private Transform _collectableSprite;
     [SerializeField] private Transform _collectableTargetTransform;
     [SerializeField] private Material _greyMat;
+    [SerializeField] private Slider _vibrationSlider;
 
     private Animator _animator;
 
@@ -38,9 +41,11 @@ public class InGameUIManager : MonoBehaviour
 
     #region ProgressBar
 
-    [Header("Progress")] [SerializeField] private Image _fillbar;
-    [SerializeField] private Image _playerMarker;
+    [Header("Progress")] 
     [SerializeField] private TextMeshProUGUI _levelText;
+    
+    [SerializeField] private Image _fillbar;
+    [SerializeField] private Image _playerMarker;
     private Transform _playerPosition;
     private Transform _finishPosition;
     private float _playerStartPos_Z;
@@ -52,11 +57,16 @@ public class InGameUIManager : MonoBehaviour
     private void Start()
     {
         _animator = GetComponent<Animator>();
+        _levelText.SetText($"LEVEL {PersistData.Instance.CurrentLevel}");
+        
         _playerPosition = FindObjectOfType<PlayerController>().transform;
         _finishPosition = GameObject.FindGameObjectWithTag("Finish").transform;
-        _levelText.SetText($"LEVEL {PersistData.Instance.CurrentLevel}");
         _playerStartPos_Z = _playerPosition.position.z;
         _totalDistance = Mathf.Abs(_playerStartPos_Z - _finishPosition.position.z);
+        
+        var isHapticOn = PlayerPrefsX.GetBool("HapticMode",true);
+        _vibrationSlider.value = isHapticOn ? 1 : 0;
+        MMVibrationManager.SetHapticsActive(isHapticOn);
         SetIncrementalUI();
     }
 
@@ -103,11 +113,11 @@ public class InGameUIManager : MonoBehaviour
     private void SetIncrementalUI()
     {
         var persistData = PersistData.Instance;
-        _playerMoney.SetText(persistData.Money.ToString("0"));
-
-        _staminaUpgradeMoney.SetText($"${persistData.StaminaUpgradeCost:0}");
-        _speedUpgradeMoney.SetText($"${persistData.SpeedUpgradeCost:0}");
-        _incomeUpgradeMoney.SetText($"${persistData.IncomeUpgradeCost:0}");
+        _playerMoney.SetText(Sincapp.AbbrevationUtility.AbbreviateNumber(persistData.Money));
+       
+        _staminaUpgradeMoney.SetText( $"${Sincapp.AbbrevationUtility.AbbreviateNumber(persistData.StaminaUpgradeCost)}");
+        _speedUpgradeMoney.SetText($"${Sincapp.AbbrevationUtility.AbbreviateNumber(persistData.SpeedUpgradeCost)}");
+        _incomeUpgradeMoney.SetText($"${Sincapp.AbbrevationUtility.AbbreviateNumber(persistData.IncomeUpgradeCost)}");
 
         _incomeUpgradeLevel.SetText($"{persistData.IncomeLevel} LV");
         _staminaUpgradeLevel.SetText($"{persistData.StaminaLevel} LV");
@@ -179,6 +189,19 @@ public class InGameUIManager : MonoBehaviour
     private void DisableInGameUI()
     {
         gameObject.SetActive(false);
+    }
+    
+    public void SetVibration()
+    {
+        _vibrationSlider.value = _vibrationSlider.value == 1 ? 0 : 1;
+        bool isHapticOn = _vibrationSlider.value == 1;
+        MMVibrationManager.SetHapticsActive(isHapticOn);
+        PlayerPrefsX.SetBool("HapticMode", isHapticOn);
+    }
+
+    public void DirectPrivacy()
+    {
+        Elephant.ShowSettingsView();
     }
 
     private void MoneySendUi(Vector3 spawnPos, float money)

@@ -4,7 +4,7 @@ using UnityEngine;
 public class PersistData : PersistManager<PersistData>
 {
   public int CurrentLevel = 1;
-  public int LevelLoopStartIndex = 4;
+  public int LevelLoopStartIndex = 2;
   public float Money = 1000;
   public float GiftFillAmount;
   public int CurrentPlayerRank = 1000;

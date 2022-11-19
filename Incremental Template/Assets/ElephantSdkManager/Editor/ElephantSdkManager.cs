@@ -453,7 +453,7 @@ namespace ElephantSdkManager
                 string[] lines = File.ReadAllLines(isPath);
                 foreach (var line in lines)
                 {
-                    if (line.Contains("private const string UNITY_PLUGIN_VERSION"))
+                    if (line.Contains("private const string UNITY_PLUGIN_VERSION") || line.Contains("public static string UNITY_PLUGIN_VERSION"))
                     {
                         Regex regex = new Regex("\"(.*?)\"");
 
@@ -516,6 +516,11 @@ namespace ElephantSdkManager
                     if (sdk.sdkName.Equals("Pangle"))
                     {
                         sdkName = "ByteDance";
+                    }
+
+                    if (sdk.sdkName.Contains("Ogury"))
+                    {
+                        sdkName = "OguryPresage";
                     }
 
                     var dependencyPath = "MaxSdk/Mediation/" + sdkName + "/Editor/Dependencies.xml";
@@ -605,7 +610,7 @@ namespace ElephantSdkManager
             {
                 if (Directory.Exists(AssetsPathPrefix + sdkInfo.sdkName))
                 {
-                    if (!string.Equals(sdkInfo.sdkName, "MoPub"))
+                    if (!string.Equals(sdkInfo.sdkName, "IronSource"))
                     {
                         FileUtil.DeleteFileOrDirectory(AssetsPathPrefix + sdkInfo.sdkName);
                     }

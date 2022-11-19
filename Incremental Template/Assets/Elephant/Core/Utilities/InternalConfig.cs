@@ -23,6 +23,9 @@ namespace ElephantSDK
         public string privacy_policy_url;
         public string min_app_version;
         public float focus_interval;
+        public bool request_logic_enabled;
+        public bool reachability_check_enabled;
+        public bool memory_usage_enabled;
 
         private InternalConfig()
         {
@@ -43,6 +46,9 @@ namespace ElephantSDK
             privacy_policy_url = "https://www.rollicgames.com/privacy";
             min_app_version = "";
             focus_interval = 300;
+            request_logic_enabled = true;
+            reachability_check_enabled = false;
+            memory_usage_enabled = false;
         }
 
         public static InternalConfig GetInstance()

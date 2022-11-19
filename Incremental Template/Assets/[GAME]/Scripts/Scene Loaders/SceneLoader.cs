@@ -9,14 +9,15 @@ public class SceneLoader : MonoBehaviour
     private void Awake()
     {
         var persistData = PersistData.Instance;
+        var targetLevelIndex = persistData.CurrentLevel + 1;
         
-        if (persistData.CurrentLevel + 1 > SceneManager.sceneCountInBuildSettings - 1)
+        if (targetLevelIndex > SceneManager.sceneCountInBuildSettings - 1)
         {
-            SceneManager.LoadScene(UnityEngine.Random.Range(persistData.LevelLoopStartIndex, SceneManager.sceneCountInBuildSettings - 1));
+            SceneManager.LoadScene((persistData.CurrentLevel - 1) % (SceneManager.sceneCountInBuildSettings - 2) + persistData.LevelLoopStartIndex);
         }
         else
         {
-            SceneManager.LoadScene(persistData.CurrentLevel + 1);
+            SceneManager.LoadScene(targetLevelIndex);
         }
     }
 }

@@ -7,7 +7,6 @@ using UnityEngine;
 public class PlayerMovementController : MonoBehaviour
 {
     [Expandable][SerializeField] private PlayerSettings _playerSettings;
-    [SerializeField] private bool _swerveWithRotation = false;
     private SwerveInputSystem _swerveInputSystem;
     private bool _didIncomeSend;
 
@@ -22,7 +21,7 @@ public class PlayerMovementController : MonoBehaviour
         {
             SwerveMovement();
             ClampPosition();
-            GetIncome();
+            //GetIncome();
         }
     }
 
