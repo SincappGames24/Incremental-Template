@@ -15,10 +15,11 @@ using UnityEngine.SceneManagement;
             Input.multiTouchEnabled = false;
             var persistData = PersistData.Instance;
             var level = persistData.CurrentLevel;
+            persistData.LastSceneIndex = SceneManager.GetActiveScene().buildIndex;
             
-            if (!PlayerPrefsX.GetBool($"{persistData}_LevelStart"))
+            if (!PlayerPrefsX.GetBool($"{level}_LevelStart"))
             {
-                PlayerPrefsX.SetBool($"{persistData}_LevelStart", true);
+                PlayerPrefsX.SetBool($"{level}_LevelStart", true);
                 Elephant.LevelStarted(level);
             }
             
