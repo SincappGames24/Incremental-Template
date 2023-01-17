@@ -59,11 +59,11 @@ public class InGameUIManager : MonoBehaviour
         _animator = GetComponent<Animator>();
         _levelText.SetText($"LEVEL {PersistData.Instance.CurrentLevel}");
         
-        _playerPosition = FindObjectOfType<PlayerController>().transform;
-        _finishPosition = GameObject.FindGameObjectWithTag("Finish").transform;
-        _playerStartPos_Z = _playerPosition.position.z;
-        _totalDistance = Mathf.Abs(_playerStartPos_Z - _finishPosition.position.z);
-        
+        // _playerPosition = FindObjectOfType<PlayerController>().transform;
+        // _finishPosition = GameObject.FindGameObjectWithTag("Finish").transform;
+        // _playerStartPos_Z = _playerPosition.position.z;
+        // _totalDistance = Mathf.Abs(_playerStartPos_Z - _finishPosition.position.z);
+        //
         var isHapticOn = PlayerPrefsX.GetBool("HapticMode",true);
         _vibrationSlider.value = isHapticOn ? 1 : 0;
         MMVibrationManager.SetHapticsActive(isHapticOn);
@@ -90,9 +90,9 @@ public class InGameUIManager : MonoBehaviour
 
     private void Update()
     {
-        float fillAmount = Mathf.Clamp((-1 * _playerStartPos_Z + _playerPosition.position.z) / (_totalDistance), 0.0f,
-            1.0f);
-        _fillbar.fillAmount = fillAmount;
+        //float fillAmount = Mathf.Clamp((-1 * _playerStartPos_Z + _playerPosition.position.z) / (_totalDistance), 0.0f,
+        //   1.0f);
+        // _fillbar.fillAmount = fillAmount;
         // Vector2 playerMarkerPos = new Vector2((_fillbar.rectTransform.sizeDelta.x * fillAmount) + _fillbar.rectTransform.anchoredPosition.x, _playerMarker.rectTransform.anchoredPosition.y);
         // _playerMarker.rectTransform.anchoredPosition = playerMarkerPos;
     }
@@ -134,6 +134,7 @@ public class InGameUIManager : MonoBehaviour
             persistData.Money >= persistData.StaminaUpgradeCost)
         {
             _ageButton.interactable = true;
+            _ageButton.image.material = null;
         }
         else
         {
@@ -150,6 +151,7 @@ public class InGameUIManager : MonoBehaviour
             persistData.Money >= persistData.IncomeUpgradeCost)
         {
             _incomeButton.interactable = true;
+            _incomeButton.image.material = null;
         }
         else
         {
@@ -166,6 +168,7 @@ public class InGameUIManager : MonoBehaviour
             persistData.Money >= persistData.SpeedUpgradeCost)
         {
             _speedButton.interactable = true;
+            _speedButton.image.material = null;
         }
         else
         {

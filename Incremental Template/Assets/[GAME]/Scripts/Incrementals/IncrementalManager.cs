@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using MoreMountains.NiceVibrations;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -32,6 +33,7 @@ public class IncrementalManager : MonoBehaviour
 
     private void Purchase(int costLimit, ref float currentCost, ref int currentLevel)
     {
+        MMVibrationManager.Haptic(HapticTypes.MediumImpact);
         var persistData = PersistData.Instance;
         currentLevel++;
         persistData.Money -= currentCost;
