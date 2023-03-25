@@ -686,6 +686,8 @@ PlayerSettings:
   webGLDecompressionFallback: 0
   scriptingDefineSymbols:
     1: MOREMOUNTAINS_NICEVIBRATIONS
+    4: gameanalytics_ironsource_enabled;gameanalytics_max_enabled
+    7: gameanalytics_ironsource_enabled;gameanalytics_max_enabled
   additionalCompilerArguments: {}
   platformArchitecture:
     iPhone: 1
