@@ -113,11 +113,11 @@ public class InGameUIManager : MonoBehaviour
     private void SetIncrementalUI()
     {
         var persistData = PersistData.Instance;
-        _playerMoney.SetText(Sincapp.AbbrevationUtility.AbbreviateNumber(persistData.Money));
+        _playerMoney.SetText(Sincapp.AbbreviateNumber(persistData.Money));
        
-        _staminaUpgradeMoney.SetText( $"${Sincapp.AbbrevationUtility.AbbreviateNumber(persistData.StaminaUpgradeCost)}");
-        _speedUpgradeMoney.SetText($"${Sincapp.AbbrevationUtility.AbbreviateNumber(persistData.SpeedUpgradeCost)}");
-        _incomeUpgradeMoney.SetText($"${Sincapp.AbbrevationUtility.AbbreviateNumber(persistData.IncomeUpgradeCost)}");
+        _staminaUpgradeMoney.SetText( $"${Sincapp.AbbreviateNumber(persistData.StaminaUpgradeCost)}");
+        _speedUpgradeMoney.SetText($"${Sincapp.AbbreviateNumber(persistData.SpeedUpgradeCost)}");
+        _incomeUpgradeMoney.SetText($"${Sincapp.AbbreviateNumber(persistData.IncomeUpgradeCost)}");
 
         _incomeUpgradeLevel.SetText($"{persistData.IncomeLevel} LV");
         _staminaUpgradeLevel.SetText($"{persistData.StaminaLevel} LV");

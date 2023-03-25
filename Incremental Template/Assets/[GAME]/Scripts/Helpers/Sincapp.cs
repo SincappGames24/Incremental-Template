@@ -1,6 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
+using ElephantSDK;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -68,31 +70,42 @@ namespace SincappStudio
             action?.Invoke();
         }
         
-        public static class AbbrevationUtility
+        public static float[] StringListToFloatArray(string stringListKey,string defaultValues)
         {
-            private static readonly SortedDictionary<float, string> abbrevations = new SortedDictionary<float, string>
+            string stringList = RemoteConfig.GetInstance().Get(stringListKey,defaultValues);
+            string[] pureList = stringList.Split('-');
+            float[] targetValues = new float[pureList.Length];
+
+            for (int i = 0; i < targetValues.Length; i++)
             {
-                {1000, "K"},
-                {1000000, "M"},
-                {1000000000, "B"},
-                {1000000000000, "T"}
-            };
-
-            public static string AbbreviateNumber(float number)
-            {
-                for (int i = abbrevations.Count - 1; i >= 0; i--)
-                {
-                    KeyValuePair<float, string> pair = abbrevations.ElementAt(i);
-
-                    if (Mathf.Abs(number) >= pair.Key)
-                    {
-                        float roundedNumber = number / pair.Key;
-                        return roundedNumber.ToString("F1") + pair.Value;
-                    }
-                }
-
-                return number.ToString("F0");
+                targetValues[i] = float.Parse(pureList[i],NumberStyles.Number, CultureInfo.InvariantCulture);
             }
+
+            return targetValues;
+        }
+        
+        private static readonly SortedDictionary<float, string> abbrevations = new SortedDictionary<float, string>
+        {
+            {1000, "K"},
+            {1000000, "M"},
+            {1000000000, "B"},
+            {1000000000000, "T"}
+        };
+
+        public static string AbbreviateNumber(float number, string stringFormat = "F0")
+        {
+            for (int i = abbrevations.Count - 1; i >= 0; i--)
+            {
+                KeyValuePair<float, string> pair = abbrevations.ElementAt(i);
+
+                if (Mathf.Abs(number) >= pair.Key)
+                {
+                    float roundedNumber = number / pair.Key;
+                    return roundedNumber.ToString("F1") + pair.Value;
+                }
+            }
+
+            return number.ToString(stringFormat);
         }
     }
 }
