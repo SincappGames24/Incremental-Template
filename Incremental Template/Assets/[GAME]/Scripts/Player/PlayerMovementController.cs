@@ -6,7 +6,7 @@ using UnityEngine;
 
 public class PlayerMovementController : MonoBehaviour
 {
-    [Expandable][SerializeField] private PlayerSettings _playerSettings;
+    [Expandable][SerializeField] private PlayerSetting _playerSettings;
     private SwerveInputSystem _swerveInputSystem;
     private bool _didIncomeSend;
 
