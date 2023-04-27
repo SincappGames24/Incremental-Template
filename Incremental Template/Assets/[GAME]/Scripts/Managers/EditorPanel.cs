@@ -10,7 +10,6 @@ public class EditorPanel : MonoBehaviour
     private int SelectedScene = 1;
     [SerializeField] private GameObject _panel;
     public Dropdown LevelSelectDropdown;
-    public Dropdown BrushSelectDropdown;
     public Text _moneyTextField;
     public Button _incomeIncreaseButton, _incomeDecreaseButton;
     private Camera _camera;

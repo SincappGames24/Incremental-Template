@@ -9,21 +9,17 @@ using UnityEngine;
 public class CameraController : MonoBehaviour
 {
     [SerializeField] private GameObject _idleCam;
-    [SerializeField] private GameObject _paintCam;
     [SerializeField] private GameObject _endGameCam;
-    [SerializeField] private GameObject _simCam;
     [SerializeField] private CinemachineVirtualCamera _runnerCam;
+
     private void OnEnable()
     {
-    EventManager.OnGameStart += StartGame;
-
+        EventManager.OnGameStart += StartGame;
     }
 
     private void OnDisable()
     {
-    
         EventManager.OnGameStart -= StartGame;
-     
     }
 
     private void Awake()
@@ -31,25 +27,6 @@ public class CameraController : MonoBehaviour
         _idleCam.SetActive(false);
     }
 
-    private void OpenSimCam()
-    {
-        _simCam.SetActive(true);
-        float a =  _simCam.GetComponent<CinemachineVirtualCamera>().GetCinemachineComponent<CinemachineTransposer>().m_FollowOffset.z;
-        DOTween.To(() => a, x => a = x, 0, 2f).OnUpdate(() =>
-        {
-            _simCam.GetComponent<CinemachineVirtualCamera>().GetCinemachineComponent<CinemachineTransposer>().m_FollowOffset = new Vector3(0, 9.2f, a);
-        });
-    }
-
-    private void EndSimulation()
-    {
-        float a =  _simCam.GetComponent<CinemachineVirtualCamera>().GetCinemachineComponent<CinemachineTransposer>().m_FollowOffset.z;
-        DOTween.To(() => a, x => a = x, -4, 1f).OnUpdate(() =>
-        {
-            _simCam.GetComponent<CinemachineVirtualCamera>().GetCinemachineComponent<CinemachineTransposer>().m_FollowOffset = new Vector3(0, 9.2f, a);
-        });
-        _simCam.transform.DOLocalRotate(new Vector3(12.7f, 0, 0), .7f);
-    }
 
     private void StartGame()
     {
@@ -61,14 +38,6 @@ public class CameraController : MonoBehaviour
         _endGameCam.SetActive(true);
     }
 
-    private void ChangeCameraToPaintArea(float a)
-    {
-        _paintCam.SetActive(true);
-    } 
-    private void ChangeCameraToRun()
-    {
-        _paintCam.SetActive(false);
-    }
     #region EditorPanelCameraSettings
 
     public void CameraXPos(float amount)
