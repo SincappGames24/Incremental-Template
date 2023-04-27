@@ -19,14 +19,16 @@ public class InGameUIManager : MonoBehaviour
     [SerializeField] private Transform _collectableTargetTransform;
     [SerializeField] private Material _greyMat;
     [SerializeField] private Slider _vibrationSlider;
-
+    [SerializeField] private GameObject _moneyImage;
+    [SerializeField] private GameObject _settingsImage;
+    [SerializeField] private GameObject _rewardedCanvas;
     private Animator _animator;
 
     #region Incrementals
 
     [Header("Incrementals")] 
    
-    [SerializeField] private GameObject _incrementalsObj;
+    public GameObject incrementalsObj;
     [SerializeField] private Button _ageButton;
     [SerializeField] private Button _incomeButton;
     [SerializeField] private Button _speedButton;
@@ -100,7 +102,7 @@ public class InGameUIManager : MonoBehaviour
     private void GameStarted()
     {
         _tapToStart.SetActive(false);
-        _incrementalsObj.SetActive(false);
+        incrementalsObj.SetActive(false);
     }
 
     private void UpdateMoneyText()
@@ -110,6 +112,23 @@ public class InGameUIManager : MonoBehaviour
         SetIncrementalUI();
     }
 
+    public void GameUIStatus(bool isOpen)
+    {
+        if (isOpen)
+        {
+            _levelText.transform.parent.gameObject.SetActive(true);
+            _settingsImage.SetActive(true);
+            _moneyImage.SetActive(true);
+            _rewardedCanvas.SetActive(true);
+        }
+        else
+        {
+            _levelText.transform.parent.gameObject.SetActive(false);
+            _settingsImage.SetActive(false);
+            _moneyImage.SetActive(false);
+            _rewardedCanvas.SetActive(false);
+        }
+    }
     private void SetIncrementalUI()
     {
         var persistData = PersistData.Instance;

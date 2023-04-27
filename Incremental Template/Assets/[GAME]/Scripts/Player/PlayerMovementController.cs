@@ -9,7 +9,7 @@ public class PlayerMovementController : MonoBehaviour
     [Expandable][SerializeField] private PlayerSetting _playerSettings;
     private SwerveInputSystem _swerveInputSystem;
     private bool _didIncomeSend;
-
+    public float SpeedMultiplier=1;
     private void Awake()
     {
         _swerveInputSystem = FindObjectOfType<SwerveInputSystem>();
@@ -28,7 +28,7 @@ public class PlayerMovementController : MonoBehaviour
     private void SwerveMovement()
     {
         float swerveAmount = Time.deltaTime * _playerSettings.SwerveSpeed * _swerveInputSystem.MoveFactorX;
-        transform.Translate(0, 0, (_playerSettings.MovementSpeed * Time.deltaTime), Space.Self);
+        transform.Translate(0, 0, (_playerSettings.MovementSpeed * Time.deltaTime*SpeedMultiplier), Space.Self);
         transform.Translate(swerveAmount, 0, 0, Space.World);
     }
 
