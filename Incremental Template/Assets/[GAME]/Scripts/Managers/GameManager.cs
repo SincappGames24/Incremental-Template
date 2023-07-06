@@ -13,8 +13,6 @@ public class GameManager : MonoSingleton<GameManager>, IGameAnalyticsATTListener
     private void Awake()
     {
         Input.multiTouchEnabled = false;
-        var persistData = PersistData.Instance;
-        persistData.LastSceneIndex = SceneManager.GetActiveScene().buildIndex;
         Application.targetFrameRate = 60;
     }
 
@@ -94,18 +92,22 @@ public class GameManager : MonoSingleton<GameManager>, IGameAnalyticsATTListener
     {
         var persistData = PersistData.Instance;
         Elephant.LevelCompleted(persistData.CurrentLevel);
-
+        int loadSceneIndex = 0;
+        
         if (SceneManager.GetActiveScene().buildIndex == SceneManager.sceneCountInBuildSettings - 1)
         {
             persistData.CurrentLevel++;
-            SceneManager.LoadScene(persistData.LevelLoopStartIndex);
+            loadSceneIndex = persistData.LevelLoopStartIndex;
+            SceneManager.LoadScene(loadSceneIndex);
         }
         else
         {
             persistData.CurrentLevel++;
-            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+            loadSceneIndex = SceneManager.GetActiveScene().buildIndex + 1;
+            SceneManager.LoadScene(loadSceneIndex);
         }
 
+        persistData.LastSceneIndex = loadSceneIndex;
         persistData.Save();
     }
 
