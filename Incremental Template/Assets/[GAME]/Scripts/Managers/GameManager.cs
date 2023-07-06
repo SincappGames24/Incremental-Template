@@ -14,15 +14,7 @@ public class GameManager : MonoSingleton<GameManager>, IGameAnalyticsATTListener
     {
         Input.multiTouchEnabled = false;
         var persistData = PersistData.Instance;
-        var level = persistData.CurrentLevel;
         persistData.LastSceneIndex = SceneManager.GetActiveScene().buildIndex;
-
-        if (!PlayerPrefsX.GetBool($"{level}_LevelStart"))
-        {
-            PlayerPrefsX.SetBool($"{level}_LevelStart", true);
-            Elephant.LevelStarted(level);
-        }
-
         Application.targetFrameRate = 60;
     }
 
@@ -121,7 +113,7 @@ public class GameManager : MonoSingleton<GameManager>, IGameAnalyticsATTListener
     {
         if (pauseStatus)
         {
-            PersistData.Instance.Save();
+            //PersistData.Instance.Save();
         }
     }
 

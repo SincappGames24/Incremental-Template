@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using ElephantSDK;
 using UnityEngine;
 
 public class PlayerController : MonoBehaviour
@@ -36,5 +37,10 @@ public class PlayerController : MonoBehaviour
     private void StartGame()
     {
         PlayerState = PlayerStates.Run;
+        
+        var persistData = PersistData.Instance;
+        persistData.Save();
+        var level = persistData.CurrentLevel;
+        Elephant.LevelStarted(level);
     }
 }

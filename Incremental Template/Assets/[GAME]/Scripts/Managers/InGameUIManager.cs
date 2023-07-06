@@ -29,13 +29,13 @@ public class InGameUIManager : MonoBehaviour
     [Header("Incrementals")] 
    
     public GameObject incrementalsObj;
-    [SerializeField] private Button _ageButton;
+    [SerializeField] private Button _fireRateButton;
+    [SerializeField] private Button _rangeButton;
     [SerializeField] private Button _incomeButton;
-    [SerializeField] private Button _speedButton;
-    [SerializeField] private TextMeshProUGUI _staminaUpgradeMoney;
-    [SerializeField] private TextMeshProUGUI _staminaUpgradeLevel;
-    [SerializeField] private TextMeshProUGUI _speedUpgradeMoney;
-    [SerializeField] private TextMeshProUGUI _speedUpgradeLevel;
+    [SerializeField] private TextMeshProUGUI _fireRateUpgradeMoney;
+    [SerializeField] private TextMeshProUGUI _fireRateUpgradeLevel;
+    [SerializeField] private TextMeshProUGUI _rangeUpgradeMoney;
+    [SerializeField] private TextMeshProUGUI _rangeUpgradeLevel;
     [SerializeField] private TextMeshProUGUI _incomeUpgradeMoney;
     [SerializeField] private TextMeshProUGUI _incomeUpgradeLevel;
 
@@ -134,13 +134,13 @@ public class InGameUIManager : MonoBehaviour
         var persistData = PersistData.Instance;
         _playerMoney.SetText(Sincapp.AbbreviateNumber(persistData.Money));
        
-        _staminaUpgradeMoney.SetText( $"${Sincapp.AbbreviateNumber(persistData.StaminaUpgradeCost)}");
-        _speedUpgradeMoney.SetText($"${Sincapp.AbbreviateNumber(persistData.SpeedUpgradeCost)}");
-        _incomeUpgradeMoney.SetText($"${Sincapp.AbbreviateNumber(persistData.IncomeUpgradeCost)}");
+        _fireRateUpgradeMoney.SetText( $"{Sincapp.AbbreviateNumber(persistData.FireRateUpgradeCost)}$");
+        _rangeUpgradeMoney.SetText($"{Sincapp.AbbreviateNumber(persistData.RangeUpgradeCost)}$");
+        _incomeUpgradeMoney.SetText($"{Sincapp.AbbreviateNumber(persistData.IncomeUpgradeCost)}$");
 
-        _incomeUpgradeLevel.SetText($"{persistData.IncomeLevel} LV");
-        _staminaUpgradeLevel.SetText($"{persistData.StaminaLevel} LV");
-        _speedUpgradeLevel.SetText($"{persistData.SpeedLevel} LV");
+        _fireRateUpgradeLevel.SetText($"{persistData.FireRateLevel}");
+        _rangeUpgradeLevel.SetText($"{persistData.RangeLevel}");
+        _incomeUpgradeLevel.SetText($"{persistData.IncomeLevel}");
             
         CheckIncrementalSprites();
     }
@@ -149,23 +149,40 @@ public class InGameUIManager : MonoBehaviour
     {
         var persistData = PersistData.Instance;
 
-        if (persistData.StaminaLevel < persistData.MaxStaminaLevel &&
-            persistData.Money >= persistData.StaminaUpgradeCost)
+        if (persistData.FireRateLevel < persistData.MaxFireRateLevel &&
+            persistData.Money >= persistData.FireRateUpgradeCost)
         {
-            _ageButton.interactable = true;
-            _ageButton.image.material = null;
+            _fireRateButton.interactable = true;
+            _fireRateButton.image.material = null;
         }
         else
         {
-            if (persistData.StaminaLevel >= persistData.MaxStaminaLevel)
+            if (persistData.FireRateLevel >= persistData.MaxFireRateLevel)
             {
-                _staminaUpgradeMoney.SetText($"MAX LEVEL");
+                _fireRateUpgradeMoney.SetText($"MAX LEVEL");
             }
 
-            _ageButton.interactable = false;
-            _ageButton.image.material = _greyMat;
+            _fireRateButton.interactable = false;
+            _fireRateButton.image.material = _greyMat;
         }
 
+        if (persistData.RangeLevel < persistData.MaxRangeLevel &&
+            persistData.Money >= persistData.RangeUpgradeCost)
+        {
+            _rangeButton.interactable = true;
+            _rangeButton.image.material = null;
+        }
+        else
+        {
+            if (persistData.RangeLevel >= persistData.MaxRangeLevel)
+            {
+                _rangeUpgradeMoney.SetText($"MAX LEVEL");
+            }
+
+            _rangeButton.interactable = false;
+            _rangeButton.image.material = _greyMat;
+        }
+        
         if (persistData.IncomeLevel < persistData.MaxIncomeLevel &&
             persistData.Money >= persistData.IncomeUpgradeCost)
         {
@@ -181,23 +198,6 @@ public class InGameUIManager : MonoBehaviour
 
             _incomeButton.interactable = false;
             _incomeButton.image.material = _greyMat;
-        }
-
-        if (persistData.SpeedLevel < persistData.MaxSpeedLevel &&
-            persistData.Money >= persistData.SpeedUpgradeCost)
-        {
-            _speedButton.interactable = true;
-            _speedButton.image.material = null;
-        }
-        else
-        {
-            if (persistData.SpeedLevel >= persistData.MaxSpeedLevel)
-            {
-                _speedUpgradeMoney.SetText($"MAX LEVEL");
-            }
-
-            _speedButton.interactable = false;
-            _speedButton.image.material = _greyMat;
         }
     }
 

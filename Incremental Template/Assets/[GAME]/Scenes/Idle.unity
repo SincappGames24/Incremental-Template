@@ -1357,7 +1357,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 6171424312674448909}
         m_TargetAssemblyTypeName: IncrementalManager, Assembly-CSharp
-        m_MethodName: IncreaseSpeed
+        m_MethodName: IncreaseRange
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -3247,7 +3247,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 6171424312674448909}
         m_TargetAssemblyTypeName: 
-        m_MethodName: IncreaseStamina
+        m_MethodName: IncreaseFireRate
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

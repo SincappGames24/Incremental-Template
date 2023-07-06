@@ -7,20 +7,20 @@ using UnityEngine.UI;
 
 public class IncrementalManager : MonoBehaviour
 {
-    public void IncreaseStamina()
+    public void IncreaseFireRate()
     {
         var persistData = PersistData.Instance;
 
-        Purchase(persistData.MaxStaminaCost, ref persistData.StaminaUpgradeCost, ref persistData.StaminaLevel);
-        Upgrade(ref persistData.Stamina, 1);
+        Purchase(persistData.MaxFireRateCost, ref persistData.FireRateUpgradeCost, ref persistData.FireRateLevel);
+        Upgrade(ref persistData.FireRate, 1);
     }
 
-    public void IncreaseSpeed()
+    public void IncreaseRange()
     {
         var persistData = PersistData.Instance;
 
-        Purchase(persistData.MaxSpeedCost, ref persistData.SpeedUpgradeCost, ref persistData.SpeedLevel);
-        Upgrade(ref persistData.Speed, 1);
+        Purchase(persistData.MaxRangeCost, ref persistData.RangeUpgradeCost, ref persistData.RangeLevel);
+        Upgrade(ref persistData.Range, 1);
     }
 
     public void IncreaseIncome()

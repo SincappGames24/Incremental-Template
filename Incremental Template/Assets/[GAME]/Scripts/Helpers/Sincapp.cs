@@ -84,6 +84,20 @@ namespace SincappStudio
             return targetValues;
         }
         
+        public static int[] StringListToIntArray(string stringListKey,string defaultValues)
+        {
+            string stringList = RemoteConfig.GetInstance().Get(stringListKey,defaultValues);
+            string[] pureList = stringList.Split('-');
+            int[] targetValues = new int[pureList.Length];
+
+            for (int i = 0; i < targetValues.Length; i++)
+            {
+                targetValues[i] = int.Parse(pureList[i],NumberStyles.Number, CultureInfo.InvariantCulture);
+            }
+
+            return targetValues;
+        }
+
         private static readonly SortedDictionary<float, string> abbrevations = new SortedDictionary<float, string>
         {
             {1000, "K"},

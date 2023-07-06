@@ -12,59 +12,7 @@ public class PersistData : PersistManager<PersistData>
 
   #region Incrementals
   
-  #region StaminaUpgrade
-
-  public float Stamina = 16;
-  public int StaminaLevel = 1;
-  public float StaminaUpgradeCost = 10;
-  public int MaxStaminaLevel = 40;
-  public int MaxStaminaCost = 1000;
-
-  #endregion
-    
-  #region SpeedUpgrade
-
-  public float Speed = 10;
-  public int SpeedLevel = 1;
-  public float SpeedUpgradeCost = 10;
-  public int MaxSpeedLevel = 20;
-  public int MaxSpeedCost = 1000;
-
-  #endregion
-    
-    
-
-  
-  #endregion
-  
-  #region HighScore
-
-  public float HighScore;
-  public float HighScoreSignLastZPosition;
-
-  #endregion
-
-
-  #region SpecialEditor
-
-  public Color CurrentSkyColor = new Color(0.65f, 0.83f, 0.97f);
-  public Color CurrentPlatformColor;
-  public int CurrentSkyColorIndex;
-  public int CurrentPlatformColorIndex;
-  public float CameraPosX = 0.0f;
-  public float CameraPosY = -4.79f;
-  public float CameraPosZ = 3f;
-  public float CameraRotX = 34.52f;
-  public float CameraRotY = 0f;
-  public bool InGameUIOpen = true;
-  public bool IncrementalUIOpen = true;
-  public bool IsClamp = true;
-  public float CameraFov = 60;
-  public float PlayerSpeed=1f;
-
-  #endregion
-  
-  #region FiraRateUpgrade
+  #region FireRateUpgrade
 
   public float FireRate = .5f;
   public int FireRateLevel = 1;
@@ -93,14 +41,38 @@ public class PersistData : PersistManager<PersistData>
   public int MaxIncomeCost = 1000;
 
   #endregion
-    
+  
+  #endregion
+  
+  #region HighScore
+
+  public float HighScore;
+  public float HighScoreSignLastZPosition;
+
+  #endregion
+
+  #region SpecialEditor
+
+  public Color CurrentSkyColor = new Color(0.65f, 0.83f, 0.97f);
+  public Color CurrentPlatformColor;
+  public int CurrentSkyColorIndex;
+  public int CurrentPlatformColorIndex;
+  public float CameraPosX = 0.0f;
+  public float CameraPosY = -4.79f;
+  public float CameraPosZ = 3f;
+  public float CameraRotX = 34.52f;
+  public float CameraRotY = 0f;
+  public bool InGameUIOpen = true;
+  public bool IncrementalUIOpen = true;
+  public bool IsClamp = true;
+  public float CameraFov = 60;
+  public float PlayerSpeed=1f;
+
+  #endregion
+  
   #region BulletPowerUpgrade
 
   public float BulletPower = 1;
-  public int BulletPowerLevel = 1;
-  public float BulletPowerUpgradeCost = 50;
-  public int MaxBulletPowerLevel = 400;
-  public int MaxBulletPowerCost = 1000;
 
   #endregion
 

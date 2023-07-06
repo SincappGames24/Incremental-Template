@@ -2,15 +2,12 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ParticleManager : MonoBehaviour
+public class ParticleManager : MonoSingleton<ParticleManager>
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-    }
+    [SerializeField] private GameObject _moneyParticle;
 
-    // Update is called once per frame
-    void Update()
+    public void MoneyParticle(Vector3 spawnPos)
     {
+        Instantiate(_moneyParticle, spawnPos, Quaternion.identity);
     }
 }
