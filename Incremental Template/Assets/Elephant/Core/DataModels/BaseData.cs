@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace ElephantSDK
 {
@@ -38,7 +39,12 @@ namespace ElephantSDK
         public string consent_status = "";
         public int order = 0;
         public List<MirrorData> mirror_data;
-        public string adjustId;
+        public string adjustId = "";
+        [FormerlySerializedAs("networName")] public string networkName = "";
+        public string campaignName = "";
+        public string adGroupName = "";
+        public string creativeName = "";
+        public double uaCost;
 
         public void FillBaseData(long sessionID)
         {
@@ -64,6 +70,11 @@ namespace ElephantSDK
                 this.consent_status = ElephantCore.Instance.consentStatus;
                 this.mirror_data = ElephantCore.Instance.mirrorData;
                 this.adjustId = ElephantCore.Instance.adjustId;
+                this.networkName = ElephantCore.Instance.networkName;
+                this.campaignName = ElephantCore.Instance.campaignName;
+                this.adGroupName = ElephantCore.Instance.adGroupName;
+                this.creativeName = ElephantCore.Instance.creativeName;
+                this.uaCost = ElephantCore.Instance.uaCost;
 
                 this.order = ElephantCore.Instance.eventOrder;
                 ElephantCore.Instance.eventOrder++;
@@ -92,8 +103,5 @@ namespace ElephantSDK
                 this.real_time_since_start_up = Time.realtimeSinceStartup;
                 this.consent_status = ElephantCore.Instance.consentStatus;
         }
-
-
-        
     }
 }

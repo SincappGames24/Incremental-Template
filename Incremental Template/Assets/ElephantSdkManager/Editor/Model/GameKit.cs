@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 
 namespace ElephantSdkManager.Model
 {
@@ -12,6 +13,7 @@ namespace ElephantSdkManager.Model
     public class GameKitSdk
     {
         public string version;
+        public string mediation;
         public string bundle;
         public string gameId;
         public string gameSecret;
@@ -19,6 +21,8 @@ namespace ElephantSdkManager.Model
         public string adjustAppKey;
         public string facebookClientToken;
         public string appKey;
+        public string appKeyIos;
+        public string appKeyAndroid;
         public string bannerAdUnitIos;
         public string interstitialAdUnitIos;
         public string rewardedAdUnitIos;
@@ -27,5 +31,14 @@ namespace ElephantSdkManager.Model
         public string rewardedAdUnitAndroid;
         public string googleAppIdIos;
         public string googleAppIdAndroid;
+        public List<AdjustEvent> adjustEvents;
+    }
+    
+    [Serializable]
+    public class AdjustEvent
+    {
+        public int id;
+        public string name;
+        public string token;
     }
 }

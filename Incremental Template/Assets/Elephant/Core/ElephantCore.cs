@@ -2,7 +2,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Globalization;
+using System.Reflection;
 using System.Text;
+using com.adjust.sdk;
 using Facebook.MiniJSON;
 using Facebook.Unity;
 using NUlid;
@@ -13,11 +15,10 @@ using UnityEngine.Networking;
 namespace ElephantSDK
 {
     public delegate void OnInitialized();
-
     public delegate void OnOpenResult(bool gdprRequired, ComplianceTosResponse tos);
 
     public delegate void OnRemoteConfigLoaded();
-
+    
     public class ElephantCore : MonoBehaviour
     {
         public string GameID = "";
@@ -27,7 +28,9 @@ namespace ElephantSDK
         private string defaultGameSecret = "";
 
         public static ElephantCore Instance = null;
-
+        
+        public static event Action OnStartGame;
+        
 #if ELEPHANT_DEBUG
         private static bool debug = true;
         private const string ELEPHANT_BASE_URL = "http://localhost:3100/v2";
@@ -86,6 +89,12 @@ namespace ElephantSDK
         internal List<MirrorData> mirrorData;
         internal int eventOrder = 0;
         internal float focusLostTime = 0;
+        internal string networkName = "";
+        internal string campaignName = "";
+        internal string adGroupName = "";
+        internal string creativeName = "";
+        internal double uaCost;
+        
         
         public bool isIapBanned;
         
@@ -115,6 +124,7 @@ namespace ElephantSDK
 
 
         public static event OnInitialized onInitialized;
+
         public static event OnOpenResult onOpen;
         public static event OnRemoteConfigLoaded onRemoteConfigLoaded;
         
@@ -141,7 +151,7 @@ namespace ElephantSDK
             ElephantAndroid.Init();
 #endif
 
-            ElephantLog.GetInstance(ElephantLogLevel.Prod);
+            ElephantLog.GetInstance(ElephantLogLevel.Debug);
         }
 
         void Start()
@@ -190,19 +200,9 @@ namespace ElephantSDK
 
         public void Init(bool isOldUser, bool gdprSupported)
         {
-            var settings = Resources.Load<ElephantSettings>("ElephantSettings");
-
-            if (settings == null)
-            {
-                ElephantLog.LogError("ELEPHANT INIT",
-                    "Elephant SDK settings isn't setup, use Window -> Elephant -> Edit Settings to enter your Game ID and Game Secret");
-            }
-            else
-            {
-                this.GameID = settings.GameID;
-                this.GameSecret = settings.GameSecret;
-            }
-
+            this.GameID = ElephantThirdPartyIds.GameId;
+            this.GameSecret = ElephantThirdPartyIds.GameSecret;
+            
 
             if (GameID.Equals(defaultGameID) || GameSecret.Equals(defaultGameSecret) || GameID.Trim().Length == 0 ||
                 GameSecret.Trim().Length == 0)
@@ -237,7 +237,7 @@ namespace ElephantSDK
             
             if (!FB.IsInitialized)
             {
-                FB.Init(OnFbInitComplete);
+                FB.Init(ElephantThirdPartyIds.FacebookAppId, clientToken: ElephantThirdPartyIds.FacebookClientToken, onInitComplete: OnFbInitComplete);
             }
             else
             {
@@ -245,6 +245,10 @@ namespace ElephantSDK
                 FB.Mobile.SetAdvertiserIDCollectionEnabled(false);
                 FB.Mobile.SetAdvertiserTrackingEnabled(false);
             }
+            
+            AdjustConfig config = new AdjustConfig(ElephantThirdPartyIds.AdjustAppKey, AdjustEnvironment.Production);
+            config.setAttributionChangedDelegate(OnAttrChange);
+            Adjust.start(config);
 
             this.gdprSupported = gdprSupported;
             StartCoroutine(InitSDK(isOldUser));
@@ -388,6 +392,22 @@ namespace ElephantSDK
                     internalConfig.privacy_policy_url);
             }
 #endif
+        }
+
+        private void OnAttrChange(AdjustAttribution adjustAttribution)
+        {
+            this.adjustId = adjustAttribution.adid;
+            this.networkName = adjustAttribution.network;
+            this.campaignName = adjustAttribution.campaign;
+            this.adGroupName = adjustAttribution.adgroup;
+            this.creativeName = adjustAttribution.creative;
+            if (adjustAttribution.costAmount != null)
+            {
+                this.uaCost = (double)adjustAttribution.costAmount;
+            }
+            
+            ElephantLog.Log("Adjust attr",adjustAttribution.adid);
+            ElephantLog.Log("Adjust attr",adjustAttribution.network);
         }
 
         private void SendVersionsEvent()
@@ -1160,6 +1180,28 @@ namespace ElephantSDK
             Utils.SaveToFile(USER_DB_ID, "");
             ZisPlayerIdResponse.Flush();
             StartCoroutine(postWithResponse);
+        }
+        
+        public static void StartAdManager()
+        {
+            Assembly assemblyForAds = Assembly.GetExecutingAssembly();
+            foreach (var type in assemblyForAds.GetTypes())
+            {
+                if (type.FullName == null) return;
+                
+                if (type.FullName.Equals("RollicGames.Advertisements.RLAdManager"))
+                {
+                    MethodInfo info = type.GetMethod("StartAdManager");
+                    object classInstance = Activator.CreateInstance(type, null);
+
+                    if (info is null) return;
+                    
+                    info.Invoke(classInstance, null);
+                    
+                    var evnt = OnStartGame;
+                    evnt?.Invoke();
+                }
+            }
         }
     }
 }

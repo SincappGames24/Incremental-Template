@@ -144,8 +144,52 @@ namespace ElephantSdkManager.Util
                 }
             }
             
+            SetupAdjustTokens(gameKitManifest);
+            
             Debug.Log(stringBuilder);
             
+        }
+
+        public static void SetupAdjustTokens(GameKitManifest gameKitManifest)
+        {
+            var adjustTokenClassPath = Application.dataPath + "/Elephant/Core/AdjustTokens.cs";
+
+            if (!File.Exists(adjustTokenClassPath)) return;
+            
+            var lines = File.ReadAllLines(adjustTokenClassPath);
+            File.Delete(adjustTokenClassPath);
+
+            using (var sw = File.AppendText(adjustTokenClassPath))
+            {
+                foreach (var line in lines)
+                {
+                    var key = gameKitManifest.data.adjustEvents.Find(aEvent => line.Contains(aEvent.name));
+                    var newLine = "";
+                    if (key != null)
+                    {
+                        if (line.Contains("[TEMP_GAMEKIT_lvl100]"))
+                        {
+                            var key2 = gameKitManifest.data.adjustEvents.Find(aEvent => aEvent.name.Equals("lvl100"));
+                            if (key2 != null)
+                            {
+                                newLine = line.Replace("[TEMP_GAMEKIT_" + key2.name + "]", key2.token);    
+                            }
+                        }
+                        else
+                        {
+                            newLine = line.Replace("[TEMP_GAMEKIT_" + key.name + "]", key.token);
+                        
+                        }
+                    }
+                    else
+                    {
+                        newLine = line;
+                    
+                    }
+                
+                    sw.WriteLine(newLine);
+                }
+            }
         }
 
         public static void SetupGameKitIDs(GameKitManifest gameKitManifest, string packageName)
@@ -169,6 +213,16 @@ namespace ElephantSdkManager.Util
                     {
                         newLine = line.Replace("[TEMP_GAMEKIT_AppKey]", gameKitManifest.data.appKey);
                         stringBuilder.Append("Applovin MAX App Key: " + gameKitManifest.data.appKey + "\n");
+                    }
+                    else if (line.Contains("[TEMP_GAMEKIT_AppKey_ios]"))
+                    {
+                        newLine = line.Replace("[TEMP_GAMEKIT_AppKey_ios]", gameKitManifest.data.appKeyIos);
+                        stringBuilder.Append("IS appkey iOS: " + gameKitManifest.data.appKeyIos + "\n");
+                    }
+                    else if (line.Contains("[TEMP_GAMEKIT_AppKey_android]"))
+                    {
+                        newLine = line.Replace("[TEMP_GAMEKIT_AppKey_android]", gameKitManifest.data.appKeyAndroid);
+                        stringBuilder.Append("IS appkey Android: " + gameKitManifest.data.appKeyAndroid + "\n");
                     }
                     else if (line.Contains("[TEMP_GAMEKIT_BannerAdUnitIos]"))
                     {

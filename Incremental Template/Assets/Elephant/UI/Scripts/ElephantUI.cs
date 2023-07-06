@@ -43,7 +43,7 @@ namespace ElephantSDK
         {
             ElephantLog.Log("INIT","Elephant Initialized");
         }
-
+        
         void OnOpen(bool gdprRequired, ComplianceTosResponse tos)
         {
             Debug.Log("Elephant Open Result, we can start the game or show gdpr -> " + gdprRequired);
@@ -83,6 +83,13 @@ namespace ElephantSDK
 
         public void PlayGame()
         {
+            
+#if UNITY_EDITOR
+            Debug.LogWarning("You cannot initialize AdManager in Editor mode");
+#else
+            ElephantCore.StartAdManager();
+#endif
+
 //#if !ELEPHANT_DEBUG
             SceneManager.LoadScene(1);
 //#endif

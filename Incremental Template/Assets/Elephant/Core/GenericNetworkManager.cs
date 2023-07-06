@@ -29,6 +29,11 @@ namespace ElephantSDK
             request.SetRequestHeader("Authorization", Utils.SignString(bodyJsonString, _gameSecret));
             request.SetRequestHeader("GameID", _gameID);
 
+            if (typeof(T) == typeof(OpenResponse))
+            {
+                request.SetRequestHeader("Accept-Encoding", "gzip");
+            }
+
             yield return request.SendWebRequest();
             
             Debug.Log("Body: " + request.downloadHandler.text);

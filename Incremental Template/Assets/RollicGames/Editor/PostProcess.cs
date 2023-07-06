@@ -1,4 +1,4 @@
-// #if UNITY_IOS
+#if UNITY_IOS
 using System.IO;
 using System.Linq;
 using System.Xml.Linq;
@@ -26,23 +26,22 @@ namespace RollicGames.Editor
 
                 // Write.
                 File.WriteAllText(projectPath, project.WriteToString());
+                
+                SetupGoogleIDs();
+                SetupApplovinEditor();
             }
-            SetupGoogleIDs();
-            SetupApplovinEditor();
         }
-
+        
         private static void SetupGoogleIDs()
         {
             AppLovinSettings.Instance.AdMobIosAppId = RollicApplovinIDs.GoogleIosId;
             AppLovinSettings.Instance.AdMobAndroidAppId = RollicApplovinIDs.GoogleAndroidId;
-            EditorUtility.SetDirty(AppLovinSettings.Instance);
         }
         
         private static void SetupApplovinEditor()
         {
             AppLovinSettings.Instance.QualityServiceEnabled = false;
             EditorPrefs.SetBool(AppLovinAutoUpdater.KeyAutoUpdateEnabled, false);
-            EditorUtility.SetDirty(AppLovinSettings.Instance);
         }
         
         [PostProcessBuild(102)]
@@ -108,22 +107,6 @@ namespace RollicGames.Editor
             {
                 content = content + System.Environment.NewLine + "use_modular_headers!";
             }
-
-            if (content.Contains("platform :ios, '10.0'"))
-            {
-                content = content.Replace("platform :ios, '10.0'", "platform :ios, '11.0'");
-            }
-            
-            if (content.Contains("platform :ios, '9.0'"))
-            {
-                content = content.Replace("platform :ios, '9.0'", "platform :ios, '11.0'");
-            }
-            
-            if (content.Contains("platform :ios, '8.0'"))
-            {
-                content = content.Replace("platform :ios, '8.0'", "platform :ios, '11.0'");
-            }
-
             File.WriteAllText(podPath, content);
         }
 
@@ -161,4 +144,4 @@ namespace RollicGames.Editor
         }
     }
 }
-// #endif
+#endif

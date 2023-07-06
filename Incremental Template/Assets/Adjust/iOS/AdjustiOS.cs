@@ -8,7 +8,7 @@ namespace com.adjust.sdk
 #if UNITY_IOS
     public class AdjustiOS
     {
-        private const string sdkPrefix = "unity4.33.0";
+        private const string sdkPrefix = "unity4.32.1";
 
         [DllImport("__Internal")]
         private static extern void _AdjustLaunchApp(
@@ -45,8 +45,7 @@ namespace com.adjust.sdk
             int isSessionSuccessCallbackImplemented,
             int isSessionFailureCallbackImplemented,
             int isDeferredDeeplinkCallbackImplemented,
-            int isConversionValueUpdatedCallbackImplemented,
-            int isSkad4ConversionValueUpdatedCallbackImplemented);
+            int isConversionValueUpdatedCallbackImplemented);
 
         [DllImport("__Internal")]
         private static extern void _AdjustTrackEvent(
@@ -170,12 +169,6 @@ namespace com.adjust.sdk
         private static extern void _AdjustUpdateConversionValue(int conversionValue);
 
         [DllImport("__Internal")]
-        private static extern void _AdjustUpdateConversionValueWithCallback(int conversionValue, string sceneName);
-
-        [DllImport("__Internal")]
-        private static extern void _AdjustUpdateConversionValueWithCallbackSkad4(int conversionValue, string coarseValue, int lockedWindow, string sceneName);
-
-        [DllImport("__Internal")]
         private static extern void _AdjustCheckForNewAttStatus();
 
         [DllImport("__Internal")]
@@ -227,7 +220,6 @@ namespace com.adjust.sdk
             int isSessionFailureCallbackImplemented = AdjustUtils.ConvertBool(adjustConfig.getSessionFailureDelegate() != null);
             int isDeferredDeeplinkCallbackImplemented = AdjustUtils.ConvertBool(adjustConfig.getDeferredDeeplinkDelegate() != null);
             int isConversionValueUpdatedCallbackImplemented = AdjustUtils.ConvertBool(adjustConfig.getConversionValueUpdatedDelegate() != null);
-            int isSkad4ConversionValueUpdatedCallbackImplemented = AdjustUtils.ConvertBool(adjustConfig.getSkad4ConversionValueUpdatedDelegate() != null);
 
             _AdjustLaunchApp(
                 appToken,
@@ -263,8 +255,7 @@ namespace com.adjust.sdk
                 isSessionSuccessCallbackImplemented,
                 isSessionFailureCallbackImplemented,
                 isDeferredDeeplinkCallbackImplemented,
-                isConversionValueUpdatedCallbackImplemented,
-                isSkad4ConversionValueUpdatedCallbackImplemented);
+                isConversionValueUpdatedCallbackImplemented);
         }
 
         public static void TrackEvent(AdjustEvent adjustEvent)
@@ -424,18 +415,6 @@ namespace com.adjust.sdk
         public static void UpdateConversionValue(int conversionValue)
         {
             _AdjustUpdateConversionValue(conversionValue);
-        }
-
-        public static void UpdateConversionValue(int conversionValue, string sceneName)
-        {
-            string cSceneName = sceneName != null ? sceneName : "ADJ_INVALID";
-            _AdjustUpdateConversionValueWithCallback(conversionValue, cSceneName);
-        }
-
-        public static void UpdateConversionValue(int conversionValue, string coarseValue, bool lockedWindow, string sceneName)
-        {
-            string cSceneName = sceneName != null ? sceneName : "ADJ_INVALID";
-            _AdjustUpdateConversionValueWithCallbackSkad4(conversionValue, coarseValue, AdjustUtils.ConvertBool(lockedWindow), cSceneName);
         }
 
         public static void CheckForNewAttStatus()

@@ -10,8 +10,6 @@ using com.adjust.sdk;
 using ElephantSDK;
 using RollicGames.Advertisements.Ads;
 using RollicGames.Advertisements.Model;
-using Firebase;
-using Firebase.Analytics;
 using UnityEngine;
 #if UNITY_IOS && !UNITY_EDITOR
 using UnityEngine.iOS;
@@ -434,7 +432,7 @@ namespace RollicGames.Advertisements
         #endregion
         
         #region ILRDEvents
-        
+
         private void OnImpressionTrackedEvent(string adUnitId, MaxSdkBase.AdInfo adInfo, string adFormat)
         {
             var adRevenue = new AdjustAdRevenue(AdjustConfig.AdjustAdRevenueSourceAppLovinMAX);
@@ -447,19 +445,6 @@ namespace RollicGames.Advertisements
             adRevenue.addCallbackParameter("creative_id", adInfo.CreativeIdentifier);
 
             Adjust.trackAdRevenue(adRevenue);
-            
-            double revenueAsDoubleObject = adInfo.Revenue;
-            var impressionParameters = new[] {
-                new Parameter("ad_platform", "applovin_max"),
-                new Parameter("ad_source", adInfo.NetworkName),
-                new Parameter("ad_unit_name", adInfo.AdUnitIdentifier),
-                new Parameter("ad_format", adFormat),
-                new Parameter("value", revenueAsDoubleObject),
-                new Parameter("currency","USD"),
-            };
-            
-            FirebaseAnalytics.LogEvent("ad_impression", impressionParameters);
-            FirebaseAnalytics.LogEvent("custom_ad_impression", impressionParameters);
         }
 
         #endregion

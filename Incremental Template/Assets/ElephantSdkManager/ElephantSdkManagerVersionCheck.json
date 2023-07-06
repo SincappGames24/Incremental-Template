@@ -1,6 +1,6 @@
 {
   "downloadUrl": "https://elephant-sdks.s3.amazonaws.com/ElephantSdkManager.unitypackage",
   "sdkName": "ElephantSdkManager",
-  "version": "TEMP_SDK_MANAGER_VERSION",
+  "version": "v5.0.2",
   "type": "internal"
 }

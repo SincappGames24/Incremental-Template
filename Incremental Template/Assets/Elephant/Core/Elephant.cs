@@ -10,7 +10,7 @@ namespace ElephantSDK
         private static string LEVEL_FAILED = "level_failed";
         private static string LEVEL_COMPLETED = "level_completed";
 
-
+        public static event Action OnLevelCompleted;
         public static void Init(bool isOldUser = false, bool gdprSupported = false)
         {
             ElephantCore.Instance.Init(isOldUser, gdprSupported);
@@ -93,7 +93,13 @@ namespace ElephantSDK
 
         public static void LevelCompleted(int level, Params parameters = null)
         {
+            //EZGI : LevelCompleted burada rollic ads'e event atalım.
             CustomEvent(LEVEL_COMPLETED, level, parameters);
+            if (OnLevelCompleted != null)
+            {
+                var evnt = OnLevelCompleted;
+                evnt.Invoke();
+            }
         }
 
         public static void LevelFailed(int level, Params parameters = null)

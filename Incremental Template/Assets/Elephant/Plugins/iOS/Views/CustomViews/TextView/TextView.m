@@ -13,6 +13,7 @@
         [self setEditable:NO];
         [self setBackgroundColor:[UIColor clearColor]];
         [self setDelegate:self];
+        [self setTintColor:[Colors textViewText]];
     }
     
     return self;
@@ -81,12 +82,9 @@
 // MARK: - UITextViewDelegate
 
 - (BOOL)textView:(UITextView *)textView shouldInteractWithURL:(NSURL *)URL inRange:(NSRange)characterRange interaction:(UITextItemInteraction)interaction {
-    if ([[URL absoluteString] containsString:@"privacy.rollic.gs"]) {
-        [Utils presentURL:URL];
-        return false;
-    }
+    [Utils presentURL:URL];
     
-    return true;
+    return false;
 }
 
 @end

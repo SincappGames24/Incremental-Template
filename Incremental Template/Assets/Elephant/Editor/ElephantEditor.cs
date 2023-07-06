@@ -10,7 +10,7 @@ namespace ElephantSDK
 {
     public class ElephantEditor : MonoBehaviour
     {
-        [MenuItem("Window/Elephant/Edit Settings")]
+        [MenuItem("Elephant/Edit Settings")]
         public static void Settings()
         {
             var settings = Resources.Load<ElephantSettings>("ElephantSettings");

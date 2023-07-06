@@ -5,7 +5,7 @@
 
 #import "MAUnityAdManager.h"
 
-#define VERSION @"5.6.5"
+#define VERSION @"5.6.7"
 
 #define KEY_WINDOW [UIApplication sharedApplication].keyWindow
 #define DEVICE_SPECIFIC_ADVIEW_AD_FORMAT ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad) ? MAAdFormat.leader : MAAdFormat.banner
@@ -1093,6 +1093,11 @@ static ALUnityBackgroundCallback backgroundCallback;
 {
     max_unity_dispatch_on_main_thread(^{
         [self log: @"Creating %@ with ad unit identifier \"%@\" and position: \"%@\"", adFormat, adUnitIdentifier, adViewPosition];
+        
+        if ( self.adViews[adUnitIdentifier] )
+        {
+            [self log: @"Trying to create a %@ that was already created. This will cause the current ad to be hidden.", adFormat.label];
+        }
         
         // Retrieve ad view from the map
         MAAdView *adView = [self retrieveAdViewForAdUnitIdentifier: adUnitIdentifier adFormat: adFormat atPosition: adViewPosition withOffset: offset];

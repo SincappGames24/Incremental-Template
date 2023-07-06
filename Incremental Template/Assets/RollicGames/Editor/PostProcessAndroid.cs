@@ -13,9 +13,6 @@ namespace RollicGames.Editor
         [PostProcessBuild(207)]
         public static void UpdateLauncherManifest(BuildTarget target, string pathToBuiltProject)
         {
-            SetupGoogleIDs();
-            SetupApplovinEditor();
-
             var launcherManifestPath = Path.Combine(pathToBuiltProject, "launcher/src/main/AndroidManifest.xml");
             
             if (!File.Exists(launcherManifestPath)) return;
@@ -42,21 +39,21 @@ namespace RollicGames.Editor
                     sw.WriteLine(newLine);
                 }
             }
+            
+            SetupGoogleIDs();
+            SetupApplovinEditor();
         }
-        
         
         private static void SetupGoogleIDs()
         {
             AppLovinSettings.Instance.AdMobIosAppId = RollicApplovinIDs.GoogleIosId;
             AppLovinSettings.Instance.AdMobAndroidAppId = RollicApplovinIDs.GoogleAndroidId;
-            EditorUtility.SetDirty(AppLovinSettings.Instance);
         }
         
         private static void SetupApplovinEditor()
         {
             AppLovinSettings.Instance.QualityServiceEnabled = false;
             EditorPrefs.SetBool(AppLovinAutoUpdater.KeyAutoUpdateEnabled, false);
-            EditorUtility.SetDirty(AppLovinSettings.Instance);
         }
     }
 }
