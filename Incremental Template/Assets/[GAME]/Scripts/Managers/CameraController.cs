@@ -15,11 +15,13 @@ public class CameraController : MonoBehaviour
     private void OnEnable()
     {
         EventManager.OnGameStart += StartGame;
+        EventManager.OnFinishWall += OpenEndGameCam;
     }
 
     private void OnDisable()
     {
         EventManager.OnGameStart -= StartGame;
+        EventManager.OnFinishWall -= OpenEndGameCam;
     }
 
     private void Awake()

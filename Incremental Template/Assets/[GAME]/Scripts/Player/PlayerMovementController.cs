@@ -21,7 +21,7 @@ public class PlayerMovementController : MonoBehaviour
 
     private void Update()
     {
-        if (PlayerController.PlayerState == PlayerController.PlayerStates.Run)
+        if (PlayerController.PlayerState == PlayerController.PlayerStates.Run || PlayerController.PlayerState == PlayerController.PlayerStates.OnFinishWall)
         {
             SwerveMovement();
             ClampPosition();
