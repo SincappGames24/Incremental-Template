@@ -1,0 +1,90 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using DG.Tweening;
+using MoreMountains.NiceVibrations;
+using SincappStudio;
+using TMPro;
+using UnityEngine;
+using UnityEngine.UI;
+using Random = UnityEngine.Random;
+
+public class GateController : MonoBehaviour
+{
+    public enum SkillTypes
+    {
+        Range,
+        FireRate,
+    }
+
+    [SerializeField] private SkillTypes _skillType;
+    [SerializeField] float _skillAmount;
+    [SerializeField] private TextMeshPro _skillAmountText;
+    [SerializeField] private TextMeshPro _skillNameText;
+    [SerializeField] private MeshRenderer _gateMesh;
+    [SerializeField] private GameObject _skillParticleText;
+
+    private void Awake()
+    {
+        SetSkillAmountText();
+        _skillNameText.SetText(_skillType.ToString());
+        CheckGateColor();
+    }
+
+    public void IncreaseSkillAmountOnBulletHit()
+    {
+        PersistData persistData = PersistData.Instance;
+        _skillAmount += PersistData.Instance.BulletPower;
+
+        var spawnPos = (Vector3.right * Random.insideUnitCircle.x * 1f) + transform.position + Vector3.up * Random.Range(3.25f, 4f);
+        var skillParticle = Instantiate(_skillParticleText, spawnPos, Quaternion.identity);
+        Destroy(skillParticle, 1f);
+        skillParticle.GetComponentInChildren<TextMeshPro>().SetText($"+{persistData.BulletPower:F1}");
+
+        _skillAmountText.transform.DOScale(Vector3.one * 1.15f, .075f).OnComplete(() =>
+        {
+            _skillAmountText.transform.DOScale(Vector3.one, .075f);
+        });
+
+        SetSkillAmountText();
+    }
+    
+    public void UseSkill()
+    {
+        MMVibrationManager.Haptic(HapticTypes.MediumImpact);
+        EventManager.OnGateCollect?.Invoke(_skillType, _skillAmount);
+        transform.DOKill();
+        Destroy(transform.parent.gameObject);
+    }
+    
+    private void SetSkillAmountText()
+    {
+        string mathSign = "+";
+
+        if (_skillAmount < 0)
+        {
+            mathSign = "";
+        }
+
+        _skillAmountText.SetText($"{mathSign}{_skillAmount:0}");
+        CheckGateColor();
+    }
+
+
+    private void CheckGateColor()
+    {
+        if (_skillAmount < 0)
+        {
+            _gateMesh.materials[0].color = new Color(0.74f, 0.06f, 0.03f, 0.68f);
+            _gateMesh.materials[1].color = new Color(0.76f, 0.29f, 0.28f, 0.68f);
+        }
+        else
+        {
+            _gateMesh.materials[0].color = new Color(0f, 0.59f, 0.14f, 0.68f);
+            _gateMesh.materials[1].color = new Color(0.39f, 0.69f, 0.38f, 0.68f);
+        }
+    }
+}

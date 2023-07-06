@@ -20,7 +20,7 @@ TagManager:
   - Enemy
   - Obstacle
   - Collectable
-  - JumpingCheck
+  - Bullet
   - EnemyGroup
   - Gate
   - Ground

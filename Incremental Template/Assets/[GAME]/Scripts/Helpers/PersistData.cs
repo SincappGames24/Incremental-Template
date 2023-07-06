@@ -24,7 +24,7 @@ public class PersistData : PersistManager<PersistData>
 
   #region RangeUpgrade
 
-  public float Range = 20;
+  public float Range = 13;
   public int RangeLevel = 1;
   public float RangeUpgradeCost = 50;
   public int MaxRangeLevel = int.MaxValue;

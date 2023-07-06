@@ -12,5 +12,6 @@ using UnityEngine.Events;
         public static UnityAction OnIncomeChange;
         public static UnityAction OnIncrementalUpgrade;
         public static UnityAction OnObstacleHit;
+        public static UnityAction<GateController.SkillTypes,float> OnGateCollect;
     
 }
