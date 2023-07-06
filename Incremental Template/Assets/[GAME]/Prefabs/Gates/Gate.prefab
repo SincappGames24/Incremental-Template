@@ -131,11 +131,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _skillType: 1
   _skillAmount: 30
+  _powerAmount: 1
   _skillAmountText: {fileID: 3974515097277429526}
   _skillNameText: {fileID: 3974515096134781846}
+  _powerAmountText: {fileID: 6336161526439948214}
   _gateMesh: {fileID: 3745211584539946536}
-  _skillParticleText: {fileID: 6531534162657628079, guid: ca86cd7416838e848aa6f04e84c083d1,
-    type: 3}
 --- !u!1 &3974515096134781844
 GameObject:
   m_ObjectHideFlags: 0
@@ -574,7 +574,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 12
+  m_text: 1
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 72a95287cce5e7245a873bdd2cced1cb, type: 2}
   m_sharedMaterial: {fileID: 2100000, guid: c5af0c01201919a459cf139f89352c8d, type: 2}

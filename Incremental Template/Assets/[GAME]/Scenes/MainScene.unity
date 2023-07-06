@@ -12904,13 +12904,8 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 466892025024847487, guid: e6097b4b3f025404aa7f57095456e51c,
         type: 3}
-      propertyPath: _skillType
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 9097915020153245039, guid: e6097b4b3f025404aa7f57095456e51c,
-        type: 3}
-      propertyPath: _skillAmount
-      value: 1110
+      propertyPath: _powerAmount
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 9097915021064742269, guid: e6097b4b3f025404aa7f57095456e51c,
         type: 3}

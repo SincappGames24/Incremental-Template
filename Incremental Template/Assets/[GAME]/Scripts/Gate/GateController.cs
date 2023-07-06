@@ -22,27 +22,23 @@ public class GateController : MonoBehaviour
 
     [SerializeField] private SkillTypes _skillType;
     [SerializeField] float _skillAmount;
+    [SerializeField] float _powerAmount;
+    [Header("References")]
     [SerializeField] private TextMeshPro _skillAmountText;
     [SerializeField] private TextMeshPro _skillNameText;
+    [SerializeField] private TextMeshPro _powerAmountText;
     [SerializeField] private MeshRenderer _gateMesh;
-    [SerializeField] private GameObject _skillParticleText;
 
     private void Awake()
     {
-        SetSkillAmountText();
         _skillNameText.SetText(_skillType.ToString());
-        CheckGateColor();
+        _powerAmountText.SetText($"{_powerAmount}");
+        SetSkillAmountText();
     }
 
     public void IncreaseSkillAmountOnBulletHit()
     {
-        PersistData persistData = PersistData.Instance;
-        _skillAmount += PersistData.Instance.BulletPower;
-
-        var spawnPos = (Vector3.right * Random.insideUnitCircle.x * 1f) + transform.position + Vector3.up * Random.Range(3.25f, 4f);
-        var skillParticle = Instantiate(_skillParticleText, spawnPos, Quaternion.identity);
-        Destroy(skillParticle, 1f);
-        skillParticle.GetComponentInChildren<TextMeshPro>().SetText($"+{persistData.BulletPower:F1}");
+        _skillAmount += _powerAmount;
 
         _skillAmountText.transform.DOScale(Vector3.one * 1.15f, .075f).OnComplete(() =>
         {
