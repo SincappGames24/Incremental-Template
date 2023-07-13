@@ -12,7 +12,7 @@ public class IncrementalManager : MonoBehaviour
         var persistData = PersistData.Instance;
 
         Purchase(persistData.MaxFireRateCost, ref persistData.FireRateUpgradeCost, ref persistData.FireRateLevel);
-        Upgrade(ref persistData.FireRate, 1);
+        Upgrade(ref persistData.FireRate, -0.01f);
     }
 
     public void IncreaseRange()
