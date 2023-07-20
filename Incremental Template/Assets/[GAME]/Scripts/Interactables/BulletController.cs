@@ -7,7 +7,7 @@ public class BulletController : MonoBehaviour
 {
     public void Shoot(float range)
     {
-        transform.DOMoveZ(transform.position.z + range, 30).SetSpeedBased().SetEase(Ease.Linear).OnComplete(() =>
+        transform.DOMoveZ(transform.position.z + range, 20).SetSpeedBased().SetEase(Ease.Linear).OnComplete(() =>
         {
             Destroy(gameObject);
         });

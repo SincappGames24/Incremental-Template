@@ -39,6 +39,7 @@ public class GateController : MonoBehaviour
     public void IncreaseSkillAmountOnBulletHit()
     {
         _skillAmount += _powerAmount;
+        MMVibrationManager.Haptic(HapticTypes.SoftImpact);
 
         _skillAmountText.transform.DOScale(Vector3.one * 1.15f, .075f).OnComplete(() =>
         {

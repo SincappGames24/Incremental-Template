@@ -37,8 +37,33 @@ public class IncrementalManager : MonoBehaviour
         var persistData = PersistData.Instance;
         currentLevel++;
         persistData.Money -= currentCost;
-        currentCost *= 2;
-        currentCost = Mathf.Clamp(currentCost, 0, costLimit);
+        
+        var costMultiplier = 1.2f;
+
+        if (currentCost > 200)
+        {
+            costMultiplier = 1.07f;
+        }
+        
+        else if (currentCost > 500)
+        {
+            costMultiplier = 1.05f;
+        }
+        
+        else if (currentCost > 1000)
+        {
+            costMultiplier = 1.02f;
+        }
+        
+        else if (currentCost > 20000)
+        {
+            costMultiplier = 1.01f;
+        }
+
+        if (currentCost < costLimit)
+        {
+            currentCost *= costMultiplier;
+        }
     }
 
     private void Upgrade(ref float incremental, float incrementAmount)
