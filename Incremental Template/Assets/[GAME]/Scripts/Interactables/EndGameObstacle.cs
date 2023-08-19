@@ -12,7 +12,7 @@ public class EndGameObstacle : MonoBehaviour
     private const int _playerLayer = 8;
     private const int _bulletLayer = 12;
     private bool _isHit;
-    public int EndGameObstacleNumber;
+    public float EndGameObstacleNumber;
     private TextMeshPro _numberText;
     [SerializeField] private Transform _moneyTransform;
     private float _startScaleX;
@@ -41,7 +41,7 @@ public class EndGameObstacle : MonoBehaviour
             MMVibrationManager.Haptic(HapticTypes.SoftImpact);
             transform.DOKill();
             transform.DOScale(_startScaleX + .05f, .07f).OnComplete(() => { transform.DOScale(_startScaleX, .07f); });
-            EndGameObstacleNumber -= (int) PersistData.Instance.BulletPower;
+            EndGameObstacleNumber -= PersistData.Instance.BulletPower;
 
             if (EndGameObstacleNumber <= 0)
             {
@@ -52,7 +52,7 @@ public class EndGameObstacle : MonoBehaviour
                 Destroy(_endGameObstacle);
             }
 
-            _numberText.SetText($"{EndGameObstacleNumber}");
+            _numberText.SetText($"{Mathf.Ceil(EndGameObstacleNumber)}");
             other.gameObject.layer = 0;
             other.transform.DOKill();
             Destroy(other.gameObject);

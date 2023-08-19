@@ -15,7 +15,7 @@ public class PersistData : PersistManager<PersistData>
   
   #region FireRateUpgrade
 
-  public float FireRate = .5f;
+  public float FireRate = .65f;
   public int FireRateLevel = 1;
   public float FireRateUpgradeCost = 50;
   public int MaxFireRateLevel = 40;

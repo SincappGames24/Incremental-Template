@@ -5,9 +5,9 @@ using UnityEngine;
 
 public class BulletController : MonoBehaviour
 {
-    public void Shoot(float range)
+    public void Shoot(float range, Transform playerPos)
     {
-        transform.DOMoveZ(transform.position.z + range, 20).SetSpeedBased().SetEase(Ease.Linear).OnComplete(() =>
+        transform.DOMoveZ(playerPos.position.z + range, 20).SetSpeedBased().SetEase(Ease.Linear).OnComplete(() =>
         {
             Destroy(gameObject);
         });

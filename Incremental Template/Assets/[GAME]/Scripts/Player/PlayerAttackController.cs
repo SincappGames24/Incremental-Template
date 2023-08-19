@@ -40,7 +40,7 @@ public class PlayerAttackController : MonoBehaviour
             //     _rightHand.DOLocalRotate(Vector3.zero, _fireRate);
             // });
 
-            Instantiate(_bullet, _shootPosTransform.position, Quaternion.Euler(0, 180, 0)).Shoot(_range);
+            Instantiate(_bullet, _shootPosTransform.position,Quaternion.identity).Shoot(_range,transform);
             yield return new WaitForSeconds(_fireRate);
         }
     }

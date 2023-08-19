@@ -32,7 +32,16 @@ public class GateController : MonoBehaviour
     private void Awake()
     {
         _skillNameText.SetText(_skillType.ToString());
-        _powerAmountText.SetText($"{_powerAmount}");
+        
+        string mathSign = "+";
+
+        if (_powerAmount < 0)
+        {
+            mathSign = "";
+        }
+
+        _powerAmountText.SetText($"{mathSign}{_powerAmount}");
+        
         SetSkillAmountText();
     }
 
