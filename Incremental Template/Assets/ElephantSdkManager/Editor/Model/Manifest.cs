@@ -22,4 +22,10 @@ namespace ElephantSdkManager.Model
 
         public bool isUpdateAvailable;
     }
+
+    [Serializable]
+    public class ChangeLog
+    {
+        public string description;
+    }
 }

@@ -17,6 +17,7 @@ namespace ElephantSdkManager
     {
         private const string AssetsPathPrefix = "Assets/";
         private const string DownloadDirectory = AssetsPathPrefix + "ElephantSdkManager";
+        private const string GameId_Key = "gamekit_gameId";
 
         private List<Sdk> _sdkList;
 
@@ -38,9 +39,13 @@ namespace ElephantSdkManager
         private Vector2 _scrollPos;
         private GameKitManifest _gameKitManifest;
         private bool _isGameKitRequestFailed;
-
+        
         private string gameid;
         private string tempGameID;
+
+        private string SDKDescription;
+        private Vector2 _changeScrollPos;
+
 
         private GameData _gameData;
 
@@ -79,7 +84,7 @@ namespace ElephantSdkManager
             {
                 _editorCoroutine = this.StartCoroutine(FetchManifest());
             }
-
+            
             _editorCoroutineSelfUpdate = this.StartCoroutine(CheckSelfUpdate());
             AssetDatabase.importPackageCompleted += OnImportPackageCompleted;
         }
@@ -112,14 +117,14 @@ namespace ElephantSdkManager
             CancelOperation();
         }
 
-
+        
         private void ShowLogin()
         {
             using (new EditorGUILayout.VerticalScope("box"))
             using (var s = new EditorGUILayout.ScrollViewScope(_scrollPos, false, false))
             {
                 _scrollPos = s.scrollPosition;
-
+                
                 using (new EditorGUILayout.VerticalScope("box"))
                 {
                     EditorGUILayout.LabelField("Please enter your game ID from Elephant Dashboard",
@@ -137,6 +142,8 @@ namespace ElephantSdkManager
                         }
                     }
                 }
+
+
             }
         }
 
@@ -147,11 +154,12 @@ namespace ElephantSdkManager
                 ShowLogin();
                 return;
             }
-
+            
             var stillWorking = _editorCoroutine != null || _downloader != null;
 
             if (_sdkList != null && _sdkList.Count > 0)
             {
+
                 using (new EditorGUILayout.VerticalScope("box"))
                 using (var s = new EditorGUILayout.ScrollViewScope(_scrollPos, false, false))
                 {
@@ -183,6 +191,7 @@ namespace ElephantSdkManager
                                 break;
                         }
                     }
+                    PopulateSdkDescription();
                 }
             }
 
@@ -245,7 +254,7 @@ namespace ElephantSdkManager
         {
             GUILayout.Space(5);
             EditorGUILayout.LabelField(groupTitle, _labelStyle, GUILayout.Height(20));
-
+            
             if (groupTitle.Equals("Elephant SDKs"))
             {
                 groupedSdkList = groupedSdkList.OrderBy(sdk => sdk.sdkName).ToList();
@@ -261,6 +270,31 @@ namespace ElephantSdkManager
             }
         }
 
+        private void PopulateSdkDescription()
+        {
+            GUILayout.Space(30);
+            if (!string.IsNullOrEmpty(SDKDescription))
+            {
+                using (new EditorGUILayout.VerticalScope("box", GUILayout.ExpandHeight(true)))
+                {
+                    GUILayout.Space(5);
+                    using (new EditorGUILayout.HorizontalScope(GUILayout.ExpandWidth(false)))
+                    {
+                        using (var s = new EditorGUILayout.ScrollViewScope(_changeScrollPos, false, false))
+                        {
+                            _changeScrollPos = s.scrollPosition;
+                            GUILayout.Label(SDKDescription, EditorStyles.textField, GUILayout.ExpandWidth(true), GUILayout.ExpandHeight(true));
+                        }
+                    }
+                    GUILayout.Space(5);
+                }
+                using (new EditorGUILayout.VerticalScope(GUILayout.ExpandHeight(false)))
+                {
+                    GUILayout.Space(15);
+                }
+            }
+        }
+
         private void SdkHeaders()
         {
             using (new EditorGUILayout.HorizontalScope(GUILayout.ExpandWidth(false)))
@@ -268,7 +302,6 @@ namespace ElephantSdkManager
                 GUILayout.Space(10);
                 EditorGUILayout.LabelField("Package", _headerStyle);
                 GUILayout.Button("Current Version", _headerStyle);
-                GUILayout.Space(3);
                 GUILayout.Button("Latest Version", _headerStyle);
                 GUILayout.Space(3);
                 GUILayout.Button("Action", _headerStyle, _fieldWidth);
@@ -296,11 +329,12 @@ namespace ElephantSdkManager
             {
                 GUILayout.Space(10);
                 EditorGUILayout.LabelField(new GUIContent { text = sdkName });
+                GUILayout.Space(100);
                 GUILayout.Button(new GUIContent
                 {
                     text = string.IsNullOrEmpty(cur) ? "--" : cur,
                 }, canInst ? EditorStyles.boldLabel : EditorStyles.label);
-                GUILayout.Space(3);
+                GUILayout.Space(100);
                 GUILayout.Button(new GUIContent
                 {
                     text = latestVersion ?? "--",
@@ -324,15 +358,22 @@ namespace ElephantSdkManager
                         this.StartCoroutine(DownloadSDK(sdkInfo));
                     }
 
+                    
+
                     GUI.enabled = true;
                 }
 
                 GUILayout.Space(5);
+                if (GUILayout.Button("Re-Install", GUILayout.Width(80)))
+                {
+                    GUI.enabled = true;
+                    this.StartCoroutine(DownloadSDK(sdkInfo));
+                }
             }
 
             GUILayout.Space(4);
         }
-
+        
         private IEnumerator CheckSelfUpdate()
         {
             yield return null;
@@ -363,9 +404,9 @@ namespace ElephantSdkManager
             unityWebRequest.Dispose();
 
             selfUpdateSdk = JsonUtility.FromJson<Sdk>(responseJson);
-
+            
             if (selfUpdateSdk == null) yield break;
-
+            
             var currentVersion = ElephantSdkManagerVersion.SDK_VERSION.Replace("v", string.Empty);
             var latestVersion = selfUpdateSdk.version.Replace("v", string.Empty);
 
@@ -380,8 +421,9 @@ namespace ElephantSdkManager
                 _selfUpdateStatus = "Up To Date";
                 _canUpdateSelf = false;
             }
-        }
 
+        }
+        
         private IEnumerator FetchManifest()
         {
             if (string.IsNullOrEmpty(GetGameId()))
@@ -389,7 +431,7 @@ namespace ElephantSdkManager
                 EditorUtility.DisplayDialog("ERROR", "GameID is empty! Please enter a valid GameID", "OK");
                 yield break;
             }
-
+            
             yield return null;
             _activity = "Downloading SDK version manifest...";
 
@@ -429,6 +471,29 @@ namespace ElephantSdkManager
 
             _sdkList = manifest.sdkList;
 
+            string descriptionURL;
+
+            if (_sdkList[0].sdkName.Equals("GameKit-IS"))
+            {
+                descriptionURL = ManifestSource.ISChangeLogURL;
+            }
+            else
+            {
+                descriptionURL = ManifestSource.MAXChangeLogURL;
+            }
+
+            UnityWebRequest unityWebRequestDescriptionJson = UnityWebRequest.Get(descriptionURL);
+            var webRequestSDKDescription = unityWebRequestDescriptionJson.SendWebRequest();
+
+            while (!webRequestSDKDescription.isDone)
+            {
+                yield return null;
+            }
+
+            var SDKDescriptionJson = unityWebRequestDescriptionJson.downloadHandler.text;
+            ChangeLog changeLogInstance = JsonUtility.FromJson<ChangeLog>(SDKDescriptionJson);
+            SDKDescription = changeLogInstance.description;
+
             CheckVersions();
         }
 
@@ -438,7 +503,7 @@ namespace ElephantSdkManager
             {
                 Sdk gamekitSdk = _sdkList.Find(sdk => sdk.sdkName.Equals("GameKit-MAX"));
                 gamekitSdk.currentVersion = "";
-
+                
                 Assembly assemblyForAds = Assembly.GetExecutingAssembly();
                 foreach (var type in assemblyForAds.GetTypes())
                 {
@@ -452,12 +517,11 @@ namespace ElephantSdkManager
                         if (!(fieldInfo is null)) gameKit.currentVersion = fieldInfo.GetValue(null).ToString();
                     }
                 }
-
                 _editorCoroutine = null;
                 Repaint();
                 return;
             }
-
+            
             Assembly myAssembly = Assembly.GetExecutingAssembly();
             foreach (var type in myAssembly.GetTypes())
             {
@@ -471,13 +535,13 @@ namespace ElephantSdkManager
                     if (!(fieldInfo is null)) gameKit.currentVersion = fieldInfo.GetValue(null).ToString();
                 }
             }
-
-
+            
+            
             AssetDatabase.Refresh();
             _editorCoroutine = null;
             Repaint();
         }
-
+        
 
         private IEnumerator DownloadSdkManager(Sdk sdkInfo)
         {
@@ -491,7 +555,7 @@ namespace ElephantSdkManager
                 timeout = 240, // seconds
             };
             _downloader.SendWebRequest();
-
+            
             while (!_downloader.isDone)
             {
                 yield return null;
@@ -499,9 +563,9 @@ namespace ElephantSdkManager
                 if (EditorUtility.DisplayCancelableProgressBar("Elephant SDK Manager", _activity, progress))
                     _downloader.Abort();
             }
-
+            
             EditorUtility.ClearProgressBar();
-
+            
             if (string.IsNullOrEmpty(_downloader.error))
             {
                 if (Directory.Exists(AssetsPathPrefix + sdkInfo.sdkName))
@@ -512,7 +576,7 @@ namespace ElephantSdkManager
                 AssetDatabase.ImportPackage(path, true);
                 FileUtil.DeleteFileOrDirectory(path);
             }
-
+            
             _downloader.Dispose();
             _downloader = null;
             _editorCoroutine = null;
@@ -591,14 +655,14 @@ namespace ElephantSdkManager
             {
                 this.StartCoroutine(GetGameKitIDs());
             }
-
+            
             var path = Path.Combine(DownloadDirectory, sdkInfo.sdkName + ".unitypackage");
 
             if (sdkInfo.downloadUrl.Contains("xml"))
             {
                 path = "Assets/IronSource/Editor/" + sdkInfo.sdkName + "Dependencies.xml";
             }
-
+            
             _activity = $"Downloading {sdkInfo.sdkName}...";
 
             // Start the async download job.
@@ -638,22 +702,22 @@ namespace ElephantSdkManager
                     {
                         FileUtil.DeleteFileOrDirectory(AssetsPathPrefix + "RollicGames");
                     }
-
+                    
                     if (Directory.Exists(AssetsPathPrefix + "MaxSdk"))
                     {
                         FileUtil.DeleteFileOrDirectory(AssetsPathPrefix + "MaxSdk");
                     }
-
+                    
                     if (Directory.Exists(AssetsPathPrefix + "IronSource"))
                     {
                         FileUtil.DeleteFileOrDirectory(AssetsPathPrefix + "IronSource");
                     }
-
+                    
                     if (Directory.Exists(AssetsPathPrefix + "ExternalDependencyManager"))
                     {
                         FileUtil.DeleteFileOrDirectory(AssetsPathPrefix + "ExternalDependencyManager");
                     }
-
+                    
                     if (Directory.Exists(AssetsPathPrefix + "PlayServicesResolver"))
                     {
                         FileUtil.DeleteFileOrDirectory(AssetsPathPrefix + "PlayServicesResolver");
@@ -670,14 +734,14 @@ namespace ElephantSdkManager
                     CheckVersions();
                 }
             }
-
+            
             _downloader.Dispose();
             _downloader = null;
             _editorCoroutine = null;
 
             yield return null;
         }
-
+        
         private void OnImportPackageCompleted(string packageName)
         {
             CheckVersions();
@@ -738,7 +802,7 @@ namespace ElephantSdkManager
 
             if (_editorCoroutine != null)
                 this.StopCoroutine(_editorCoroutine.routine);
-
+            
             if (_editorCoroutineSelfUpdate != null)
                 this.StopCoroutine(_editorCoroutineSelfUpdate.routine);
 
