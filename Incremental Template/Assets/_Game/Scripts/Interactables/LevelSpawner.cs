@@ -2,12 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class InteractableSpawner : MonoBehaviour
+public class LevelSpawner : MonoBehaviour
 {
-    public InteractableDataContainer interactableDataContainer;
-
-    private void Start()
+    private void Awake()
     {
+        string path = $"LevelDatas/Level_{PersistData.Instance.CurrentLevel}_Data";
+        var interactableDataContainer = Resources.Load<InteractableDataContainer>(path);
         var interactableDataList = interactableDataContainer.interactableDataList;
         
         foreach (InteractableData interactableData in interactableDataList)

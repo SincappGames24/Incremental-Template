@@ -72,8 +72,8 @@ public class LevelDataCollector : EditorWindow
             data.InteractableReference = interactable.GetGameObjectReference();
             dataContainer.interactableDataList.Add(data);
         }
-        
-        string path = "Assets/[GAME]/Prefabs/Levels/" + prefabName + "_Data.asset";
+
+        string path = "Assets/_Game/Prefabs/Levels/Resources/LevelDatas/" + prefabName + "_Data.asset";
         AssetDatabase.CreateAsset(dataContainer, path);
         AssetDatabase.SaveAssets();
         AssetDatabase.Refresh();

@@ -1,23 +1,26 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Globalization;
 using UnityEngine;
 
 public abstract class BaseInteractable : MonoBehaviour,IInteractable
 {
-    protected void AddProperty(InteractableData data, string propertyName, object propertyValue)
+    protected void AddProperty(InteractableData data, string propertyName, string propertyValue)
     {
         InteractableValues.PropertyValuesData propertyData = new InteractableValues.PropertyValuesData
         {
             Name = propertyName,
             Value = propertyValue
         };
+        
         data.InteractableValueList.Add(new InteractableValues
         {
             PropertyValues = propertyData
         });
     }
 
-    private void AddTransformValues(InteractableData data, Quaternion rotation, Vector3 position)
+    protected void AddTransformValues(InteractableData data, Quaternion rotation, Vector3 position)
     {
         InteractableValues.TransformValuesData transformData = new InteractableValues.TransformValuesData
         {
@@ -28,14 +31,8 @@ public abstract class BaseInteractable : MonoBehaviour,IInteractable
         data.TransformValues = transformData;
     }
 
-    public virtual InteractableData GetInteractableData()
-    {
-        InteractableData data = new InteractableData();
-        AddTransformValues(data, transform.rotation, transform.position);
-
-        return data;
-    }
-
+    public abstract InteractableData GetInteractableData();
+  
     public GameObject GetGameObjectReference()
     {
         return gameObject;
@@ -51,7 +48,8 @@ public abstract class BaseInteractable : MonoBehaviour,IInteractable
 
                 if (field != null)
                 {
-                    field.SetValue(this, value.PropertyValues.Value);
+                    object deserializedValue = Convert.ChangeType(value.PropertyValues.Value, field.FieldType,NumberFormatInfo.InvariantInfo);
+                    field.SetValue(this, deserializedValue);
                 }
             }
 

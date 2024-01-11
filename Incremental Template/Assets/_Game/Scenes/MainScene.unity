@@ -8426,8 +8426,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3cc65afa2f6bd614eae5ef15f41180f8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  interactableDataContainer: {fileID: 11400000, guid: afa654a929233264a87d25bd1c784d83,
-    type: 2}
 --- !u!1 &1305348478
 GameObject:
   m_ObjectHideFlags: 0
@@ -13272,6 +13270,56 @@ PrefabInstance:
         type: 3}
       propertyPath: m_IsActive
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1914366901690962216, guid: 6b71c4e4691d80244a988dc861e0fb56,
+        type: 3}
+      propertyPath: _skillType
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1914366901690962216, guid: 6b71c4e4691d80244a988dc861e0fb56,
+        type: 3}
+      propertyPath: _powerAmount
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1914366901690962216, guid: 6b71c4e4691d80244a988dc861e0fb56,
+        type: 3}
+      propertyPath: _skillAmount
+      value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 4700801008643175125, guid: 6b71c4e4691d80244a988dc861e0fb56,
+        type: 3}
+      propertyPath: _powerAmount
+      value: 10.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4700801008643175125, guid: 6b71c4e4691d80244a988dc861e0fb56,
+        type: 3}
+      propertyPath: _skillAmount
+      value: 10.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6721309106658612118, guid: 6b71c4e4691d80244a988dc861e0fb56,
+        type: 3}
+      propertyPath: _movementSpeed
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 6879244548578661638, guid: 6b71c4e4691d80244a988dc861e0fb56,
+        type: 3}
+      propertyPath: _powerAmount
+      value: 10.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6879244548578661638, guid: 6b71c4e4691d80244a988dc861e0fb56,
+        type: 3}
+      propertyPath: _skillAmount
+      value: 10.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7718315930617387040, guid: 6b71c4e4691d80244a988dc861e0fb56,
+        type: 3}
+      propertyPath: _forwardSpeedBoostMultiplier
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7718315930617387040, guid: 6b71c4e4691d80244a988dc861e0fb56,
+        type: 3}
+      propertyPath: _backwardSpeedBoostMultiplier
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8772898509410495568, guid: 6b71c4e4691d80244a988dc861e0fb56,
         type: 3}

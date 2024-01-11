@@ -12,25 +12,25 @@ public class InteractableData
 {
     public List<InteractableValues> InteractableValueList = new List<InteractableValues>();
     public InteractableValues.TransformValuesData TransformValues;
-    public GameObject InteractableReference {get; set;}
+    public GameObject InteractableReference;
 }
 
 [System.Serializable]
 public class InteractableValues
 {
     public PropertyValuesData PropertyValues;
-    
+
     [System.Serializable]
     public class PropertyValuesData
     {
         public string Name;
-        public object Value;
+        public string Value;
     }
 
     [System.Serializable]
-    public class TransformValuesData
-    {
-        public Quaternion Rotation;
-        public Vector3 Position;
+        public class TransformValuesData
+        {
+            public Quaternion Rotation;
+            public Vector3 Position;
+        }
     }
-}

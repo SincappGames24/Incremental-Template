@@ -4,6 +4,7 @@ using UnityEngine;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Globalization;
 using DG.Tweening;
 using MoreMountains.NiceVibrations;
 using SincappStudio;
@@ -21,8 +22,8 @@ public class GateController : BaseInteractable
     }
 
     [SerializeField] private SkillTypes _skillType;
-    [SerializeField] float _skillAmount;
-    [SerializeField] float _powerAmount;
+    public float _skillAmount;
+    public float _powerAmount;
 
     [Header("References")] [SerializeField]
     private TextMeshPro _skillAmountText;
@@ -31,7 +32,7 @@ public class GateController : BaseInteractable
     [SerializeField] private TextMeshPro _powerAmountText;
     [SerializeField] private MeshRenderer _gateMesh;
 
-    private void Awake()
+    private void Start()
     {
         _skillNameText.SetText(_skillType.ToString());
 
@@ -63,7 +64,7 @@ public class GateController : BaseInteractable
     public void UseSkill()
     {
         MMVibrationManager.Haptic(HapticTypes.MediumImpact);
-        EventManager.OnGateCollect?.Invoke(_skillType, _skillAmount);
+        EventManager.OnGateCollect?.Invoke(_skillType, (float) _skillAmount);
         transform.DOKill();
         Destroy(transform.parent.gameObject);
     }
@@ -98,10 +99,11 @@ public class GateController : BaseInteractable
 
     public override InteractableData GetInteractableData()
     {
-        InteractableData data = base.GetInteractableData();
+        InteractableData data = new InteractableData();
         
-        AddProperty(data, "_skillAmount", _skillAmount);
-        AddProperty(data, "_powerAmount", _powerAmount);
+        AddProperty(data, "_skillAmount", _skillAmount.ToString(CultureInfo.InvariantCulture));
+        AddProperty(data, "_powerAmount", _powerAmount.ToString(CultureInfo.InvariantCulture));
+        AddTransformValues(data, transform.rotation, transform.position);
 
         return data;
     }

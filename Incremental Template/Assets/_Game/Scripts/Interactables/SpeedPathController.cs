@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Globalization;
 using DG.Tweening;
 using UnityEngine;
 
@@ -51,10 +52,11 @@ public class SpeedPathController : BaseInteractable
 
     public override InteractableData GetInteractableData()
     {
-        InteractableData data = base.GetInteractableData();
+        InteractableData data = new InteractableData();
         
-        AddProperty(data, "_forwardSpeedBoostMultiplier", 1.5f);
-        AddProperty(data, "_backwardSpeedBoostMultiplier", .5f);
+        AddProperty(data, "_forwardSpeedBoostMultiplier", 1.5f.ToString(CultureInfo.InvariantCulture));
+        AddProperty(data, "_backwardSpeedBoostMultiplier", .5f.ToString(CultureInfo.InvariantCulture));;
+        AddTransformValues(data, transform.rotation, transform.position);
 
         return data;
     }
