@@ -2,12 +2,13 @@
 using System.Collections;
 using System.Collections.Generic;
 using DG.Tweening;
+using Sirenix.OdinInspector;
 using UnityEditor;
 using UnityEngine;
 
 public class PlayerMovementController : MonoBehaviour
 {
-    [Expandable] [SerializeField] private PlayerSetting _playerSettings;
+    [InlineEditor(Expanded = true)] [SerializeField] private PlayerSetting _playerSettings;
     private SwerveInputSystem _swerveInputSystem;
     public float SpeedMultiplier = 1;
     private float _speed;

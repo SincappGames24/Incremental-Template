@@ -8380,6 +8380,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1296385723}
   - component: {fileID: 1296385724}
+  - component: {fileID: 1296385725}
   m_Layer: 0
   m_Name: LevelManager
   m_TagString: Untagged
@@ -8413,6 +8414,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ec55dc0e3b3cda94688ac4fbc14918fe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &1296385725
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1296385722}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3cc65afa2f6bd614eae5ef15f41180f8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  interactableDataContainer: {fileID: 11400000, guid: afa654a929233264a87d25bd1c784d83,
+    type: 2}
 --- !u!1 &1305348478
 GameObject:
   m_ObjectHideFlags: 0
@@ -13243,10 +13258,20 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 173691334121515688, guid: 6b71c4e4691d80244a988dc861e0fb56,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 36.69
+      objectReference: {fileID: 0}
     - target: {fileID: 1433886224881620902, guid: 6b71c4e4691d80244a988dc861e0fb56,
         type: 3}
       propertyPath: m_Name
       value: Level_1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1433886224881620902, guid: 6b71c4e4691d80244a988dc861e0fb56,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8772898509410495568, guid: 6b71c4e4691d80244a988dc861e0fb56,
         type: 3}
