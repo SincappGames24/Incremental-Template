@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using DG.Tweening;
 using UnityEngine;
 
-public class SpeedPathController : MonoBehaviour
+public class SpeedPathController : BaseInteractable
 {
     [SerializeField] private SpeedDirections _speedDirection;
     public float _forwardSpeedBoostMultiplier = 1.5f;
@@ -49,11 +49,13 @@ public class SpeedPathController : MonoBehaviour
         }
     }
 
-    private void OnTriggerExit(Collider other)
+    public override InteractableData GetInteractableData()
     {
-        if (other.gameObject.layer == _playerLayer)
-        {
-            other.GetComponent<PlayerMovementController>().SetSpeedBoost(1.0f);
-        }
+        InteractableData data = base.GetInteractableData();
+        
+        AddProperty(data, "_forwardSpeedBoostMultiplier", 1.5f);
+        AddProperty(data, "_backwardSpeedBoostMultiplier", .5f);
+
+        return data;
     }
 }

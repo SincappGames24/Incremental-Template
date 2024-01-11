@@ -1,0 +1,55 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4f0efa7221218df42820549b57e8bcbc, type: 3}
+  m_Name: Level_1_Data
+  m_EditorClassIdentifier: 
+  interactableDataList:
+  - InteractableValueList:
+    - PropertyValues:
+        Name: _skillAmount
+    - PropertyValues:
+        Name: _powerAmount
+    TransformValues:
+      Rotation: {x: -0, y: -0, z: -0, w: 1}
+      Position: {x: -0.124464035, y: -0.5524311, z: 8.0030985}
+  - InteractableValueList:
+    - PropertyValues:
+        Name: _skillAmount
+    - PropertyValues:
+        Name: _powerAmount
+    TransformValues:
+      Rotation: {x: -0, y: -0, z: -0, w: 1}
+      Position: {x: -0.124464035, y: -0.5524311, z: 36.69}
+  - InteractableValueList:
+    - PropertyValues:
+        Name: _forwardSpeedBoostMultiplier
+    - PropertyValues:
+        Name: _backwardSpeedBoostMultiplier
+    TransformValues:
+      Rotation: {x: -0, y: -0, z: -0, w: 1}
+      Position: {x: -0.39, y: -0.47, z: 21.19}
+  - InteractableValueList:
+    - PropertyValues:
+        Name: _skillAmount
+    - PropertyValues:
+        Name: _powerAmount
+    TransformValues:
+      Rotation: {x: -0, y: -0, z: -0, w: 1}
+      Position: {x: -0.124464035, y: -0.5524311, z: 15.22}
+  - InteractableValueList:
+    - PropertyValues:
+        Name: _forwardSpeedBoostMultiplier
+    - PropertyValues:
+        Name: _backwardSpeedBoostMultiplier
+    TransformValues:
+      Rotation: {x: -0, y: -0, z: -0, w: 1}
+      Position: {x: -0.39, y: -0.47, z: 21.19}

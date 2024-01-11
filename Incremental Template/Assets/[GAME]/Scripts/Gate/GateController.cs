@@ -12,7 +12,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using Random = UnityEngine.Random;
 
-public class GateController : MonoBehaviour
+public class GateController : BaseInteractable
 {
     public enum SkillTypes
     {
@@ -23,8 +23,10 @@ public class GateController : MonoBehaviour
     [SerializeField] private SkillTypes _skillType;
     [SerializeField] float _skillAmount;
     [SerializeField] float _powerAmount;
-    [Header("References")]
-    [SerializeField] private TextMeshPro _skillAmountText;
+
+    [Header("References")] [SerializeField]
+    private TextMeshPro _skillAmountText;
+
     [SerializeField] private TextMeshPro _skillNameText;
     [SerializeField] private TextMeshPro _powerAmountText;
     [SerializeField] private MeshRenderer _gateMesh;
@@ -32,7 +34,7 @@ public class GateController : MonoBehaviour
     private void Awake()
     {
         _skillNameText.SetText(_skillType.ToString());
-        
+
         string mathSign = "+";
 
         if (_powerAmount < 0)
@@ -41,7 +43,7 @@ public class GateController : MonoBehaviour
         }
 
         _powerAmountText.SetText($"{mathSign}{_powerAmount}");
-        
+
         SetSkillAmountText();
     }
 
@@ -57,7 +59,7 @@ public class GateController : MonoBehaviour
 
         SetSkillAmountText();
     }
-    
+
     public void UseSkill()
     {
         MMVibrationManager.Haptic(HapticTypes.MediumImpact);
@@ -65,7 +67,7 @@ public class GateController : MonoBehaviour
         transform.DOKill();
         Destroy(transform.parent.gameObject);
     }
-    
+
     private void SetSkillAmountText()
     {
         string mathSign = "+";
@@ -92,5 +94,15 @@ public class GateController : MonoBehaviour
             _gateMesh.materials[0].color = new Color(0f, 0.59f, 0.14f, 0.68f);
             _gateMesh.materials[1].color = new Color(0.39f, 0.69f, 0.38f, 0.68f);
         }
+    }
+
+    public override InteractableData GetInteractableData()
+    {
+        InteractableData data = base.GetInteractableData();
+        
+        AddProperty(data, "_skillAmount", _skillAmount);
+        AddProperty(data, "_powerAmount", _powerAmount);
+
+        return data;
     }
 }
