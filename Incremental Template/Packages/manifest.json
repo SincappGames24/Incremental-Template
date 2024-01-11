@@ -1,6 +1,5 @@
 {
   "dependencies": {
-    "com.gameanalytics.sdk": "https://github.com/GameAnalytics/GA-SDK-UNITY.git",
     "com.unity.cinemachine": "2.6.11",
     "com.unity.collab-proxy": "1.17.2",
     "com.unity.formats.fbx": "5.0.0",

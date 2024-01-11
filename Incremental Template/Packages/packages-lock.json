@@ -7,13 +7,6 @@
       "dependencies": {},
       "url": "https://packages.unity.com"
     },
-    "com.gameanalytics.sdk": {
-      "version": "https://github.com/GameAnalytics/GA-SDK-UNITY.git",
-      "depth": 0,
-      "source": "git",
-      "dependencies": {},
-      "hash": "e9a7071818833ce4b67a633b6834085c129f6dbe"
-    },
     "com.unity.cinemachine": {
       "version": "2.6.11",
       "depth": 0,

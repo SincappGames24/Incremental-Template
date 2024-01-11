@@ -1,12 +1,11 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using ElephantSDK;
-using GameAnalyticsSDK;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
 
-public class GameManager : MonoSingleton<GameManager>, IGameAnalyticsATTListener
+public class GameManager : MonoSingleton<GameManager>
 {
     private bool _isGameStarted;
 
@@ -15,42 +14,6 @@ public class GameManager : MonoSingleton<GameManager>, IGameAnalyticsATTListener
         Input.multiTouchEnabled = false;
         Application.targetFrameRate = 60;
     }
-
-    #region GameAnalitcs SDK
-
-    void Start()
-    {
-        if (Application.platform == RuntimePlatform.IPhonePlayer)
-        {
-            GameAnalytics.RequestTrackingAuthorization(this);
-        }
-        else
-        {
-            GameAnalytics.Initialize();
-        }
-    }
-
-    public void GameAnalyticsATTListenerNotDetermined()
-    {
-        GameAnalytics.Initialize();
-    }
-
-    public void GameAnalyticsATTListenerRestricted()
-    {
-        GameAnalytics.Initialize();
-    }
-
-    public void GameAnalyticsATTListenerDenied()
-    {
-        GameAnalytics.Initialize();
-    }
-
-    public void GameAnalyticsATTListenerAuthorized()
-    {
-        GameAnalytics.Initialize();
-    }
-
-    #endregion
 
     private void Update()
     {
