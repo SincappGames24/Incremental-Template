@@ -16,48 +16,37 @@ MonoBehaviour:
   - InteractableValueList:
     - PropertyValues:
         Name: _skillAmount
-        Value: 10.1
-    - PropertyValues:
-        Name: _powerAmount
-        Value: 10.1
-    TransformValues:
-      Rotation: {x: -0, y: -0, z: -0, w: 1}
-      Position: {x: -0.124464035, y: -0.5524311, z: 8.0030985}
-    InteractableReference: {fileID: 3974515096043729801, guid: c5d4b708fb66452439b7afd0d035a9d4,
-      type: 3}
-  - InteractableValueList:
-    - PropertyValues:
-        Name: _skillAmount
-        Value: 10.1
-    - PropertyValues:
-        Name: _powerAmount
-        Value: 10.1
-    TransformValues:
-      Rotation: {x: -0, y: -0, z: -0, w: 1}
-      Position: {x: -0.124464035, y: -0.5524311, z: 36.69}
-    InteractableReference: {fileID: 3974515096043729801, guid: c5d4b708fb66452439b7afd0d035a9d4,
-      type: 3}
-  - InteractableValueList:
-    - PropertyValues:
-        Name: _forwardSpeedBoostMultiplier
-        Value: 1.5
-    - PropertyValues:
-        Name: _backwardSpeedBoostMultiplier
-        Value: 0.5
-    TransformValues:
-      Rotation: {x: -0, y: -0, z: -0, w: 1}
-      Position: {x: -0.39, y: -0.47, z: 21.19}
-    InteractableReference: {fileID: 0}
-  - InteractableValueList:
-    - PropertyValues:
-        Name: _skillAmount
         Value: 15
     - PropertyValues:
         Name: _powerAmount
         Value: 1
     TransformValues:
       Rotation: {x: -0, y: -0, z: -0, w: 1}
-      Position: {x: -0.124464035, y: -0.5524311, z: 15.22}
+      Position: {x: 0, y: -0.49738836, z: 10.46}
+    InteractableReference: {fileID: 3974515096043729801, guid: c5d4b708fb66452439b7afd0d035a9d4,
+      type: 3}
+  - InteractableValueList:
+    - PropertyValues:
+        Name: _skillAmount
+        Value: 25
+    - PropertyValues:
+        Name: _powerAmount
+        Value: 1
+    TransformValues:
+      Rotation: {x: -0, y: -0, z: -0, w: 1}
+      Position: {x: 0, y: -0.49738836, z: 19.24}
+    InteractableReference: {fileID: 3974515096043729801, guid: c5d4b708fb66452439b7afd0d035a9d4,
+      type: 3}
+  - InteractableValueList:
+    - PropertyValues:
+        Name: _skillAmount
+        Value: 35
+    - PropertyValues:
+        Name: _powerAmount
+        Value: 1
+    TransformValues:
+      Rotation: {x: -0, y: -0, z: -0, w: 1}
+      Position: {x: 0, y: -0.49738836, z: 30.36}
     InteractableReference: {fileID: 3974515096043729801, guid: c5d4b708fb66452439b7afd0d035a9d4,
       type: 3}
   - InteractableValueList:
@@ -69,5 +58,6 @@ MonoBehaviour:
         Value: 0.5
     TransformValues:
       Rotation: {x: -0, y: -0, z: -0, w: 1}
-      Position: {x: -0.39, y: -0.47, z: 21.19}
-    InteractableReference: {fileID: 0}
+      Position: {x: 1.57, y: -0.47, z: 3.86}
+    InteractableReference: {fileID: 8674764277502396511, guid: 65e5f9c96b9e962489708f8aacc47a93,
+      type: 3}

@@ -68,9 +68,19 @@ public class LevelDataCollector : EditorWindow
 
         foreach (var interactable in selectedInteractables)
         {
-            InteractableData data = interactable.GetInteractableData();
-            data.InteractableReference = interactable.GetGameObjectReference();
-            dataContainer.interactableDataList.Add(data);
+            string prefabPath = PrefabUtility.GetPrefabAssetPathOfNearestInstanceRoot(interactable.GetGameObjectReference());
+            GameObject prefab = AssetDatabase.LoadAssetAtPath<GameObject>(prefabPath);
+
+            if (prefab != null)
+            {
+                InteractableData data = interactable.GetInteractableData();
+                data.InteractableReference = prefab;
+                dataContainer.interactableDataList.Add(data);
+            }
+            else
+            {
+                Debug.LogError("Obje Prefab Degil! " + interactable.ToString());
+            }
         }
 
         string path = "Assets/_Game/Prefabs/Levels/Resources/LevelDatas/" + prefabName + "_Data.asset";
