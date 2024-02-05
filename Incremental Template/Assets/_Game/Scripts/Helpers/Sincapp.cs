@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
+using System.Threading.Tasks;
 using ElephantSDK;
 using UnityEngine;
 using UnityEngine.Events;
@@ -64,10 +65,10 @@ namespace SincappStudio
                 transform.localPosition = position;
             }
         }
-        public static IEnumerator WaitAndAction(float delayTime, UnityAction action)
+        
+        public static async Task WaitTask(float delayTime)
         {
-            yield return new WaitForSeconds(delayTime);
-            action?.Invoke();
+            await Task.Delay((int) (delayTime * 1000));
         }
         
         public static float[] StringListToFloatArray(string stringListKey,string defaultValues)

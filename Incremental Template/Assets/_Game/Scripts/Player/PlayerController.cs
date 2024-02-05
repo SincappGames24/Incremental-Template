@@ -74,11 +74,12 @@ public class PlayerController : MonoBehaviour
         EventManager.OnIncomeChange?.Invoke();
     }
 
-    public void Die(float delay)
+    public async void Die(float delay)
     {
         transform.DOKill();
         PlayerState = PlayerStates.Finish;
-        StartCoroutine(Sincapp.WaitAndAction(delay, () => { EventManager.OnGameWin?.Invoke(); }));
+        await Sincapp.WaitTask(delay);
+        EventManager.OnGameWin?.Invoke();
     }
 
     private void OnTriggerEnter(Collider other)

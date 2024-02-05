@@ -38,17 +38,14 @@ public class ParticlePool : MonoBehaviour
         }
     }
 
-    private void ShowIncome()
+    private async void ShowIncome()
     {
         _incomeParticles[0].transform.position = _incomePos.position + new Vector3(1,.5f,0);
         _incomeParticles[0].SetActive(true);
         var holderObj = _incomeParticles[0];
         _incomeParticles.RemoveAt(0);
-
-        StartCoroutine(Sincapp.WaitAndAction(.75f, () =>
-        {
-            _incomeParticles.Add(holderObj);
-            holderObj.SetActive(false);
-        }));
+        await Sincapp.WaitTask(0.75f);
+        _incomeParticles.Add(holderObj);
+        holderObj.SetActive(false);
     }
 }
