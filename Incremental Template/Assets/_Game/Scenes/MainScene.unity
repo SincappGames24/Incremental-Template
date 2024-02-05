@@ -2250,7 +2250,7 @@ Transform:
   - {fileID: 313681917}
   - {fileID: 1066269171}
   m_Father: {fileID: 0}
-  m_RootOrder: 0
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &422854272
 MonoBehaviour:
@@ -3463,7 +3463,7 @@ Transform:
   - {fileID: 1229154315}
   - {fileID: 1296385723}
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &651630188
 GameObject:
@@ -7215,7 +7215,7 @@ RectTransform:
   - {fileID: 651630189}
   - {fileID: 960307485}
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -7253,7 +7253,7 @@ Transform:
   - {fileID: 726190074}
   - {fileID: 709664298}
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1170573138
 GameObject:
@@ -8935,7 +8935,7 @@ Transform:
   m_Children:
   - {fileID: 743465727}
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!54 &1388988190
 Rigidbody:
@@ -13320,6 +13320,11 @@ PrefabInstance:
         type: 3}
       propertyPath: _backwardSpeedBoostMultiplier
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8230927519440384213, guid: 6b71c4e4691d80244a988dc861e0fb56,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8772898509410495568, guid: 6b71c4e4691d80244a988dc861e0fb56,
         type: 3}
