@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using DG.Tweening;
@@ -15,8 +16,9 @@ public static class MovementHelper
         PingPong
     }
 
-    public static void SetMovement( Transform obj,MovementTypes movementType, float movementSpeed, float horizontalMoveOffset,
-        float verticalMoveOffset, float pingPongOffset)
+    public static void Move(Transform obj, MovementTypes movementType, float movementSpeed,
+        float horizontalMoveOffset,
+        float verticalMoveOffset, float pingPongOffset, Action callback = null)
     {
         float targetXPosHorizontalMove;
 
@@ -29,9 +31,11 @@ public static class MovementHelper
             targetXPosHorizontalMove = -1.65f;
         }
 
+        Tween moveTween = null;
+
         if (movementType == MovementTypes.Cross)
         {
-            CrossMove(verticalMoveOffset, targetXPosHorizontalMove, movementSpeed, obj);
+            moveTween = CrossMove(verticalMoveOffset, targetXPosHorizontalMove, movementSpeed, obj);
         }
         else if (movementType == MovementTypes.Horizontal)
         {
@@ -43,13 +47,16 @@ public static class MovementHelper
         }
         else if (movementType == MovementTypes.Backward || movementType == MovementTypes.Forward)
         {
-            VerticalMove(verticalMoveOffset, movementSpeed, movementType, obj);
+            moveTween = VerticalMove(verticalMoveOffset, movementSpeed, movementType, obj);
         }
+
+        moveTween.OnComplete(() => { callback?.Invoke(); });
     }
 
     private static void PingPongMove(float movementSpeed, float distance, Transform obj)
     {
         float targetPos = obj.position.z + distance;
+
         obj.DOMoveZ(targetPos, movementSpeed).SetSpeedBased().SetEase(Ease.Linear)
             .SetLoops(-1, LoopType.Yoyo)
             .OnComplete(() => { targetPos = obj.position.z - distance; });
@@ -92,7 +99,7 @@ public static class MovementHelper
         }
     }
 
-    private static void CrossMove(float verticalMoveOffset, float targetXPosHorizontalMove, float movementSpeed,
+    private static Tween CrossMove(float verticalMoveOffset, float targetXPosHorizontalMove, float movementSpeed,
         Transform obj)
     {
         float distance = 10000;
@@ -116,12 +123,12 @@ public static class MovementHelper
                         });
                 });
 
-        obj.DOMoveZ(obj.position.z + distance, movementSpeed).SetEase(Ease.Linear).SetSpeedBased()
+        return obj.DOMoveZ(obj.position.z + distance, movementSpeed).SetEase(Ease.Linear).SetSpeedBased()
             .OnComplete(
                 () => { xMoveTween.Kill(); });
     }
 
-    private static void VerticalMove(float verticalMoveOffset, float movementSpeed, MovementTypes moveType,
+    private static Tween VerticalMove(float verticalMoveOffset, float movementSpeed, MovementTypes moveType,
         Transform obj)
     {
         float distance = 10000;
@@ -136,20 +143,6 @@ public static class MovementHelper
             distance *= -1;
         }
 
-        obj.DOMoveZ(obj.position.z + distance, movementSpeed).SetEase(Ease.Linear).SetSpeedBased();
+        return obj.DOMoveZ(obj.position.z + distance, movementSpeed).SetEase(Ease.Linear).SetSpeedBased();
     }
-}
-
-public class Movementable : MonoBehaviour
-{
-    #region Movement
-
-    public MovementHelper.MovementTypes _movementType;
-    public float _movementSpeed = 2.5f;
-    public float _horizontalMoveOffset;
-    public float _verticalMoveOffset;
-    public float _pingPongOffset = 3.0f;
-    public bool IsMoving { get; set; }
-
-    #endregion
 }

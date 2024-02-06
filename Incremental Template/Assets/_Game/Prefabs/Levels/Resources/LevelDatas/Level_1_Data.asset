@@ -15,73 +15,121 @@ MonoBehaviour:
   interactableDataList:
   - InteractableValueList:
     - PropertyValues:
-        Name: _skillAmount
-        Value: 12.03
+        Name: _firstGateSkillType
+        Value: FireRate
     - PropertyValues:
-        Name: _powerAmount
-        Value: 33
+        Name: _firstGateSkillAmount
+        Value: 1
+    - PropertyValues:
+        Name: _firstGatePowerAmount
+        Value: 2
+    - PropertyValues:
+        Name: _secondGateSkillType
+        Value: FireRate
+    - PropertyValues:
+        Name: _secondGateSkillAmount
+        Value: 1
+    - PropertyValues:
+        Name: _secondGatePowerAmount
+        Value: 2
     TransformValues:
       Rotation: {x: -0, y: -0, z: -0, w: 1}
       Position: {x: 1, y: 1, z: 1}
-    InteractableReference: {fileID: 3974515096043729801, guid: c5d4b708fb66452439b7afd0d035a9d4,
+    InteractableReference: {fileID: 2994851434784572966, guid: 822f56a83b62a1c49864a7857ca7669f,
       type: 3}
   - InteractableValueList:
     - PropertyValues:
-        Name: _skillAmount
-        Value: 12
+        Name: _firstGateSkillType
+        Value: FireRate
     - PropertyValues:
-        Name: _powerAmount
+        Name: _firstGateSkillAmount
         Value: 1
+    - PropertyValues:
+        Name: _firstGatePowerAmount
+        Value: 2
+    - PropertyValues:
+        Name: _secondGateSkillType
+        Value: FireRate
+    - PropertyValues:
+        Name: _secondGateSkillAmount
+        Value: 1
+    - PropertyValues:
+        Name: _secondGatePowerAmount
+        Value: 2
     TransformValues:
       Rotation: {x: -0, y: -0, z: -0, w: 1}
       Position: {x: 0, y: -0.49738836, z: 13.94}
-    InteractableReference: {fileID: 3974515096043729801, guid: c5d4b708fb66452439b7afd0d035a9d4,
+    InteractableReference: {fileID: 2994851434784572966, guid: 822f56a83b62a1c49864a7857ca7669f,
       type: 3}
   - InteractableValueList:
     - PropertyValues:
-        Name: _skillAmount
-        Value: 30
+        Name: _firstGateSkillType
+        Value: FireRate
     - PropertyValues:
-        Name: _powerAmount
+        Name: _firstGateSkillAmount
         Value: 1
+    - PropertyValues:
+        Name: _firstGatePowerAmount
+        Value: 2
+    - PropertyValues:
+        Name: _secondGateSkillType
+        Value: FireRate
+    - PropertyValues:
+        Name: _secondGateSkillAmount
+        Value: 1
+    - PropertyValues:
+        Name: _secondGatePowerAmount
+        Value: 2
     TransformValues:
       Rotation: {x: -0, y: -0, z: -0, w: 1}
       Position: {x: 0, y: -0.49738836, z: 24.85}
-    InteractableReference: {fileID: 3974515096043729801, guid: c5d4b708fb66452439b7afd0d035a9d4,
+    InteractableReference: {fileID: 2994851434784572966, guid: 822f56a83b62a1c49864a7857ca7669f,
       type: 3}
   - InteractableValueList:
     - PropertyValues:
-        Name: _skillAmount
-        Value: 22
+        Name: _firstGateSkillType
+        Value: FireRate
     - PropertyValues:
-        Name: _powerAmount
+        Name: _firstGateSkillAmount
         Value: 1
+    - PropertyValues:
+        Name: _firstGatePowerAmount
+        Value: 2
+    - PropertyValues:
+        Name: _secondGateSkillType
+        Value: FireRate
+    - PropertyValues:
+        Name: _secondGateSkillAmount
+        Value: 1
+    - PropertyValues:
+        Name: _secondGatePowerAmount
+        Value: 2
     TransformValues:
       Rotation: {x: -0, y: -0, z: -0, w: 1}
       Position: {x: 0, y: -0.49738836, z: 18.17}
-    InteractableReference: {fileID: 3974515096043729801, guid: c5d4b708fb66452439b7afd0d035a9d4,
+    InteractableReference: {fileID: 2994851434784572966, guid: 822f56a83b62a1c49864a7857ca7669f,
       type: 3}
   - InteractableValueList:
     - PropertyValues:
-        Name: _skillAmount
-        Value: 30
+        Name: _firstGateSkillType
+        Value: FireRate
     - PropertyValues:
-        Name: _powerAmount
-        Value: 1
+        Name: _firstGateSkillAmount
+        Value: 5
+    - PropertyValues:
+        Name: _firstGatePowerAmount
+        Value: 6
+    - PropertyValues:
+        Name: _secondGateSkillType
+        Value: FireRate
+    - PropertyValues:
+        Name: _secondGateSkillAmount
+        Value: 2
+    - PropertyValues:
+        Name: _secondGatePowerAmount
+        Value: 3
     TransformValues:
       Rotation: {x: -0, y: -0, z: -0, w: 1}
-      Position: {x: -1.47, y: -0.49738836, z: 10.94}
-    InteractableReference: {fileID: 3974515096043729801, guid: c5d4b708fb66452439b7afd0d035a9d4,
-      type: 3}
-  - InteractableValueList:
-    - PropertyValues:
-        Name: _skillAmount
-        Value: -30
-    - PropertyValues:
-        Name: _powerAmount
-        Value: 1
-    TransformValues:
-      Rotation: {x: -0, y: -0, z: -0, w: 1}
-      Position: {x: 1.47, y: -0.49738836, z: 10.94}
-    InteractableReference: {fileID: 3974515096043729801, guid: c5d4b708fb66452439b7afd0d035a9d4,
+      Position: {x: 0, y: -0.49738836, z: 10.94}
+    InteractableReference: {fileID: 9097915021064742269, guid: e6097b4b3f025404aa7f57095456e51c,
       type: 3}

@@ -2,14 +2,14 @@ using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
 
-public class LevelDataCollector : EditorWindow
+public class LevelDataCollectorEditor : EditorWindow
 {
     private Vector2 _scrollPosition;
 
     [MenuItem("Sincapp/Prefab to ScriptableObject")]
     public static void ShowWindow()
     {
-        GetWindow<LevelDataCollector>("Prefab to ScriptableObject");
+        GetWindow<LevelDataCollectorEditor>("Prefab to ScriptableObject");
     }
 
     private void OnGUI()
@@ -32,9 +32,9 @@ public class LevelDataCollector : EditorWindow
 
         foreach (GameObject obj in Selection.gameObjects)
         {
-            IInteractable[] interactableList = obj.GetComponentsInChildren<IInteractable>();
+            IDataCollectable[] interactableList = obj.GetComponentsInChildren<IDataCollectable>();
 
-            foreach (IInteractable interactableObject in interactableList)
+            foreach (IDataCollectable interactableObject in interactableList)
             {
                 if (interactableObject != null)
                 {
@@ -56,9 +56,9 @@ public class LevelDataCollector : EditorWindow
                 string prefabName = obj.name;
                 string path = "Assets/_Game/Prefabs/Levels/Resources/LevelDatas/" + prefabName + "_Data.asset";
 
-                IInteractable[] interactableList = obj.GetComponentsInChildren<IInteractable>();
+                IDataCollectable[] interactableList = obj.GetComponentsInChildren<IDataCollectable>();
 
-                foreach (IInteractable interactableObject in interactableList)
+                foreach (IDataCollectable interactableObject in interactableList)
                 {
                     if (interactableObject != null)
                     {

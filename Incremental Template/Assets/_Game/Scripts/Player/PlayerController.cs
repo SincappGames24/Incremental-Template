@@ -56,7 +56,7 @@ public class PlayerController : MonoBehaviour
         Elephant.LevelStarted(level);
     }
 
-    private void TakeSkills(GateController.SkillTypes skillType, float skillAmount)
+    private void TakeSkills(GateGroupController.SkillTypes skillType, float skillAmount)
     {
         _playerAttackController.CalculateSkills(skillType, skillAmount);
     }

@@ -2,9 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public interface IInteractable
+public interface IDataCollectable
 {
   InteractableData GetInteractableData();
   GameObject GetGameObjectReference();
-  void SetData(InteractableData data);
 }

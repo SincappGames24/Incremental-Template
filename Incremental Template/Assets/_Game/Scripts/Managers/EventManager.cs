@@ -13,6 +13,6 @@ using UnityEngine.Events;
         public static UnityAction OnIncrementalUpgrade;
         public static UnityAction OnObstacleHit;
         public static UnityAction OnFinishWall;
-        public static UnityAction<GateController.SkillTypes,float> OnGateCollect;
+        public static UnityAction<GateGroupController.SkillTypes,float> OnGateCollect;
     
 }

@@ -14,11 +14,11 @@ public class LevelSpawner : MonoBehaviour
         {
             var instantiatedObject = Instantiate(interactableData.InteractableReference);
 
-            IInteractable interactableComponent = instantiatedObject.GetComponent<IInteractable>();
+            IDataCollectable iDataCollectable = instantiatedObject.GetComponent<IDataCollectable>();
             
-            if (interactableComponent != null)
+            if (iDataCollectable != null)
             {
-                interactableComponent.SetData(interactableData);
+                LevelDataHandler.SetData(iDataCollectable,interactableData,instantiatedObject.transform);
             }
         }
     }

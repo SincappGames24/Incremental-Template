@@ -1,10 +1,8 @@
-using System.Collections;
-using System.Collections.Generic;
 using System.Globalization;
 using DG.Tweening;
 using UnityEngine;
 
-public class SpeedPathController : BaseInteractable
+public class SpeedPathController : MonoBehaviour, IDataCollectable
 {
     [SerializeField] private SpeedDirections _speedDirection;
     public float _forwardSpeedBoostMultiplier = 1.5f;
@@ -50,14 +48,25 @@ public class SpeedPathController : BaseInteractable
         }
     }
 
-    public override InteractableData GetInteractableData()
+    public InteractableData GetInteractableData()
     {
         InteractableData data = new InteractableData();
         
-        AddProperty(data, "_forwardSpeedBoostMultiplier", 1.5f.ToString(CultureInfo.InvariantCulture));
-        AddProperty(data, "_backwardSpeedBoostMultiplier", .5f.ToString(CultureInfo.InvariantCulture));;
-        AddTransformValues(data, transform.rotation, transform.position);
+        LevelDataHandler.AddProperty(data, (nameof(_forwardSpeedBoostMultiplier), _forwardSpeedBoostMultiplier.ToString(CultureInfo.InvariantCulture)),
+           (nameof(_backwardSpeedBoostMultiplier), _backwardSpeedBoostMultiplier.ToString(CultureInfo.InvariantCulture)));
+        
+        LevelDataHandler.AddTransformValues(data, transform.position, transform.rotation);
 
         return data;
+    }
+
+    public GameObject GetGameObjectReference()
+    {
+        return gameObject;
+    }
+
+    public void SetData(InteractableData data)
+    {
+        LevelDataHandler.SetData(this,data, transform);
     }
 }

@@ -16,14 +16,14 @@ public class PlayerAttackController : MonoBehaviour
         StartCoroutine(StartShoot());
     }
     
-    public void CalculateSkills(GateController.SkillTypes skillType, float skillAmount)
+    public void CalculateSkills(GateGroupController.SkillTypes skillType, float skillAmount)
     {
-        if (skillType == GateController.SkillTypes.Range)
+        if (skillType == GateGroupController.SkillTypes.Range)
         {
             _range += skillAmount / 5;
             _range = Mathf.Clamp(_range, 13, 50);
         }
-        else if (skillType == GateController.SkillTypes.FireRate)
+        else if (skillType == GateGroupController.SkillTypes.FireRate)
         {
             _fireRate -= skillAmount / 150;
             _fireRate = Mathf.Clamp(_fireRate, .075f, int.MaxValue);

@@ -1,29 +1,73 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Globalization;
 using DG.Tweening;
 using MoreMountains.NiceVibrations;
+using Sirenix.OdinInspector;
 using UnityEngine;
 
-public class GateGroupController : Movementable
+public class GateGroupController : MonoBehaviour, IDataCollectable
 {
-    private const int _playerLayer = 8;
-    private const int _bulletLayer = 12; 
-    private bool _isHit;
-    private bool _isSingleGate;
-
-    private void Awake()
+    public enum SkillTypes
     {
-        if (GetComponentsInChildren<GateController>().Length == 1)
+        FireRate,
+        Range,
+    }
+    
+    #region Gate 1 Attributes
+    [TabGroup("Gate 1")]
+    [LabelText("Skill Type"),GUIColor(.5f,1f,.5f)]
+    [EnumToggleButtons, HideLabel]
+    [SerializeField] private SkillTypes _firstGateSkillType;
+
+    [TabGroup("Gate 1")]
+    [LabelText("Skill Amount")]
+    [SerializeField] private float _firstGateSkillAmount;
+
+    [TabGroup("Gate 1")]
+    [LabelText("Power Amount")]
+    [SerializeField] private float _firstGatePowerAmount;
+    #endregion
+
+    #region Gate 2 Attributes
+    [TabGroup("Gate 2")]
+    [LabelText("Skill Type"),GUIColor(.4f,1f,.4f)]
+    [EnumToggleButtons, HideLabel]
+    [SerializeField] private SkillTypes _secondGateSkillType;
+
+    [TabGroup("Gate 2")]
+    [LabelText("Skill Amount")]
+    [SerializeField] private float _secondGateSkillAmount;
+
+    [TabGroup("Gate 2")]
+    [LabelText("Power Amount")]
+    [SerializeField] private float _secondGatePowerAmount;
+    #endregion
+
+    private bool _isSingleGate;
+    private InteractableMovementController _interactableMovementController;
+
+    private void Start()
+    {
+        _interactableMovementController = GetComponent<InteractableMovementController>();
+        GateController[] gateControllers = GetComponentsInChildren<GateController>();
+        
+        if (gateControllers.Length == 1)
         {
             _isSingleGate = true;
         }
 
-        if (_movementType == MovementHelper.MovementTypes.Horizontal || _movementType == MovementHelper.MovementTypes.PingPong)
+        for (int index = 0; index < gateControllers.Length; index++)
         {
-            MovementHelper.SetMovement(transform, _movementType, _movementSpeed, _horizontalMoveOffset,
-                _verticalMoveOffset, _pingPongOffset);
-            IsMoving = true;
+            if (index == 0)
+            {
+                gateControllers[index].InitGate(_firstGateSkillType, _firstGateSkillAmount, _firstGatePowerAmount);
+            }
+            else
+            {
+                gateControllers[index].InitGate(_secondGateSkillType, _secondGateSkillAmount, _secondGatePowerAmount);
+            }
         }
     }
 
@@ -31,16 +75,15 @@ public class GateGroupController : Movementable
     {
         GateController hittedGate = FindInteractedGate(other);
 
-        if (other.gameObject.layer == _playerLayer)
+        if (other.gameObject.layer == LayerHandler.PlayerLayer)
         {
             hittedGate.UseSkill();
-            _isHit = true;
         }
 
-        if (other.gameObject.layer == _bulletLayer)
+        if (other.gameObject.layer == LayerHandler.BulletLayer)
         {
             hittedGate.IncreaseSkillAmountOnBulletHit();
-            Move();
+            _interactableMovementController.Move();
             other.transform.DOKill();
             Destroy(other.gameObject);
         }
@@ -61,12 +104,23 @@ public class GateGroupController : Movementable
         return transform.GetChild(0).GetComponent<GateController>();
     }
 
-    private void Move()
+    public InteractableData GetInteractableData()
     {
-        if (!IsMoving)
-        {
-            MovementHelper.SetMovement(transform, _movementType, _movementSpeed, _horizontalMoveOffset, _verticalMoveOffset, _pingPongOffset);
-            IsMoving = true;
-        }
+        InteractableData data = new InteractableData();
+
+        LevelDataHandler.AddProperty(data, ("_firstGateSkillType", _firstGateSkillType.ToString()),
+            ("_firstGateSkillAmount", _firstGateSkillAmount.ToString(CultureInfo.InvariantCulture)),
+            ("_firstGatePowerAmount", _firstGatePowerAmount.ToString(CultureInfo.InvariantCulture)),
+            ("_secondGateSkillType", _secondGateSkillType.ToString()),
+            ("_secondGateSkillAmount", _secondGateSkillAmount.ToString(CultureInfo.InvariantCulture)),
+            ("_secondGatePowerAmount", _secondGatePowerAmount.ToString(CultureInfo.InvariantCulture)));
+
+        LevelDataHandler.AddTransformValues(data, transform.position,transform.rotation);
+        return data;
+    }
+
+    public GameObject GetGameObjectReference()
+    {
+        return gameObject;
     }
 }

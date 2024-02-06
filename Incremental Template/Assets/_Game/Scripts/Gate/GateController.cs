@@ -1,38 +1,44 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using System.Globalization;
+using UnityEngine;
 using DG.Tweening;
 using MoreMountains.NiceVibrations;
-using SincappStudio;
+using Sirenix.OdinInspector;
 using TMPro;
-using UnityEngine;
-using UnityEngine.UI;
-using Random = UnityEngine.Random;
 
-public class GateController : BaseInteractable
+public class GateController : MonoBehaviour
 {
-    public enum SkillTypes
+    private GateGroupController.SkillTypes _skillType;
+    private float _skillAmount;
+    private float _powerAmount;
+
+    #region References
+
+    public bool ShowReferences;
+    [Header("References")] 
+    [ShowIf("ShowReferences")] [SerializeField] private TextMeshPro _skillAmountText;
+    [ShowIf("ShowReferences")] [SerializeField] private TextMeshPro _skillNameText;
+    [ShowIf("ShowReferences")] [SerializeField] private TextMeshPro _powerAmountText;
+    [ShowIf("ShowReferences")] [SerializeField] private MeshRenderer _gateMesh;
+
+    #endregion
+
+    public void InitGate(GateGroupController.SkillTypes skillType, float skillAmount, float powerAmount)
     {
-        Range,
-        FireRate,
+        _skillType = skillType;
+        _skillAmount = skillAmount;
+        _powerAmount = powerAmount;
+        SetGateTexts();
     }
-
-    [SerializeField] private SkillTypes _skillType;
-    public float _skillAmount;
-    public float _powerAmount;
-
-    [Header("References")] [SerializeField]
-    private TextMeshPro _skillAmountText;
-
-    [SerializeField] private TextMeshPro _skillNameText;
-    [SerializeField] private TextMeshPro _powerAmountText;
-    [SerializeField] private MeshRenderer _gateMesh;
-
-    private void Start()
+    
+    public void UseSkill()
+    {
+        MMVibrationManager.Haptic(HapticTypes.MediumImpact);
+        EventManager.OnGateCollect?.Invoke(_skillType, (float) _skillAmount);
+        transform.DOKill();
+        Destroy(transform.parent.gameObject);
+    }
+    
+    private void SetGateTexts()
     {
         _skillNameText.SetText(_skillType.ToString());
 
@@ -60,15 +66,7 @@ public class GateController : BaseInteractable
 
         SetSkillAmountText();
     }
-
-    public void UseSkill()
-    {
-        MMVibrationManager.Haptic(HapticTypes.MediumImpact);
-        EventManager.OnGateCollect?.Invoke(_skillType, (float) _skillAmount);
-        transform.DOKill();
-        Destroy(transform.parent.gameObject);
-    }
-
+    
     private void SetSkillAmountText()
     {
         string mathSign = "+";
@@ -82,7 +80,6 @@ public class GateController : BaseInteractable
         CheckGateColor();
     }
 
-
     private void CheckGateColor()
     {
         if (_skillAmount < 0)
@@ -95,16 +92,5 @@ public class GateController : BaseInteractable
             _gateMesh.materials[0].color = new Color(0f, 0.59f, 0.14f, 0.68f);
             _gateMesh.materials[1].color = new Color(0.39f, 0.69f, 0.38f, 0.68f);
         }
-    }
-
-    public override InteractableData GetInteractableData()
-    {
-        InteractableData data = new InteractableData();
-        
-        AddProperty(data, "_skillAmount", _skillAmount.ToString(CultureInfo.InvariantCulture));
-        AddProperty(data, "_powerAmount", _powerAmount.ToString(CultureInfo.InvariantCulture));
-        AddTransformValues(data, transform.rotation, transform.position);
-
-        return data;
     }
 }
