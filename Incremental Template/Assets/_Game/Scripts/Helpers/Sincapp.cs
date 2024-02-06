@@ -66,9 +66,10 @@ namespace SincappStudio
             }
         }
         
-        public static async Task WaitTask(float delayTime)
+        public static IEnumerator WaitAndAction(float delayTime, UnityAction action)
         {
-            await Task.Delay((int) (delayTime * 1000));
+            yield return new WaitForSeconds(delayTime);
+            action?.Invoke();
         }
         
         public static float[] StringListToFloatArray(string stringListKey,string defaultValues)

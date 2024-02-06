@@ -44,8 +44,11 @@ public class ParticlePool : MonoBehaviour
         _incomeParticles[0].SetActive(true);
         var holderObj = _incomeParticles[0];
         _incomeParticles.RemoveAt(0);
-        await Sincapp.WaitTask(0.75f);
-        _incomeParticles.Add(holderObj);
-        holderObj.SetActive(false);
+       
+        StartCoroutine(Sincapp.WaitAndAction(.75f, () =>
+        {
+            _incomeParticles.Add(holderObj);
+            holderObj.SetActive(false);
+        }));
     }
 }
