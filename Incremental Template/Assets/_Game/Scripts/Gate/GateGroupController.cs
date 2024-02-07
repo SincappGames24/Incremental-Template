@@ -16,9 +16,9 @@ public class GateGroupController : MonoBehaviour, IDataCollectable
     }
     
     #region Gate 1 Attributes
+    
     [TabGroup("Gate 1")]
     [LabelText("Skill Type"),GUIColor(.5f,1f,.5f)]
-    [EnumToggleButtons, HideLabel]
     [SerializeField] private SkillTypes _firstGateSkillType;
 
     [TabGroup("Gate 1")]
@@ -28,12 +28,24 @@ public class GateGroupController : MonoBehaviour, IDataCollectable
     [TabGroup("Gate 1")]
     [LabelText("Power Amount")]
     [SerializeField] private float _firstGatePowerAmount;
+    
+    [TabGroup("Gate 1")]
+    [LabelText("Destructible Type")]
+    [SerializeField] private DestructibleBaseSO _firstGateDestructibleType;
+    
+    [TabGroup("Gate 1")]
+    [LabelText("Lock Amount")]
+    [ShowIf("_firstGateDestructibleType", null)]
+    [SerializeField] private float _firstGateLockAmount;
+    
+    private GateController _firstGateController;
+    
     #endregion
 
     #region Gate 2 Attributes
+    
     [TabGroup("Gate 2")]
     [LabelText("Skill Type"),GUIColor(.4f,1f,.4f)]
-    [EnumToggleButtons, HideLabel]
     [SerializeField] private SkillTypes _secondGateSkillType;
 
     [TabGroup("Gate 2")]
@@ -43,6 +55,18 @@ public class GateGroupController : MonoBehaviour, IDataCollectable
     [TabGroup("Gate 2")]
     [LabelText("Power Amount")]
     [SerializeField] private float _secondGatePowerAmount;
+    
+    [TabGroup("Gate 2")]
+    [LabelText("Destructible Type")]
+    [SerializeField] private DestructibleBaseSO _secondGateDestructibleType;
+    
+    [TabGroup("Gate 2")]
+    [LabelText("Lock Amount")]
+    [ShowIf("_secondGateDestructibleType", null)]
+    [SerializeField] private float _secondGateLockAmount;
+    
+    private GateController _secondGateController;
+    
     #endregion
 
     private bool _isSingleGate;
@@ -52,6 +76,8 @@ public class GateGroupController : MonoBehaviour, IDataCollectable
     {
         _interactableMovementController = GetComponent<InteractableMovementController>();
         GateController[] gateControllers = GetComponentsInChildren<GateController>();
+        _firstGateController = gateControllers[0];
+        _secondGateController = gateControllers[1] == null ? null : gateControllers[1];
         
         if (gateControllers.Length == 1)
         {
@@ -62,11 +88,11 @@ public class GateGroupController : MonoBehaviour, IDataCollectable
         {
             if (index == 0)
             {
-                gateControllers[index].InitGate(_firstGateSkillType, _firstGateSkillAmount, _firstGatePowerAmount);
+                gateControllers[index].InitGate(_firstGateSkillType, _firstGateSkillAmount, _firstGatePowerAmount,_firstGateDestructibleType, _firstGateLockAmount);
             }
             else
             {
-                gateControllers[index].InitGate(_secondGateSkillType, _secondGateSkillAmount, _secondGatePowerAmount);
+                gateControllers[index].InitGate(_secondGateSkillType, _secondGateSkillAmount, _secondGatePowerAmount,_secondGateDestructibleType, _secondGateLockAmount);
             }
         }
     }
@@ -82,7 +108,7 @@ public class GateGroupController : MonoBehaviour, IDataCollectable
 
         if (other.gameObject.layer == LayerHandler.BulletLayer)
         {
-            hittedGate.IncreaseSkillAmountOnBulletHit();
+            hittedGate.IncreaseSkillAmountOnBulletHit(other.transform);
             _interactableMovementController.Move();
             other.transform.DOKill();
             Destroy(other.gameObject);
@@ -95,13 +121,13 @@ public class GateGroupController : MonoBehaviour, IDataCollectable
         {
             if (other.gameObject.transform.position.x < 0)
             {
-                return transform.GetChild(0).GetComponent<GateController>();
+                return _firstGateController;
             }
            
-            return transform.GetChild(1).GetComponent<GateController>();
+            return _secondGateController;
         }
 
-        return transform.GetChild(0).GetComponent<GateController>();
+        return _firstGateController;
     }
 
     public InteractableData GetInteractableData()

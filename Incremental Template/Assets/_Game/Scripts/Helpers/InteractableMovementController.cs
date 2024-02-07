@@ -2,11 +2,10 @@
 using Sirenix.OdinInspector;
 using UnityEngine;
 
-public class InteractableMovementController : MonoBehaviour
+public class InteractableMovementController : MonoBehaviour, IDataCollectable
 {
     [Title("Movement Type"),GUIColor(.4f,1f,.4f)]
     [PropertyOrder(100)] 
-    [EnumToggleButtons, HideLabel]   
     public MovementHelper.MovementTypes _movementType;
     
     [PropertyOrder(100)] 
@@ -40,5 +39,24 @@ public class InteractableMovementController : MonoBehaviour
             MovementHelper.Move(transform, _movementType, _movementSpeed, _horizontalMoveOffset, _verticalMoveOffset, _pingPongOffset);
             _isMoving = true;
         }
+    }
+
+    public InteractableData GetInteractableData()
+    {
+        InteractableData interactableData = new InteractableData();
+        
+        LevelDataHandler.AddProperty(interactableData, (
+            "MovementType", _movementType.ToString()),
+            ("MovementSpeed", _movementSpeed.ToString()),
+            ("HorizontalMoveOffset", _horizontalMoveOffset.ToString()),
+            ("VerticalMoveOffset", _verticalMoveOffset.ToString()),
+            ("PingPongOffset", _pingPongOffset.ToString()));
+
+        return interactableData;
+    }
+
+    public GameObject GetGameObjectReference()
+    {
+        return gameObject;
     }
 }

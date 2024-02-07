@@ -10,4 +10,9 @@ public class ParticleManager : MonoSingleton<ParticleManager>
     {
         Instantiate(_moneyParticle, spawnPos, Quaternion.identity);
     }
+    
+    public void InstantiateParticle(ParticleSystem particleSystem, Vector3 spawnPos, Quaternion rotation, Transform parent = null)
+    {
+        Instantiate(particleSystem.gameObject, spawnPos, rotation, parent);
+    }
 }

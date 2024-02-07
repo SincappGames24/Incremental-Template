@@ -39,6 +39,27 @@ MonoBehaviour:
       type: 3}
   - InteractableValueList:
     - PropertyValues:
+        Name: MovementType
+        Value: Standard
+    - PropertyValues:
+        Name: MovementSpeed
+        Value: 2,5
+    - PropertyValues:
+        Name: HorizontalMoveOffset
+        Value: 0
+    - PropertyValues:
+        Name: VerticalMoveOffset
+        Value: 0
+    - PropertyValues:
+        Name: PingPongOffset
+        Value: 3
+    TransformValues:
+      Rotation: {x: 0, y: 0, z: 0, w: 0}
+      Position: {x: 0, y: 0, z: 0}
+    InteractableReference: {fileID: 2994851434784572966, guid: 822f56a83b62a1c49864a7857ca7669f,
+      type: 3}
+  - InteractableValueList:
+    - PropertyValues:
         Name: _firstGateSkillType
         Value: FireRate
     - PropertyValues:
@@ -59,6 +80,27 @@ MonoBehaviour:
     TransformValues:
       Rotation: {x: -0, y: -0, z: -0, w: 1}
       Position: {x: 0, y: -0.49738836, z: 13.94}
+    InteractableReference: {fileID: 2994851434784572966, guid: 822f56a83b62a1c49864a7857ca7669f,
+      type: 3}
+  - InteractableValueList:
+    - PropertyValues:
+        Name: MovementType
+        Value: Standard
+    - PropertyValues:
+        Name: MovementSpeed
+        Value: 2,5
+    - PropertyValues:
+        Name: HorizontalMoveOffset
+        Value: 0
+    - PropertyValues:
+        Name: VerticalMoveOffset
+        Value: 0
+    - PropertyValues:
+        Name: PingPongOffset
+        Value: 3
+    TransformValues:
+      Rotation: {x: 0, y: 0, z: 0, w: 0}
+      Position: {x: 0, y: 0, z: 0}
     InteractableReference: {fileID: 2994851434784572966, guid: 822f56a83b62a1c49864a7857ca7669f,
       type: 3}
   - InteractableValueList:
@@ -87,6 +129,27 @@ MonoBehaviour:
       type: 3}
   - InteractableValueList:
     - PropertyValues:
+        Name: MovementType
+        Value: Standard
+    - PropertyValues:
+        Name: MovementSpeed
+        Value: 2,5
+    - PropertyValues:
+        Name: HorizontalMoveOffset
+        Value: 0
+    - PropertyValues:
+        Name: VerticalMoveOffset
+        Value: 0
+    - PropertyValues:
+        Name: PingPongOffset
+        Value: 3
+    TransformValues:
+      Rotation: {x: 0, y: 0, z: 0, w: 0}
+      Position: {x: 0, y: 0, z: 0}
+    InteractableReference: {fileID: 2994851434784572966, guid: 822f56a83b62a1c49864a7857ca7669f,
+      type: 3}
+  - InteractableValueList:
+    - PropertyValues:
         Name: _firstGateSkillType
         Value: FireRate
     - PropertyValues:
@@ -111,6 +174,27 @@ MonoBehaviour:
       type: 3}
   - InteractableValueList:
     - PropertyValues:
+        Name: MovementType
+        Value: Standard
+    - PropertyValues:
+        Name: MovementSpeed
+        Value: 2,5
+    - PropertyValues:
+        Name: HorizontalMoveOffset
+        Value: 0
+    - PropertyValues:
+        Name: VerticalMoveOffset
+        Value: 0
+    - PropertyValues:
+        Name: PingPongOffset
+        Value: 3
+    TransformValues:
+      Rotation: {x: 0, y: 0, z: 0, w: 0}
+      Position: {x: 0, y: 0, z: 0}
+    InteractableReference: {fileID: 2994851434784572966, guid: 822f56a83b62a1c49864a7857ca7669f,
+      type: 3}
+  - InteractableValueList:
+    - PropertyValues:
         Name: _firstGateSkillType
         Value: FireRate
     - PropertyValues:
@@ -131,5 +215,26 @@ MonoBehaviour:
     TransformValues:
       Rotation: {x: -0, y: -0, z: -0, w: 1}
       Position: {x: 0, y: -0.49738836, z: 10.94}
+    InteractableReference: {fileID: 9097915021064742269, guid: e6097b4b3f025404aa7f57095456e51c,
+      type: 3}
+  - InteractableValueList:
+    - PropertyValues:
+        Name: MovementType
+        Value: Standard
+    - PropertyValues:
+        Name: MovementSpeed
+        Value: 2,5
+    - PropertyValues:
+        Name: HorizontalMoveOffset
+        Value: 0
+    - PropertyValues:
+        Name: VerticalMoveOffset
+        Value: 0
+    - PropertyValues:
+        Name: PingPongOffset
+        Value: 3
+    TransformValues:
+      Rotation: {x: 0, y: 0, z: 0, w: 0}
+      Position: {x: 0, y: 0, z: 0}
     InteractableReference: {fileID: 9097915021064742269, guid: e6097b4b3f025404aa7f57095456e51c,
       type: 3}

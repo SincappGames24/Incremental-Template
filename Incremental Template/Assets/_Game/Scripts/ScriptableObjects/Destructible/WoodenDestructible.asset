@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0253eb43f26240e4b298532556a76a09, type: 3}
+  m_Name: WoodenDestructible
+  m_EditorClassIdentifier: 
+  DestructionParticle: {fileID: 7489146757861466333, guid: 85ec3505f99776e4bb3e8d94f5b42133,
+    type: 3}
+  DestructionSound: {fileID: 0}
+  _woodenPrefab: {fileID: 5943469533215260654, guid: ad8b7b291a68c8841802f2ef7249c0fa,
+    type: 3}

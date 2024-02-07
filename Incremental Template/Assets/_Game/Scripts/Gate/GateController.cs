@@ -7,9 +7,12 @@ using TMPro;
 
 public class GateController : MonoBehaviour
 {
+    private DestructibleBaseSO _destructibleBase;
     private GateGroupController.SkillTypes _skillType;
     private float _skillAmount;
     private float _powerAmount;
+    private float _lockAmount;
+    private bool _isGateLock;
 
     #region References
 
@@ -18,22 +21,33 @@ public class GateController : MonoBehaviour
     [ShowIf("ShowReferences")] [SerializeField] private TextMeshPro _skillAmountText;
     [ShowIf("ShowReferences")] [SerializeField] private TextMeshPro _skillNameText;
     [ShowIf("ShowReferences")] [SerializeField] private TextMeshPro _powerAmountText;
+    [ShowIf("ShowReferences")] [SerializeField] private TextMeshPro _lockAmountText;
     [ShowIf("ShowReferences")] [SerializeField] private MeshRenderer _gateMesh;
 
     #endregion
 
-    public void InitGate(GateGroupController.SkillTypes skillType, float skillAmount, float powerAmount)
+    public void InitGate(GateGroupController.SkillTypes skillType, float skillAmount, float powerAmount, DestructibleBaseSO destructibleBase,float lockAmount)
     {
         _skillType = skillType;
         _skillAmount = skillAmount;
         _powerAmount = powerAmount;
+        _destructibleBase = destructibleBase;
+        _lockAmount = lockAmount;
+
+        if (destructibleBase != null && lockAmount > 0)
+        {
+            _destructibleBase.InitDestructible(lockAmount,transform);
+            _isGateLock = true;
+            _lockAmountText.gameObject.SetActive(true);
+        }
+
         SetGateTexts();
     }
     
     public void UseSkill()
     {
         MMVibrationManager.Haptic(HapticTypes.MediumImpact);
-        EventManager.OnGateCollect?.Invoke(_skillType, (float) _skillAmount);
+        EventManager.OnGateCollect?.Invoke(_skillType, _skillAmount);
         transform.DOKill();
         Destroy(transform.parent.gameObject);
     }
@@ -51,11 +65,32 @@ public class GateController : MonoBehaviour
 
         _powerAmountText.SetText($"{mathSign}{_powerAmount}");
 
+        SetLockAmountText();
         SetSkillAmountText();
     }
 
-    public void IncreaseSkillAmountOnBulletHit()
+    private void HitDestructible(Transform bulletTransform)
     {
+        _lockAmount = Mathf.Clamp(_lockAmount - 1, 0, int.MaxValue);
+        _destructibleBase.Interatact(_lockAmount, bulletTransform);
+        SetLockAmountText();
+
+        if (_lockAmount == 0)
+        {
+            _destructibleBase.Destroy();
+            _isGateLock = false;
+            _lockAmountText.gameObject.SetActive(false);
+        }
+    }
+
+    public void IncreaseSkillAmountOnBulletHit(Transform bulletTransform)
+    {
+        if (_isGateLock)
+        {
+            HitDestructible(bulletTransform);
+            return;
+        }
+            
         _skillAmount += _powerAmount;
         MMVibrationManager.Haptic(HapticTypes.SoftImpact);
 
@@ -78,6 +113,11 @@ public class GateController : MonoBehaviour
 
         _skillAmountText.SetText($"{mathSign}{_skillAmount:0}");
         CheckGateColor();
+    }
+    
+    private void SetLockAmountText()
+    {
+        _lockAmountText.SetText($"-{_lockAmount}");
     }
 
     private void CheckGateColor()
