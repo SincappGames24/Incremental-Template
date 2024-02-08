@@ -20,8 +20,6 @@ public class WoodenDestructibleSO : DestructibleBaseSO
         {
             rigi.transform.SetParent(DesctructibleHolder);
         }
-        
-        Debug.Log(GetType());
     }
 
     public override void Interatact(float lockAmount,Vector3 bulletPos)
