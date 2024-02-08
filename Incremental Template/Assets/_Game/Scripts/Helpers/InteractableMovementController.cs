@@ -2,7 +2,7 @@
 using Sirenix.OdinInspector;
 using UnityEngine;
 
-public class InteractableMovementController : MonoBehaviour, IDataCollectable
+public class InteractableMovementController : MonoBehaviour
 {
     [Title("Movement Type"),GUIColor(.4f,1f,.4f)]
     [PropertyOrder(100)] 

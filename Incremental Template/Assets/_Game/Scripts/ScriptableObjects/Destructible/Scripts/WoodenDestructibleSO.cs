@@ -1,5 +1,7 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 using UnityEngine.Serialization;
+using Random = UnityEngine.Random;
 
 [CreateAssetMenu(menuName = "ScriptableObjects/DestructibleTypes/WoodenDestructible", fileName = "WoodenDestructible",
     order = 0)]
@@ -18,15 +20,17 @@ public class WoodenDestructibleSO : DestructibleBaseSO
         {
             rigi.transform.SetParent(DesctructibleHolder);
         }
+        
+        Debug.Log(GetType());
     }
 
-    public override void Interatact(float lockAmount,Transform bulletTransform)
+    public override void Interatact(float lockAmount,Vector3 bulletPos)
     {
         var closedWoodenCountLerp = (Mathf.InverseLerp(StartLockAmount, 0, lockAmount));
         var closedWoodenCount = Mathf.FloorToInt(Mathf.Lerp(0, _woodenRigi.Length, closedWoodenCountLerp));
 
         ParticleManager.Instance.InstantiateParticle(DestructionParticle,
-            bulletTransform.position + Vector3.down * .1f + Vector3.back * .2f, Quaternion.identity, DesctructibleParent);
+            bulletPos + Vector3.down * .1f + Vector3.back * .2f, Quaternion.identity, DesctructibleParent);
         
         for (var i = 0; i < closedWoodenCount; i++)
         {

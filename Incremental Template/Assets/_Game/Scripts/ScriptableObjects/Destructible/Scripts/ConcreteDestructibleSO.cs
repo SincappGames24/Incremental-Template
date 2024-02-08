@@ -1,6 +1,8 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 [CreateAssetMenu(menuName = "ScriptableObjects/DestructibleTypes/ConcreteDestructible", fileName = "ConcreteDestructible", order = 1)]
 public class ConcreteDestructibleSO : DestructibleBaseSO
@@ -12,12 +14,13 @@ public class ConcreteDestructibleSO : DestructibleBaseSO
 
     public override void InitDestructible(float startLockAmount, Transform parent)
     {
+        base.InitDestructible(startLockAmount, parent);
         DesctructibleHolder = Instantiate(_concretePrefab, parent);
         _concretePieceRigis = DesctructibleHolder.GetComponentsInChildren<Rigidbody>(true).ToList();
         _startDestructableCount = _concretePieceRigis.Count;
     }
 
-    public override void Interatact(float currentLockAmount,Transform bulletTransform)
+    public override void Interatact(float currentLockAmount,Vector3 bulletPos)
     {
         var closedWoodenCountLerp = (Mathf.InverseLerp(StartLockAmount, 0, currentLockAmount));
         var closedWoodenCount = Mathf.CeilToInt(Mathf.Lerp(0, _startDestructableCount, closedWoodenCountLerp));
@@ -27,7 +30,7 @@ public class ConcreteDestructibleSO : DestructibleBaseSO
         for (var i = 0; i < closedWoodenCount - _explodedDestructableCount; i++)
         {
             Rigidbody rigi = _concretePieceRigis
-                .OrderBy(obj => Vector3.Distance(obj.transform.position, bulletTransform.position))?
+                .OrderBy(obj => Vector3.Distance(obj.transform.position, bulletPos))?
                 .FirstOrDefault(x => x.isKinematic);
 
             if (rigi != null)

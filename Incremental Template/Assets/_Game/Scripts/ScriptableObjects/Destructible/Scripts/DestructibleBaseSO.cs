@@ -1,15 +1,7 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class DestructibleBaseSO : ScriptableObject
+public class DestructibleBaseSO : ScriptableObject
 {
-    public enum DestructibleTypes
-    {
-        Wooden,
-        Concrete
-    }
-
     public ParticleSystem DestructionParticle;
     public AudioClip DestructionSound;
     protected float StartLockAmount;
@@ -22,7 +14,7 @@ public abstract class DestructibleBaseSO : ScriptableObject
         DesctructibleParent = parent;
     }
 
-    public abstract void Interatact(float currentLockAmount, Transform bulletTransform);
+    public virtual void Interatact(float currentLockAmount, Vector3 bulletPos) {}
 
     public virtual void Destroy()
     {

@@ -44,7 +44,7 @@ public class IncrementalManager : MonoBehaviour
         }
 
         #endregion
-        persistData.FireRateUpgradeCost *= LevelManager.Instance.FireRateCostMultipliers[multiplierIndex];
+        persistData.FireRateUpgradeCost *= RemoteController.Instance.FireRateCostMultipliers[multiplierIndex];
         EventManager.OnIncrementalUpgrade?.Invoke();
     }
 
@@ -85,7 +85,7 @@ public class IncrementalManager : MonoBehaviour
         }
 
         #endregion
-        persistData.RangeUpgradeCost *= LevelManager.Instance.RangeCostMultipliers[multiplierIndex];
+        persistData.RangeUpgradeCost *= RemoteController.Instance.RangeCostMultipliers[multiplierIndex];
         EventManager.OnIncrementalUpgrade?.Invoke();
     }
 
@@ -126,7 +126,7 @@ public class IncrementalManager : MonoBehaviour
         }
 
         #endregion
-        persistData.IncomeUpgradeCost *= LevelManager.Instance.IncomeCostMultipliers[multiplierIndex];
+        persistData.IncomeUpgradeCost *= RemoteController.Instance.IncomeCostMultipliers[multiplierIndex];
         EventManager.OnIncrementalUpgrade?.Invoke();
     }
 

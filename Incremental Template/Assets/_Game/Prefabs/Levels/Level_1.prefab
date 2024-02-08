@@ -49,6 +49,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9097915021064742270, guid: e6097b4b3f025404aa7f57095456e51c,
         type: 3}
+      propertyPath: _firstGateLockAmount
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 9097915021064742270, guid: e6097b4b3f025404aa7f57095456e51c,
+        type: 3}
       propertyPath: _firstGatePowerAmount
       value: 6
       objectReference: {fileID: 0}
@@ -56,6 +61,11 @@ PrefabInstance:
         type: 3}
       propertyPath: _firstGateSkillAmount
       value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 9097915021064742270, guid: e6097b4b3f025404aa7f57095456e51c,
+        type: 3}
+      propertyPath: _secondGateLockAmount
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 9097915021064742270, guid: e6097b4b3f025404aa7f57095456e51c,
         type: 3}
@@ -67,6 +77,18 @@ PrefabInstance:
       propertyPath: _secondGateSkillAmount
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 9097915021064742270, guid: e6097b4b3f025404aa7f57095456e51c,
+        type: 3}
+      propertyPath: _firstGateDestructibleType
+      value: 
+      objectReference: {fileID: 11400000, guid: 461e5e20f8fc4fa40baecaeb4501ff56,
+        type: 2}
+    - target: {fileID: 9097915021064742270, guid: e6097b4b3f025404aa7f57095456e51c,
+        type: 3}
+      propertyPath: _secondGateDestructibleType
+      value: 
+      objectReference: {fileID: 11400000, guid: 461e5e20f8fc4fa40baecaeb4501ff56,
+        type: 2}
     - target: {fileID: 9097915021064742271, guid: e6097b4b3f025404aa7f57095456e51c,
         type: 3}
       propertyPath: m_RootOrder

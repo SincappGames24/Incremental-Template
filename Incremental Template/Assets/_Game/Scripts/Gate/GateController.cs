@@ -49,7 +49,6 @@ public class GateController : MonoBehaviour
         MMVibrationManager.Haptic(HapticTypes.MediumImpact);
         EventManager.OnGateCollect?.Invoke(_skillType, _skillAmount);
         transform.DOKill();
-        Destroy(transform.parent.gameObject);
     }
     
     private void SetGateTexts()
@@ -69,25 +68,11 @@ public class GateController : MonoBehaviour
         SetSkillAmountText();
     }
 
-    private void HitDestructible(Transform bulletTransform)
-    {
-        _lockAmount = Mathf.Clamp(_lockAmount - 1, 0, int.MaxValue);
-        _destructibleBase.Interatact(_lockAmount, bulletTransform);
-        SetLockAmountText();
-
-        if (_lockAmount == 0)
-        {
-            _destructibleBase.Destroy();
-            _isGateLock = false;
-            _lockAmountText.gameObject.SetActive(false);
-        }
-    }
-
-    public void IncreaseSkillAmountOnBulletHit(Transform bulletTransform)
+    public void IncreaseSkillAmountOnBulletHit(Vector3 bulletPos)
     {
         if (_isGateLock)
         {
-            HitDestructible(bulletTransform);
+            HitDestructible(bulletPos);
             return;
         }
             
@@ -100,6 +85,20 @@ public class GateController : MonoBehaviour
         });
 
         SetSkillAmountText();
+    }
+    
+    private void HitDestructible(Vector3 bulletPos)
+    {
+        _lockAmount = Mathf.Clamp(_lockAmount - 1, 0, int.MaxValue);
+        _destructibleBase.Interatact(_lockAmount, bulletPos);
+        SetLockAmountText();
+
+        if (_lockAmount == 0)
+        {
+            _destructibleBase.Destroy();
+            _isGateLock = false;
+            _lockAmountText.gameObject.SetActive(false);
+        }
     }
     
     private void SetSkillAmountText()

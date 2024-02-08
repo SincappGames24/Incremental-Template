@@ -1,6 +1,3 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using DG.Tweening;
 using ElephantSDK;
 using SincappStudio;
@@ -20,7 +17,6 @@ public class PlayerController : MonoBehaviour
     public static PlayerStates PlayerState;
     private PlayerMovementController _playerMovementController;
     private PlayerAttackController _playerAttackController;
-    private const int _endGameWall = 17;
     
     private void Awake()
     {
@@ -83,7 +79,9 @@ public class PlayerController : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.layer == _endGameWall)
+        other.GetComponent<IInteractable>()?.InteractPlayer(transform);
+        
+        if (other.gameObject.layer == LayerHandler.EndGameWall)
         {
             other.gameObject.layer = 0;
             Die(0);

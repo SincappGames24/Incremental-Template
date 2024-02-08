@@ -51,6 +51,13 @@ public class LevelDataHandler
                         object enumValue = Enum.Parse(field.FieldType, value.PropertyValues.Value);
                         field.SetValue(iDataCollectable, enumValue);
                     }
+                    else if (typeof(ScriptableObject).IsAssignableFrom(field.FieldType))
+                    {
+                        string jsonData = value.PropertyValues.Value;
+                        ScriptableObject scriptableObject = ScriptableObject.CreateInstance(typeof(DestructibleBaseSO)); 
+                        JsonUtility.FromJsonOverwrite(jsonData, scriptableObject); 
+                        field.SetValue(iDataCollectable, scriptableObject);
+                    }
                     else
                     {
                         object deserializedValue = Convert.ChangeType(value.PropertyValues.Value, field.FieldType,NumberFormatInfo.InvariantInfo);

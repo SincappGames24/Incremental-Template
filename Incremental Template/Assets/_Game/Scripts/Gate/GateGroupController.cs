@@ -1,13 +1,8 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using System.Globalization;
-using DG.Tweening;
-using MoreMountains.NiceVibrations;
 using Sirenix.OdinInspector;
 using UnityEngine;
 
-public class GateGroupController : MonoBehaviour, IDataCollectable
+public class GateGroupController : MonoBehaviour, IDataCollectable, IDamageable, IInteractable
 {
     public enum SkillTypes
     {
@@ -77,7 +72,7 @@ public class GateGroupController : MonoBehaviour, IDataCollectable
         _interactableMovementController = GetComponent<InteractableMovementController>();
         GateController[] gateControllers = GetComponentsInChildren<GateController>();
         _firstGateController = gateControllers[0];
-        _secondGateController = gateControllers[1] == null ? null : gateControllers[1];
+        _secondGateController = gateControllers.Length < 2 ? null : gateControllers[1];
         
         if (gateControllers.Length == 1)
         {
@@ -97,29 +92,11 @@ public class GateGroupController : MonoBehaviour, IDataCollectable
         }
     }
 
-    private void OnTriggerEnter(Collider other)
-    {
-        GateController hittedGate = FindInteractedGate(other);
-
-        if (other.gameObject.layer == LayerHandler.PlayerLayer)
-        {
-            hittedGate.UseSkill();
-        }
-
-        if (other.gameObject.layer == LayerHandler.BulletLayer)
-        {
-            hittedGate.IncreaseSkillAmountOnBulletHit(other.transform);
-            _interactableMovementController.Move();
-            other.transform.DOKill();
-            Destroy(other.gameObject);
-        }
-    }
-
-    private GateController FindInteractedGate(Collider other)
+    private GateController FindInteractedGate(Transform other)
     {
         if (!_isSingleGate)
         {
-            if (other.gameObject.transform.position.x < 0)
+            if (other.position.x < 0)
             {
                 return _firstGateController;
             }
@@ -128,6 +105,20 @@ public class GateGroupController : MonoBehaviour, IDataCollectable
         }
 
         return _firstGateController;
+    }
+    
+    public void TakeBulletDamage(float damageAmount, BulletController bullet)
+    {
+        GateController hittedGate = FindInteractedGate(bullet.transform);
+        hittedGate.IncreaseSkillAmountOnBulletHit(bullet.transform.position);
+        _interactableMovementController.Move();
+    }
+    
+    public void InteractPlayer(Transform playerTransform)
+    {
+        GateController hittedGate = FindInteractedGate(playerTransform);
+        hittedGate.UseSkill();
+        Destroy(gameObject);
     }
 
     public InteractableData GetInteractableData()
@@ -139,7 +130,11 @@ public class GateGroupController : MonoBehaviour, IDataCollectable
             ("_firstGatePowerAmount", _firstGatePowerAmount.ToString(CultureInfo.InvariantCulture)),
             ("_secondGateSkillType", _secondGateSkillType.ToString()),
             ("_secondGateSkillAmount", _secondGateSkillAmount.ToString(CultureInfo.InvariantCulture)),
-            ("_secondGatePowerAmount", _secondGatePowerAmount.ToString(CultureInfo.InvariantCulture)));
+            ("_secondGatePowerAmount", _secondGatePowerAmount.ToString(CultureInfo.InvariantCulture)),
+            ("_firstGateDestructibleType", _firstGateDestructibleType == null ? "" : JsonUtility.ToJson(_firstGateDestructibleType)),
+            ("_secondGateDestructibleType", _secondGateDestructibleType == null ? "" : JsonUtility.ToJson(_secondGateDestructibleType)),
+            ("_firstGateLockAmount", _firstGateLockAmount.ToString(CultureInfo.InvariantCulture)),
+            ("_secondGateLockAmount", _secondGateLockAmount.ToString(CultureInfo.InvariantCulture)));
 
         LevelDataHandler.AddTransformValues(data, transform.position,transform.rotation);
         return data;

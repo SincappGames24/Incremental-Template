@@ -9,8 +9,9 @@ public class GameManager : MonoSingleton<GameManager>
 {
     private bool _isGameStarted;
 
-    private void Awake()
+    protected override void Awake()
     {
+        base.Awake();
         Input.multiTouchEnabled = false;
         Application.targetFrameRate = 60;
     }

@@ -6,21 +6,8 @@ using UnityEngine;
 
 public class LevelManager : MonoSingleton<LevelManager>
 {
-    public float[] FireRateCostMultipliers { private set; get; }
-    public float[] RangeCostMultipliers { private set; get; }
-    public float[] IncomeCostMultipliers { private set; get; }
-
-    private void Awake()
+    protected override void Awake()
     {
-        #region Economy
-
-        FireRateCostMultipliers =
-            Sincapp.StringListToFloatArray("FireRate_Cost_Multipliers", "1.35-1.25-1.02-1.01-1.001-1.001");
-        RangeCostMultipliers =
-            Sincapp.StringListToFloatArray("Range_Cost_Multipliers", "1.35-1.2-1.02-1.01-1.001-1.001");
-        IncomeCostMultipliers =
-            Sincapp.StringListToFloatArray("Income_Cost_Multipliers", "1.35-1.25-1.05-1.01-1.001-1.001");
-
-        #endregion
+      base.Awake();
     }
 }

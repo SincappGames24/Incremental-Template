@@ -32,6 +32,18 @@ MonoBehaviour:
     - PropertyValues:
         Name: _secondGatePowerAmount
         Value: 2
+    - PropertyValues:
+        Name: _firstGateDestructibleType
+        Value: 
+    - PropertyValues:
+        Name: _secondGateDestructibleType
+        Value: 
+    - PropertyValues:
+        Name: _firstGateLockAmount
+        Value: 0
+    - PropertyValues:
+        Name: _secondGateLockAmount
+        Value: 0
     TransformValues:
       Rotation: {x: -0, y: -0, z: -0, w: 1}
       Position: {x: 1, y: 1, z: 1}
@@ -39,27 +51,6 @@ MonoBehaviour:
       type: 3}
   - InteractableValueList:
     - PropertyValues:
-        Name: MovementType
-        Value: Standard
-    - PropertyValues:
-        Name: MovementSpeed
-        Value: 2,5
-    - PropertyValues:
-        Name: HorizontalMoveOffset
-        Value: 0
-    - PropertyValues:
-        Name: VerticalMoveOffset
-        Value: 0
-    - PropertyValues:
-        Name: PingPongOffset
-        Value: 3
-    TransformValues:
-      Rotation: {x: 0, y: 0, z: 0, w: 0}
-      Position: {x: 0, y: 0, z: 0}
-    InteractableReference: {fileID: 2994851434784572966, guid: 822f56a83b62a1c49864a7857ca7669f,
-      type: 3}
-  - InteractableValueList:
-    - PropertyValues:
         Name: _firstGateSkillType
         Value: FireRate
     - PropertyValues:
@@ -77,6 +68,18 @@ MonoBehaviour:
     - PropertyValues:
         Name: _secondGatePowerAmount
         Value: 2
+    - PropertyValues:
+        Name: _firstGateDestructibleType
+        Value: 
+    - PropertyValues:
+        Name: _secondGateDestructibleType
+        Value: 
+    - PropertyValues:
+        Name: _firstGateLockAmount
+        Value: 0
+    - PropertyValues:
+        Name: _secondGateLockAmount
+        Value: 0
     TransformValues:
       Rotation: {x: -0, y: -0, z: -0, w: 1}
       Position: {x: 0, y: -0.49738836, z: 13.94}
@@ -84,27 +87,6 @@ MonoBehaviour:
       type: 3}
   - InteractableValueList:
     - PropertyValues:
-        Name: MovementType
-        Value: Standard
-    - PropertyValues:
-        Name: MovementSpeed
-        Value: 2,5
-    - PropertyValues:
-        Name: HorizontalMoveOffset
-        Value: 0
-    - PropertyValues:
-        Name: VerticalMoveOffset
-        Value: 0
-    - PropertyValues:
-        Name: PingPongOffset
-        Value: 3
-    TransformValues:
-      Rotation: {x: 0, y: 0, z: 0, w: 0}
-      Position: {x: 0, y: 0, z: 0}
-    InteractableReference: {fileID: 2994851434784572966, guid: 822f56a83b62a1c49864a7857ca7669f,
-      type: 3}
-  - InteractableValueList:
-    - PropertyValues:
         Name: _firstGateSkillType
         Value: FireRate
     - PropertyValues:
@@ -122,6 +104,18 @@ MonoBehaviour:
     - PropertyValues:
         Name: _secondGatePowerAmount
         Value: 2
+    - PropertyValues:
+        Name: _firstGateDestructibleType
+        Value: 
+    - PropertyValues:
+        Name: _secondGateDestructibleType
+        Value: 
+    - PropertyValues:
+        Name: _firstGateLockAmount
+        Value: 0
+    - PropertyValues:
+        Name: _secondGateLockAmount
+        Value: 0
     TransformValues:
       Rotation: {x: -0, y: -0, z: -0, w: 1}
       Position: {x: 0, y: -0.49738836, z: 24.85}
@@ -129,27 +123,6 @@ MonoBehaviour:
       type: 3}
   - InteractableValueList:
     - PropertyValues:
-        Name: MovementType
-        Value: Standard
-    - PropertyValues:
-        Name: MovementSpeed
-        Value: 2,5
-    - PropertyValues:
-        Name: HorizontalMoveOffset
-        Value: 0
-    - PropertyValues:
-        Name: VerticalMoveOffset
-        Value: 0
-    - PropertyValues:
-        Name: PingPongOffset
-        Value: 3
-    TransformValues:
-      Rotation: {x: 0, y: 0, z: 0, w: 0}
-      Position: {x: 0, y: 0, z: 0}
-    InteractableReference: {fileID: 2994851434784572966, guid: 822f56a83b62a1c49864a7857ca7669f,
-      type: 3}
-  - InteractableValueList:
-    - PropertyValues:
         Name: _firstGateSkillType
         Value: FireRate
     - PropertyValues:
@@ -167,30 +140,21 @@ MonoBehaviour:
     - PropertyValues:
         Name: _secondGatePowerAmount
         Value: 2
+    - PropertyValues:
+        Name: _firstGateDestructibleType
+        Value: 
+    - PropertyValues:
+        Name: _secondGateDestructibleType
+        Value: 
+    - PropertyValues:
+        Name: _firstGateLockAmount
+        Value: 0
+    - PropertyValues:
+        Name: _secondGateLockAmount
+        Value: 0
     TransformValues:
       Rotation: {x: -0, y: -0, z: -0, w: 1}
       Position: {x: 0, y: -0.49738836, z: 18.17}
-    InteractableReference: {fileID: 2994851434784572966, guid: 822f56a83b62a1c49864a7857ca7669f,
-      type: 3}
-  - InteractableValueList:
-    - PropertyValues:
-        Name: MovementType
-        Value: Standard
-    - PropertyValues:
-        Name: MovementSpeed
-        Value: 2,5
-    - PropertyValues:
-        Name: HorizontalMoveOffset
-        Value: 0
-    - PropertyValues:
-        Name: VerticalMoveOffset
-        Value: 0
-    - PropertyValues:
-        Name: PingPongOffset
-        Value: 3
-    TransformValues:
-      Rotation: {x: 0, y: 0, z: 0, w: 0}
-      Position: {x: 0, y: 0, z: 0}
     InteractableReference: {fileID: 2994851434784572966, guid: 822f56a83b62a1c49864a7857ca7669f,
       type: 3}
   - InteractableValueList:
@@ -212,29 +176,20 @@ MonoBehaviour:
     - PropertyValues:
         Name: _secondGatePowerAmount
         Value: 3
+    - PropertyValues:
+        Name: _firstGateDestructibleType
+        Value: '{"DestructionParticle":{"instanceID":22650},"DestructionSound":{"instanceID":0},"_woodenPrefab":{"instanceID":22652}}'
+    - PropertyValues:
+        Name: _secondGateDestructibleType
+        Value: '{"DestructionParticle":{"instanceID":22650},"DestructionSound":{"instanceID":0},"_woodenPrefab":{"instanceID":22652}}'
+    - PropertyValues:
+        Name: _firstGateLockAmount
+        Value: 3
+    - PropertyValues:
+        Name: _secondGateLockAmount
+        Value: 1
     TransformValues:
       Rotation: {x: -0, y: -0, z: -0, w: 1}
       Position: {x: 0, y: -0.49738836, z: 10.94}
-    InteractableReference: {fileID: 9097915021064742269, guid: e6097b4b3f025404aa7f57095456e51c,
-      type: 3}
-  - InteractableValueList:
-    - PropertyValues:
-        Name: MovementType
-        Value: Standard
-    - PropertyValues:
-        Name: MovementSpeed
-        Value: 2,5
-    - PropertyValues:
-        Name: HorizontalMoveOffset
-        Value: 0
-    - PropertyValues:
-        Name: VerticalMoveOffset
-        Value: 0
-    - PropertyValues:
-        Name: PingPongOffset
-        Value: 3
-    TransformValues:
-      Rotation: {x: 0, y: 0, z: 0, w: 0}
-      Position: {x: 0, y: 0, z: 0}
     InteractableReference: {fileID: 9097915021064742269, guid: e6097b4b3f025404aa7f57095456e51c,
       type: 3}
