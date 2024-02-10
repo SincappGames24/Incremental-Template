@@ -79,16 +79,14 @@ public class GateGroupController : MonoBehaviour, IDataCollectable, IDamageable,
             _isSingleGate = true;
         }
 
-        for (int index = 0; index < gateControllers.Length; index++)
+        if (_firstGateController != null)
         {
-            if (index == 0)
-            {
-                gateControllers[index].InitGate(_firstGateSkillType, _firstGateSkillAmount, _firstGatePowerAmount,_firstGateDestructibleType, _firstGateLockAmount);
-            }
-            else
-            {
-                gateControllers[index].InitGate(_secondGateSkillType, _secondGateSkillAmount, _secondGatePowerAmount,_secondGateDestructibleType, _secondGateLockAmount);
-            }
+            _firstGateController.InitGate(_firstGateSkillType, _firstGateSkillAmount, _firstGatePowerAmount,_firstGateDestructibleType, _firstGateLockAmount);
+        }
+
+        if (_secondGateController != null)
+        {
+            _secondGateController.InitGate(_secondGateSkillType, _secondGateSkillAmount, _secondGatePowerAmount,_secondGateDestructibleType, _secondGateLockAmount);
         }
     }
 

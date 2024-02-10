@@ -31,7 +31,7 @@ public class GateController : MonoBehaviour
         _skillType = skillType;
         _skillAmount = skillAmount;
         _powerAmount = powerAmount;
-        _destructibleBase = destructibleBase;
+        _destructibleBase = Instantiate(destructibleBase);
         _lockAmount = lockAmount;
 
         if (destructibleBase != null && lockAmount > 0)
@@ -40,7 +40,7 @@ public class GateController : MonoBehaviour
             _isGateLock = true;
             _lockAmountText.gameObject.SetActive(true);
         }
-
+        
         SetGateTexts();
     }
     
