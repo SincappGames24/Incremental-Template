@@ -90,11 +90,11 @@ public class GateGroupController : MonoBehaviour, IDataCollectable, IDamageable,
         }
     }
 
-    private GateController FindInteractedGate(Transform other)
+    private GateController FindInteractedGate(float bulletXPos)
     {
         if (!_isSingleGate)
         {
-            if (other.position.x < 0)
+            if (bulletXPos < 0)
             {
                 return _firstGateController;
             }
@@ -107,14 +107,14 @@ public class GateGroupController : MonoBehaviour, IDataCollectable, IDamageable,
     
     public void TakeBulletDamage(float damageAmount, BulletController bullet)
     {
-        GateController hittedGate = FindInteractedGate(bullet.transform);
+        GateController hittedGate = FindInteractedGate(bullet.transform.position.x);
         hittedGate.IncreaseSkillAmountOnBulletHit(bullet.transform.position);
         _interactableMovementController.Move();
     }
     
     public void InteractPlayer(Transform playerTransform)
     {
-        GateController hittedGate = FindInteractedGate(playerTransform);
+        GateController hittedGate = FindInteractedGate(playerTransform.position.x);
         hittedGate.UseSkill();
         Destroy(gameObject);
     }

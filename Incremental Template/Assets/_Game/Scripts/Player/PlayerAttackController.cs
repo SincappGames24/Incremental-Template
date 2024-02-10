@@ -1,13 +1,23 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using DG.Tweening;
 using UnityEngine;
+using UnityEngine.Pool;
 
 public class PlayerAttackController : MonoBehaviour
 {
     [SerializeField] private Transform _shootPosTransform;
     [SerializeField] private BulletController _bullet;
+    private ObjectPool<BulletController> _bulletPool;
     private float _range;
     private float _fireRate;
+
+    private void Awake()
+    {
+        _bulletPool = new ObjectPool<BulletController>(InstantiateBullet, OnTakeBulletFromPool, OnReturnBulletToPool,
+            OnDestroyBullet, true, 20, 100);
+    }
 
     public void StartShooting()
     {
@@ -15,7 +25,7 @@ public class PlayerAttackController : MonoBehaviour
         _fireRate = PersistData.Instance.FireRate;
         StartCoroutine(StartShoot());
     }
-    
+
     public void CalculateSkills(GateGroupController.SkillTypes skillType, float skillAmount)
     {
         if (skillType == GateGroupController.SkillTypes.Range)
@@ -29,7 +39,7 @@ public class PlayerAttackController : MonoBehaviour
             _fireRate = Mathf.Clamp(_fireRate, .075f, int.MaxValue);
         }
     }
-    
+
     private IEnumerator StartShoot()
     {
         while (PlayerController.PlayerState == PlayerController.PlayerStates.Run
@@ -40,8 +50,34 @@ public class PlayerAttackController : MonoBehaviour
             //     _rightHand.DOLocalRotate(Vector3.zero, _fireRate);
             // });
 
-            Instantiate(_bullet, _shootPosTransform.position,Quaternion.identity).Shoot(_range,transform);
+            _bulletPool.Get().Shoot(_range, transform);
             yield return new WaitForSeconds(_fireRate);
         }
+    }
+
+    private BulletController InstantiateBullet()
+    {
+        var bullet = Instantiate(_bullet, _shootPosTransform.position, Quaternion.identity);
+        bullet.SetPool(_bulletPool);
+        Debug.Log(_bulletPool.CountAll);
+        return bullet;
+    }
+
+    private void OnTakeBulletFromPool(BulletController bullet)
+    {
+        bullet.transform.position = _shootPosTransform.position;
+        bullet.transform.rotation = Quaternion.identity;
+        bullet.gameObject.SetActive(true);
+    }
+
+    private void OnReturnBulletToPool(BulletController bullet)
+    {
+        bullet.transform.DOKill();
+        bullet.gameObject.SetActive(false);
+    }
+
+    private void OnDestroyBullet(BulletController bullet)
+    {
+        Destroy(bullet.gameObject);
     }
 }
