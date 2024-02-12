@@ -59,7 +59,6 @@ public class PlayerAttackController : MonoBehaviour
     {
         var bullet = Instantiate(_bullet, _shootPosTransform.position, Quaternion.identity);
         bullet.SetPool(_bulletPool);
-        Debug.Log(_bulletPool.CountAll);
         return bullet;
     }
 

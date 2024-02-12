@@ -31,11 +31,11 @@ public class GateController : MonoBehaviour
         _skillType = skillType;
         _skillAmount = skillAmount;
         _powerAmount = powerAmount;
-        _destructibleBase = Instantiate(destructibleBase);
         _lockAmount = lockAmount;
 
         if (destructibleBase != null && lockAmount > 0)
         {
+            _destructibleBase = Instantiate(destructibleBase);
             _destructibleBase.InitDestructible(lockAmount,transform);
             _isGateLock = true;
             _lockAmountText.gameObject.SetActive(true);
@@ -131,5 +131,10 @@ public class GateController : MonoBehaviour
             _gateMesh.materials[0].color = new Color(0f, 0.59f, 0.14f, 0.68f);
             _gateMesh.materials[1].color = new Color(0.39f, 0.69f, 0.38f, 0.68f);
         }
+    }
+
+    public void DestroyGate()
+    {
+        _skillAmountText.transform.DOKill();
     }
 }

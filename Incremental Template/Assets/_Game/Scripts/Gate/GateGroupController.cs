@@ -1,4 +1,5 @@
 using System.Globalization;
+using DG.Tweening;
 using Sirenix.OdinInspector;
 using UnityEngine;
 
@@ -66,15 +67,16 @@ public class GateGroupController : MonoBehaviour, IDataCollectable, IDamageable,
 
     private bool _isSingleGate;
     private InteractableMovementController _interactableMovementController;
+    private GateController[] _gateControllers;
 
     private void Start()
     {
         _interactableMovementController = GetComponent<InteractableMovementController>();
-        GateController[] gateControllers = GetComponentsInChildren<GateController>();
-        _firstGateController = gateControllers[0];
-        _secondGateController = gateControllers.Length < 2 ? null : gateControllers[1];
+        _gateControllers = GetComponentsInChildren<GateController>();
+        _firstGateController = _gateControllers[0];
+        _secondGateController = _gateControllers.Length < 2 ? null : _gateControllers[1];
         
-        if (gateControllers.Length == 1)
+        if (_gateControllers.Length == 1)
         {
             _isSingleGate = true;
         }
@@ -116,6 +118,13 @@ public class GateGroupController : MonoBehaviour, IDataCollectable, IDamageable,
     {
         GateController hittedGate = FindInteractedGate(playerTransform.position.x);
         hittedGate.UseSkill();
+        transform.DOKill();
+        
+        foreach (GateController gateController in _gateControllers)
+        {
+            gateController.DestroyGate();
+        }
+        
         Destroy(gameObject);
     }
 
