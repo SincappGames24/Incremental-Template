@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Sirenix.OdinInspector;
 using UnityEngine;
 
 public class InteractableDataContainer : ScriptableObject
@@ -24,7 +25,10 @@ public class InteractableValues
     public class PropertyValuesData
     {
         public string Name;
+        [ShowIf("Value", "")]
         public string Value;
+        [ShowIf("ValueSO", "null")]
+        public ScriptableObject ValueSO;
     }
 
     [System.Serializable]

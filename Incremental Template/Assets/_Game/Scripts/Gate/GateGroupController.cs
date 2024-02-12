@@ -138,11 +138,13 @@ public class GateGroupController : MonoBehaviour, IDataCollectable, IDamageable,
             ("_secondGateSkillType", _secondGateSkillType.ToString()),
             ("_secondGateSkillAmount", _secondGateSkillAmount.ToString(CultureInfo.InvariantCulture)),
             ("_secondGatePowerAmount", _secondGatePowerAmount.ToString(CultureInfo.InvariantCulture)),
-            ("_firstGateDestructibleType", _firstGateDestructibleType == null ? "" : JsonUtility.ToJson(_firstGateDestructibleType)),
-            ("_secondGateDestructibleType", _secondGateDestructibleType == null ? "" : JsonUtility.ToJson(_secondGateDestructibleType)),
             ("_firstGateLockAmount", _firstGateLockAmount.ToString(CultureInfo.InvariantCulture)),
             ("_secondGateLockAmount", _secondGateLockAmount.ToString(CultureInfo.InvariantCulture)));
-
+        
+        LevelDataHandler.AddProperty(data,
+            ("_firstGateDestructibleType",_firstGateDestructibleType),
+            ("_secondGateDestructibleType",_secondGateDestructibleType));
+        
         LevelDataHandler.AddTransformValues(data, transform.position,transform.rotation);
         return data;
     }

@@ -24,12 +24,6 @@ public class CameraController : MonoBehaviour
         EventManager.OnFinishWall -= OpenEndGameCam;
     }
 
-    private void Awake()
-    {
-        _idleCam.SetActive(false);
-    }
-
-
     private void StartGame()
     {
         _idleCam.SetActive(false);

@@ -23,6 +23,23 @@ public class LevelDataHandler
             });   
         }
     }
+    
+    public static void AddProperty(InteractableData data, params (string propertyName,ScriptableObject propertyValue)[] properties)
+    {
+        foreach ((string propertyName, ScriptableObject propertyValue) property in properties)
+        {
+            InteractableValues.PropertyValuesData propertyData = new InteractableValues.PropertyValuesData
+            {
+                Name = property.propertyName,
+                ValueSO = property.propertyValue
+            };
+        
+            data.InteractableValueList.Add(new InteractableValues
+            {
+                PropertyValues = propertyData
+            });   
+        }
+    }
 
     public static void AddTransformValues(InteractableData data, Vector3 position, Quaternion rotation)
     {
@@ -53,10 +70,7 @@ public class LevelDataHandler
                     }
                     else if (typeof(ScriptableObject).IsAssignableFrom(field.FieldType))
                     {
-                        string jsonData = value.PropertyValues.Value;
-                        ScriptableObject scriptableObject = ScriptableObject.CreateInstance(typeof(DestructibleBaseSO)); 
-                        JsonUtility.FromJsonOverwrite(jsonData, scriptableObject); 
-                        field.SetValue(iDataCollectable, scriptableObject);
+                        field.SetValue(iDataCollectable, value.PropertyValues.ValueSO);
                     }
                     else
                     {
