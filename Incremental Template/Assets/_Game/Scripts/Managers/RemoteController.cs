@@ -9,10 +9,14 @@ public class RemoteController : MonoSingleton<RemoteController>
     public float[] FireRateCostMultipliers { private set; get; }
     public float[] RangeCostMultipliers { private set; get; }
     public float[] IncomeCostMultipliers { private set; get; }
+    public float[] EndGameObstacleNumbers { private set; get; }
     
     protected override void Awake()
     {
         base.Awake();
+        
+        EndGameObstacleNumbers = Sincapp.StringListToFloatArray("End_Game_Obstacle_Numbers",
+            "5-10-15-25-50-80-100-150-200-250-300-350-500-550-600-650-700-750-800-1000-1000-1000-1000-1000-1000-1000-1000-1200-1400");
         
         #region Economy
 

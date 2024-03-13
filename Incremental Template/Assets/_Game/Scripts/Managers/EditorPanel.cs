@@ -168,7 +168,7 @@ public class EditorPanel : MonoBehaviour
     {
         int.TryParse(_moneyTextField.text, out var money);
         PersistData.Instance.Money += money;
-        EventManager.OnIncomeChange?.Invoke();
+        EventManager.OnMoneyChange?.Invoke();
     }
 
 
@@ -176,7 +176,7 @@ public class EditorPanel : MonoBehaviour
     {
         int.TryParse(_moneyTextField.text, out var money);
         PersistData.Instance.Money -= money;
-        EventManager.OnIncomeChange?.Invoke();
+        EventManager.OnMoneyChange?.Invoke();
     }
     //  public void LoadScene() => LevelManager.Instance.LoadNewLevel(SelectedScene);
 
@@ -341,7 +341,7 @@ public class EditorPanel : MonoBehaviour
         var persistData = PersistData.Instance;
         persistData.CurrentLevel = 1;
         persistData.Money = 10;
-        EventManager.OnIncomeChange?.Invoke();
+        EventManager.OnMoneyChange?.Invoke();
         SelectedScene = persistData.CurrentLevel;
         ChangeSkyboxColor(0);
         ChangePlatformColor(0);

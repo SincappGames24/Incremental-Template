@@ -93,6 +93,7 @@ public class EndGameController : MonoBehaviour
     {
         float spawnZPosForWall = 14;
         int endGameObstacleWatt = 2;
+        RemoteController remoteController = RemoteController.Instance;
 
         for (int i = 0; i < TotalObstacleRowCount; i++)
         {
@@ -108,33 +109,17 @@ public class EndGameController : MonoBehaviour
 
             if (i != TotalObstacleRowCount - 1)
             {
-                spawnedObstacleRow = Instantiate(willSpawnObj, transform.position, Quaternion.Euler(0, 180, 0),
-                    transform);
-
+                spawnedObstacleRow = Instantiate(willSpawnObj, transform.position, Quaternion.Euler(0, 180, 0), transform);
+                
                 foreach (var obstacles in spawnedObstacleRow.GetComponentsInChildren<EndGameObstacle>())
                 {
-                    obstacles.EndGameObstacleNumber = endGameObstacleWatt;
+                    obstacles.EndGameObstacleNumber = remoteController.EndGameObstacleNumbers[i];
                 }
             }
             else
             {
                 spawnedObstacleRow = _endOfFinishTargetObj;
                 spawnedObstacleRow.SetActive(true);
-            }
-
-            if (i <= 5)
-            {
-                endGameObstacleWatt += 5;
-            }
-
-            else if (i < 9)
-            {
-                endGameObstacleWatt += 10;
-            }
-
-            else if (i < 13)
-            {
-                endGameObstacleWatt += 150;
             }
 
             spawnedObstacleRow.transform.localPosition = new Vector3(0, 0, spawnZPosForWall);

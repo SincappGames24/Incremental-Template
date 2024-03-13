@@ -67,7 +67,7 @@ public class PlayerController : MonoBehaviour
     {
         PersistData persistData = PersistData.Instance;
         persistData.Money += moneyAmount;
-        EventManager.OnIncomeChange?.Invoke();
+        EventManager.OnMoneyChange?.Invoke();
     }
 
     public void Die(float delay)

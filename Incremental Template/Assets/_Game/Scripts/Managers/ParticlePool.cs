@@ -14,13 +14,13 @@ public class ParticlePool : MonoBehaviour
     private void OnEnable()
     {
         EventManager.OnGameStart += SetInComeAmount;
-        EventManager.OnIncomeChange += ShowIncome;
+        EventManager.OnMoneyChange += ShowIncome;
     }
 
     private void OnDisable()
     {
         EventManager.OnGameStart -= SetInComeAmount;
-        EventManager.OnIncomeChange -= ShowIncome;
+        EventManager.OnMoneyChange -= ShowIncome;
     }
 
     private void Start()
