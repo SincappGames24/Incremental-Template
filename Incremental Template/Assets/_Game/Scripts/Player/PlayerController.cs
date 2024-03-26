@@ -87,4 +87,12 @@ public class PlayerController : MonoBehaviour
             Die(0);
         }
     }
+    
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.S))
+        {
+            _playerMovementController.enabled = !_playerMovementController.enabled;
+        }
+    }
 }

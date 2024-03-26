@@ -22,6 +22,7 @@ public class InGameUIManager : MonoBehaviour
     [SerializeField] private GameObject _moneyImage;
     [SerializeField] private GameObject _settingsImage;
     [SerializeField] private GameObject _rewardedCanvas;
+    [SerializeField] private TextMeshProUGUI _levelText;
     private Animator _animator;
 
     #region Incrementals
@@ -41,31 +42,11 @@ public class InGameUIManager : MonoBehaviour
 
     #endregion
 
-    #region ProgressBar
-
-    [Header("Progress")] 
-    [SerializeField] private TextMeshProUGUI _levelText;
     
-    [SerializeField] private Image _fillbar;
-    [SerializeField] private Image _playerMarker;
-    private Transform _playerPosition;
-    private Transform _finishPosition;
-    private float _playerStartPos_Z;
-    private float _totalDistance;
-
-    #endregion
-
-
     private void Start()
     {
         _animator = GetComponent<Animator>();
         _levelText.SetText($"LEVEL {PersistData.Instance.CurrentLevel}");
-        
-        // _playerPosition = FindObjectOfType<PlayerController>().transform;
-        // _finishPosition = GameObject.FindGameObjectWithTag("Finish").transform;
-        // _playerStartPos_Z = _playerPosition.position.z;
-        // _totalDistance = Mathf.Abs(_playerStartPos_Z - _finishPosition.position.z);
-        //
         var isHapticOn = PlayerPrefsX.GetBool("HapticMode",true);
         _vibrationSlider.value = isHapticOn ? 1 : 0;
         MMVibrationManager.SetHapticsActive(isHapticOn);
@@ -88,15 +69,6 @@ public class InGameUIManager : MonoBehaviour
         EventManager.OnMoneyChange -= UpdateMoneyText;
         EventManager.OnGameWin -= DisableInGameUI;
         EventManager.OnGameLose -= DisableInGameUI;
-    }
-
-    private void Update()
-    {
-        //float fillAmount = Mathf.Clamp((-1 * _playerStartPos_Z + _playerPosition.position.z) / (_totalDistance), 0.0f,
-        //   1.0f);
-        // _fillbar.fillAmount = fillAmount;
-        // Vector2 playerMarkerPos = new Vector2((_fillbar.rectTransform.sizeDelta.x * fillAmount) + _fillbar.rectTransform.anchoredPosition.x, _playerMarker.rectTransform.anchoredPosition.y);
-        // _playerMarker.rectTransform.anchoredPosition = playerMarkerPos;
     }
 
     private void GameStarted()

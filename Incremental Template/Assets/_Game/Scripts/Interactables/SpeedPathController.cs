@@ -2,7 +2,7 @@ using System.Globalization;
 using DG.Tweening;
 using UnityEngine;
 
-public class SpeedPathController : MonoBehaviour, IDataCollectable
+public class SpeedPathController : MonoBehaviour, IDataCollectable, IInteractable
 {
     [SerializeField] private SpeedDirections _speedDirection;
     public float _forwardSpeedBoostMultiplier = 1.5f;
@@ -27,24 +27,30 @@ public class SpeedPathController : MonoBehaviour, IDataCollectable
         
         _arrowMesh.material.DOOffset(new Vector2(0, -1), 0.65f).SetLoops(-1, LoopType.Incremental).SetEase(Ease.Linear);
     }
-
-    private void OnTriggerEnter(Collider other)
+    
+    
+    public void InteractPlayer(Transform playerTransform)
     {
         float speedMultiplier = 1.0f;
-        
+
+        if (_speedDirection == SpeedDirections.Backward)
+        {
+            speedMultiplier = _backwardSpeedBoostMultiplier;
+        }
+
+        if (_speedDirection == SpeedDirections.Forward)
+        {
+            speedMultiplier = _forwardSpeedBoostMultiplier;
+        }
+
+        playerTransform.GetComponent<PlayerMovementController>().SetSpeedBoost(speedMultiplier);
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
         if (other.gameObject.layer == _playerLayer)
         {
-            if (_speedDirection == SpeedDirections.Backward)
-            {
-                speedMultiplier = _backwardSpeedBoostMultiplier;
-            }
-
-            if (_speedDirection == SpeedDirections.Forward)
-            {
-                speedMultiplier = _forwardSpeedBoostMultiplier;
-            }
-
-            other.GetComponent<PlayerMovementController>().SetSpeedBoost(speedMultiplier);
+            other.GetComponent<PlayerMovementController>().SetSpeedBoost(1);
         }
     }
 

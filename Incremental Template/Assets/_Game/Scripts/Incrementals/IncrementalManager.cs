@@ -11,7 +11,7 @@ public class IncrementalManager : MonoBehaviour
     {
         var persistData = PersistData.Instance;
 
-        Purchase(persistData.MaxFireRateCost, ref persistData.FireRateUpgradeCost, ref persistData.FireRateLevel);
+        Purchase(ref persistData.FireRateUpgradeCost, ref persistData.FireRateLevel);
         Upgrade(ref persistData.FireRate, -0.01f);
         
         #region MultiplierIndexCalculation
@@ -45,6 +45,7 @@ public class IncrementalManager : MonoBehaviour
 
         #endregion
         persistData.FireRateUpgradeCost *= RemoteController.Instance.FireRateCostMultipliers[multiplierIndex];
+        persistData.FireRateUpgradeCost = Mathf.Clamp(persistData.FireRateUpgradeCost, 0, persistData.FireRateUpgradeCost);
         EventManager.OnIncrementalUpgrade?.Invoke();
     }
 
@@ -52,7 +53,7 @@ public class IncrementalManager : MonoBehaviour
     {
         var persistData = PersistData.Instance;
 
-        Purchase(persistData.MaxRangeCost, ref persistData.RangeUpgradeCost, ref persistData.RangeLevel);
+        Purchase(ref persistData.RangeUpgradeCost, ref persistData.RangeLevel);
         Upgrade(ref persistData.Range, 1);
         
         #region MultiplierIndexCalculation
@@ -86,6 +87,7 @@ public class IncrementalManager : MonoBehaviour
 
         #endregion
         persistData.RangeUpgradeCost *= RemoteController.Instance.RangeCostMultipliers[multiplierIndex];
+        persistData.RangeUpgradeCost = Mathf.Clamp(persistData.RangeUpgradeCost, 0, persistData.RangeUpgradeCost);
         EventManager.OnIncrementalUpgrade?.Invoke();
     }
 
@@ -93,7 +95,7 @@ public class IncrementalManager : MonoBehaviour
     {
         var persistData = PersistData.Instance;
 
-        Purchase(persistData.MaxIncomeCost, ref persistData.IncomeUpgradeCost, ref persistData.IncomeLevel);
+        Purchase(ref persistData.IncomeUpgradeCost, ref persistData.IncomeLevel);
         Upgrade(ref persistData.Income, 1);
         
         #region MultiplierIndexCalculation
@@ -127,42 +129,16 @@ public class IncrementalManager : MonoBehaviour
 
         #endregion
         persistData.IncomeUpgradeCost *= RemoteController.Instance.IncomeCostMultipliers[multiplierIndex];
+        persistData.IncomeUpgradeCost = Mathf.Clamp(persistData.IncomeUpgradeCost, 0, persistData.MaxIncomeCost);
         EventManager.OnIncrementalUpgrade?.Invoke();
     }
 
-    private void Purchase(int costLimit, ref float currentCost, ref int currentLevel)
+    private void Purchase(ref float currentCost, ref int currentLevel)
     {
         MMVibrationManager.Haptic(HapticTypes.MediumImpact);
         var persistData = PersistData.Instance;
         currentLevel++;
         persistData.Money -= currentCost;
-        
-        var costMultiplier = 1.2f;
-
-        if (currentCost > 200)
-        {
-            costMultiplier = 1.07f;
-        }
-        
-        else if (currentCost > 500)
-        {
-            costMultiplier = 1.05f;
-        }
-        
-        else if (currentCost > 1000)
-        {
-            costMultiplier = 1.02f;
-        }
-        
-        else if (currentCost > 20000)
-        {
-            costMultiplier = 1.01f;
-        }
-
-        if (currentCost < costLimit)
-        {
-            currentCost *= costMultiplier;
-        }
     }
 
     private void Upgrade(ref float incremental, float incrementAmount)

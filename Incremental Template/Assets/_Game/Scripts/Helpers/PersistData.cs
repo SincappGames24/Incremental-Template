@@ -17,9 +17,9 @@ public class PersistData : PersistManager<PersistData>
 
   public float FireRate = .65f;
   public int FireRateLevel = 1;
-  public float FireRateUpgradeCost = 50;
-  public int MaxFireRateLevel = 40;
-  public int MaxFireRateCost = 1000;
+  public float FireRateUpgradeCost = 5;
+  public int MaxFireRateLevel = int.MaxValue;
+  public int MaxFireRateCost = int.MaxValue;
 
   #endregion
 
@@ -27,19 +27,19 @@ public class PersistData : PersistManager<PersistData>
 
   public float Range = 13;
   public int RangeLevel = 1;
-  public float RangeUpgradeCost = 50;
+  public float RangeUpgradeCost = 5;
   public int MaxRangeLevel = int.MaxValue;
-  public int MaxRangeCost = 1000;
+  public int MaxRangeCost = int.MaxValue;
 
   #endregion
   
   #region IncomeUpgrade
 
-  public float Income=0.5f;
+  public float Income = 1f;
   public int IncomeLevel = 1;
-  public float IncomeUpgradeCost = 10;
-  public int MaxIncomeLevel = 50;
-  public int MaxIncomeCost = 1000;
+  public float IncomeUpgradeCost = 5;
+  public int MaxIncomeLevel = int.MaxValue;
+  public int MaxIncomeCost = int.MaxValue;
 
   #endregion
   

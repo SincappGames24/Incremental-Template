@@ -7,16 +7,14 @@ using TMPro;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
-public class EndGameObstacle : MonoBehaviour
+public class EndGameObstacle : MonoBehaviour, IDamageable, IInteractable
 {
-    private const int _playerLayer = 8;
-    private const int _bulletLayer = 12;
-    private bool _isHit;
     public float EndGameObstacleNumber;
-    private TextMeshPro _numberText;
     [SerializeField] private Transform _moneyTransform;
-    private float _startScaleX;
     [SerializeField] private GameObject _endGameObstacle;
+    private bool _isHit;
+    private TextMeshPro _numberText;
+    private float _startScaleX;
 
     private void Start()
     {
@@ -25,37 +23,31 @@ public class EndGameObstacle : MonoBehaviour
         _startScaleX = transform.localScale.x;
     }
 
-    private void OnTriggerEnter(Collider other)
+    public void TakeBulletDamage(float damageAmount, BulletController bullet)
+    {
+        MMVibrationManager.Haptic(HapticTypes.SoftImpact);
+        transform.DOKill();
+        transform.DOScale(_startScaleX + .05f, .07f).OnComplete(() => { transform.DOScale(_startScaleX, .07f); });
+        EndGameObstacleNumber -= damageAmount;
+
+        if (EndGameObstacleNumber <= 0)
+        {
+            gameObject.layer = 0;
+            _numberText.gameObject.SetActive(false);
+            _endGameObstacle.transform.DOKill();
+            _moneyTransform.DOLocalMoveY(transform.position.y + 0.68f, .25f).SetEase(Ease.Linear);
+            Destroy(_endGameObstacle);
+        }
+
+        _numberText.SetText($"{Mathf.Ceil(EndGameObstacleNumber)}");
+    }
+
+    public void InteractPlayer(Transform playerTransform)
     {
         if (_isHit) return;
 
-        if (other.gameObject.layer == _playerLayer)
-        {
-            var playerController = other.GetComponent<PlayerController>();
-            playerController.Die(0);
-            _isHit = true;
-        }
-
-        else if (other.gameObject.layer == _bulletLayer)
-        {
-            MMVibrationManager.Haptic(HapticTypes.SoftImpact);
-            transform.DOKill();
-            transform.DOScale(_startScaleX + .05f, .07f).OnComplete(() => { transform.DOScale(_startScaleX, .07f); });
-            EndGameObstacleNumber -= PersistData.Instance.BulletPower;
-
-            if (EndGameObstacleNumber <= 0)
-            {
-                gameObject.layer = 0;
-                _numberText.gameObject.SetActive(false);
-                _endGameObstacle.transform.DOKill();
-                _moneyTransform.DOLocalMoveY(transform.position.y + 0.68f, .25f).SetEase(Ease.Linear);
-                Destroy(_endGameObstacle);
-            }
-
-            _numberText.SetText($"{Mathf.Ceil(EndGameObstacleNumber)}");
-            other.gameObject.layer = 0;
-            other.transform.DOKill();
-            Destroy(other.gameObject);
-        }
+        var playerController = playerTransform.GetComponent<PlayerController>();
+        playerController.Die(0);
+        _isHit = true;
     }
 }
