@@ -18,7 +18,6 @@ public class EndGameController : MonoBehaviour
     [SerializeField] private Transform _highScoreSign;
     private List<Color> _groundColors = new List<Color>();
     private const int _playerLayer = 8;
-    private Transform _playerTransform;
 
     private void OnEnable()
     {
@@ -111,9 +110,22 @@ public class EndGameController : MonoBehaviour
             {
                 spawnedObstacleRow = Instantiate(willSpawnObj, transform.position, Quaternion.Euler(0, 180, 0), transform);
                 
+                PersistData persistData = PersistData.Instance;
+                
                 foreach (var obstacles in spawnedObstacleRow.GetComponentsInChildren<EndGameObstacle>())
                 {
-                    obstacles.EndGameObstacleNumber = remoteController.EndGameObstacleNumbers[i];
+                    var endGameReachedCount = persistData.EndGameReachCount;
+                    int diffReachedCount = Mathf.Abs(remoteController.EndGameObstacleNumbers.Length - endGameReachedCount);
+                    float additiveWhenOver = 0f;
+                    
+                    if (endGameReachedCount >= remoteController.EndGameObstacleNumbers.Length)
+                    {
+                        additiveWhenOver =
+                            remoteController.EndGameObstacleNumbersAddWhenReached[remoteController.EndGameObstacleNumbersAddWhenReached.Length - 1]
+                            + (diffReachedCount * 2);
+                    }
+
+                    obstacles.EndGameObstacleNumber = remoteController.EndGameObstacleNumbers[i] + remoteController.EndGameObstacleNumbersAddWhenReached[endGameReachedCount] + additiveWhenOver;
                 }
             }
             else
@@ -132,9 +144,9 @@ public class EndGameController : MonoBehaviour
     {
         PersistData persistData = PersistData.Instance;
 
-        if (_highScoreSign.position.z < _playerTransform.position.z)
+        if (_highScoreSign.position.z < LevelManager.Instance.PlayerController.transform.position.z)
         {
-            var cachedPlayerTransformZ = _playerTransform.position.z;
+            var cachedPlayerTransformZ = LevelManager.Instance.PlayerController.transform.position.z;
             _highScoreSign.DOMoveZ(cachedPlayerTransformZ + 2, 1f).OnComplete(() =>
             {
                 persistData.HighScoreSignPositionZ = _highScoreSign.localPosition.z - 2;
@@ -146,7 +158,6 @@ public class EndGameController : MonoBehaviour
     {
         if (other.gameObject.layer == _playerLayer)
         {
-            _playerTransform = other.transform;
             gameObject.layer = 0;
             other.GetComponentInParent<PlayerController>().EnterFinish();
         }

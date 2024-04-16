@@ -9,6 +9,7 @@ public class PersistData : PersistManager<PersistData>
   public float GiftFillAmount;
   public int CurrentPlayerRank = 1000;
   public int LastSceneIndex = 2;
+  public int EndGameReachCount;
   public float HighScoreSignPositionZ;
 
   #region Incrementals

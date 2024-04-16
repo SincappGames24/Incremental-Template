@@ -12,6 +12,8 @@ public class PlayerAttackController : MonoBehaviour
     private ObjectPool<BulletController> _bulletPool;
     private float _range;
     private float _fireRate;
+    private float _collectedGateFireRateAmount;
+    private float _collectedGateRangeAmount;
 
     private void Awake()
     {
@@ -30,13 +32,19 @@ public class PlayerAttackController : MonoBehaviour
     {
         if (skillType == GateGroupController.SkillTypes.Range)
         {
-            _range += skillAmount / 5;
-            _range = Mathf.Clamp(_range, 13, 50);
+            _collectedGateRangeAmount += skillAmount;
+
+            var a = Mathf.InverseLerp(0, RemoteController.Instance.RangeGateCollectLerpMax,
+                _collectedGateRangeAmount);
+            _range = Mathf.Lerp(_range, 25, a);
         }
         else if (skillType == GateGroupController.SkillTypes.FireRate)
         {
-            _fireRate -= skillAmount / 150;
-            _fireRate = Mathf.Clamp(_fireRate, .075f, int.MaxValue);
+            _collectedGateFireRateAmount += skillAmount;
+
+            var a = Mathf.InverseLerp(0, RemoteController.Instance.FireRateGateCollectLerpMax,
+                _collectedGateFireRateAmount);
+            _fireRate = Mathf.Lerp(_fireRate, .15f, a);
         }
     }
 

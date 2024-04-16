@@ -70,6 +70,12 @@ public class PlayerController : MonoBehaviour
         EventManager.OnMoneyChange?.Invoke();
     }
 
+    private void EndGameReach()
+    {
+        Die(0);
+        PersistData.Instance.EndGameReachCount++;
+    }
+
     public void Die(float delay)
     {
         transform.DOKill();
@@ -84,7 +90,7 @@ public class PlayerController : MonoBehaviour
         if (other.gameObject.layer == LayerHandler.EndGameWall)
         {
             other.gameObject.layer = 0;
-            Die(0);
+            EndGameReach();
         }
     }
     
@@ -93,6 +99,16 @@ public class PlayerController : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.S))
         {
             _playerMovementController.enabled = !_playerMovementController.enabled;
+        }
+        
+        if (Input.GetKeyDown(KeyCode.Y))
+        {
+           Die(0);
+        }
+        
+        if (Input.GetKeyDown(KeyCode.R))
+        {
+            EndGameReach();
         }
     }
 }

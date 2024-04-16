@@ -123,5 +123,10 @@ namespace SincappStudio
 
             return number.ToString(stringFormat);
         }
+        
+        public static string AbbreviateNumberFloat(float floatValue)
+        {
+            return Mathf.Approximately(floatValue, Mathf.Round(floatValue)) ? floatValue.ToString("0") : floatValue.ToString("F1", CultureInfo.InvariantCulture);
+        }
     }
 }
