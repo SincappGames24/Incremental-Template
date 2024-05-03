@@ -15,6 +15,7 @@ public class EndGameUIManager : MonoBehaviour
     [SerializeField] private Image _giftFillImage;
     [SerializeField] private GameObject _continueButtonGift;
     [SerializeField] private GameObject _firfir;
+    [SerializeField] private TextMeshProUGUI _levelText;
 
     private Animator _animator;
     private float _giftFillSpeed = 0.15f;
@@ -26,6 +27,7 @@ public class EndGameUIManager : MonoBehaviour
     private void Awake()
     {
         _animator = GetComponent<Animator>();
+        _levelText.SetText($"{PersistData.Instance.CurrentLevel}");
     }
 
     private void OnEnable()

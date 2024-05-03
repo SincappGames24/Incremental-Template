@@ -22,7 +22,6 @@ public class EditorPanel : MonoBehaviour
     private PlayerMovementController _playerMovementController;
     public Toggle IncrementalCloseToggle;
     public Toggle InGameUICloseToggle;
-    private InGameUIManager _inGameUIManager;
     private CameraController _cameraController;
     public Slider CameraPositionXSlider;
     public Slider CameraPositionYSlider;
@@ -54,12 +53,14 @@ public class EditorPanel : MonoBehaviour
     private void Awake()
     {
         Time.timeScale = 1;
-        _playerMovementController = FindObjectOfType<PlayerMovementController>();
-        _cuiColorPicker = FindObjectOfType<CUIColorPicker>();
-        _inGameUIManager = FindObjectOfType<InGameUIManager>();
+        _cuiColorPicker = GetComponentInChildren<CUIColorPicker>(true);
         _cameraController = FindObjectOfType<CameraController>();
         _camera = Camera.main;
-        LoadPersistData();
+        
+        if (!RemoteController.Instance.DebugPanelActive)
+        {
+            Destroy(gameObject);
+        }
     }
 
     private void OnEnable()
@@ -109,13 +110,14 @@ public class EditorPanel : MonoBehaviour
         PlayerSpeedSlider.onValueChanged.RemoveListener(ChangeMovementSpeed);
         InGameUICloseToggle.onValueChanged.RemoveListener(InGameUICloseToggles);
         _cuiColorPicker._onValueChange -= ChangeWheelColor;
-        _platformMat.color = _platformDefaultColors;
+        //_platformMat.color = _platformDefaultColors;
     }
 
     private void Start()
     {
+        _playerMovementController = LevelManager.Instance.PlayerController.GetComponent<PlayerMovementController>();
         ColorWheel.SetActive(false);
-        LoadPersistData();
+        //LoadPersistData();
     }
 
     private void LoadPersistData()
@@ -133,7 +135,6 @@ public class EditorPanel : MonoBehaviour
             _platformMat.color = persistData.CurrentPlatformColor;
         }
 
-        //purchase persist check
         PlayerSpeedSlider.onValueChanged?.Invoke(persistData.PlayerSpeed);
         InGameUIStatusChange();
         IncrementaUIStatusChange();
@@ -234,14 +235,16 @@ public class EditorPanel : MonoBehaviour
 
     private void IncrementaUIStatusChange()
     {
+        InGameUIManager inGameUIManager = InGameUIManager.Instance;
+        
         if (PersistData.Instance.IncrementalUIOpen)
         {
-            _inGameUIManager.incrementalsObj.SetActive(true);
+            inGameUIManager.incrementalsObj.SetActive(true);
             IncrementalCloseToggle.isOn = false;
         }
         else
         {
-            _inGameUIManager.incrementalsObj.SetActive(false);
+            inGameUIManager.incrementalsObj.SetActive(false);
             IncrementalCloseToggle.isOn = true;
         }
     }
@@ -254,14 +257,16 @@ public class EditorPanel : MonoBehaviour
 
     private void InGameUIStatusChange()
     {
+        InGameUIManager inGameUIManager = InGameUIManager.Instance;
+
         if (PersistData.Instance.InGameUIOpen)
         {
-            _inGameUIManager.GameUIStatus(true);
+            inGameUIManager.GameUIStatus(true);
             InGameUICloseToggle.isOn = false;
         }
         else
         {
-            _inGameUIManager.GameUIStatus(false);
+            inGameUIManager.GameUIStatus(false);
             InGameUICloseToggle.isOn = true;
         }
     }

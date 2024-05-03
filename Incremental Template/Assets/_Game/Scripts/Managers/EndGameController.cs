@@ -108,24 +108,30 @@ public class EndGameController : MonoBehaviour
 
             if (i != TotalObstacleRowCount - 1)
             {
-                spawnedObstacleRow = Instantiate(willSpawnObj, transform.position, Quaternion.Euler(0, 180, 0), transform);
-                
+                spawnedObstacleRow =
+                    Instantiate(willSpawnObj, transform.position, Quaternion.Euler(0, 180, 0), transform);
+
                 PersistData persistData = PersistData.Instance;
-                
+
                 foreach (var obstacles in spawnedObstacleRow.GetComponentsInChildren<EndGameObstacle>())
                 {
                     var endGameReachedCount = persistData.EndGameReachCount;
-                    int diffReachedCount = Mathf.Abs(remoteController.EndGameObstacleNumbers.Length - endGameReachedCount);
+                    int diffReachedCount =
+                        Mathf.Abs(remoteController.EndGameObstacleNumbers.Length - endGameReachedCount);
                     float additiveWhenOver = 0f;
-                    
-                    if (endGameReachedCount >= remoteController.EndGameObstacleNumbers.Length)
+
+                    if (endGameReachedCount >= remoteController.EndGameObstacleMultipliersWhenReached.Length)
                     {
                         additiveWhenOver =
-                            remoteController.EndGameObstacleNumbersAddWhenReached[remoteController.EndGameObstacleNumbersAddWhenReached.Length - 1]
+                            remoteController.EndGameObstacleMultipliersWhenReached[
+                                remoteController.EndGameObstacleMultipliersWhenReached.Length - 1]
                             + (diffReachedCount * 2);
+                        endGameReachedCount = remoteController.EndGameObstacleMultipliersWhenReached.Length - 1;
                     }
 
-                    obstacles.EndGameObstacleNumber = remoteController.EndGameObstacleNumbers[i] + remoteController.EndGameObstacleNumbersAddWhenReached[endGameReachedCount] + additiveWhenOver;
+                    obstacles.EndGameObstacleNumber = remoteController.EndGameObstacleNumbers[i] *
+                        remoteController.EndGameObstacleMultipliersWhenReached[
+                            endGameReachedCount] + additiveWhenOver;
                 }
             }
             else

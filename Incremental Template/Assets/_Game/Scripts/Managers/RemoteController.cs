@@ -11,10 +11,11 @@ public class RemoteController : MonoSingleton<RemoteController>
     public float[] RangeCostMultipliers { private set; get; }
     public float[] IncomeCostMultipliers { private set; get; }
     public float[] EndGameObstacleNumbers { private set; get; }
-    public float[] EndGameObstacleNumbersAddWhenReached { get; set; }
+    public float[] EndGameObstacleMultipliersWhenReached { get; set; }
     public float FireRateGateCollectLerpMax;
     public float RangeGateCollectLerpMax;
-    
+    public bool DebugPanelActive;
+
     protected override void Awake()
     {
         base.Awake();
@@ -24,8 +25,12 @@ public class RemoteController : MonoSingleton<RemoteController>
         
         FireRateGateCollectLerpMax = RemoteConfig.GetInstance().GetFloat("FireRateGateCollectLerpMax", 100f);
         RangeGateCollectLerpMax = RemoteConfig.GetInstance().GetFloat("RangeGateCollectLerpMax", 100f);
-        EndGameObstacleNumbersAddWhenReached = Sincapp.StringListToFloatArray("End_Game_Obstacle_Numbers_Add_When_Reached",
-            "0-10-30-50-80-100-120-140-180-250-400-500-700-900");
+        EndGameObstacleMultipliersWhenReached = Sincapp.StringListToFloatArray("EndGameObstacleMultipliersWhenReached",
+            "1-1.35-3.5-10-15-20");
+        
+          
+        DebugPanelActive =
+            RemoteConfig.GetInstance().GetBool("DebugPanelActive", Application.isEditor);
         
         #region Economy
 

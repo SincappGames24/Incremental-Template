@@ -60,6 +60,11 @@ public class GateController : MonoBehaviour
         if (_powerAmount < 0)
         {
             mathSign = "";
+            _gateMesh.materials[2].color = new Color(0.74f, 0.06f, 0.03f);
+        }
+        else
+        {
+            _gateMesh.materials[2].color = new Color(0f, 0.69f, 0.12f);
         }
 
         _powerAmountText.SetText($"{mathSign}{_powerAmount}");
@@ -123,13 +128,13 @@ public class GateController : MonoBehaviour
     {
         if (_skillAmount < 0)
         {
-            _gateMesh.materials[0].color = new Color(0.74f, 0.06f, 0.03f, 0.68f);
-            _gateMesh.materials[1].color = new Color(0.76f, 0.29f, 0.28f, 0.68f);
+            _gateMesh.materials[0].color = new Color(0.74f, 0.06f, 0.03f, 1);
+            _gateMesh.materials[1].color = new Color(0.76f, 0.29f, 0.28f, 0.671f);
         }
         else
         {
-            _gateMesh.materials[0].color = new Color(0f, 0.59f, 0.14f, 0.68f);
-            _gateMesh.materials[1].color = new Color(0.39f, 0.69f, 0.38f, 0.68f);
+            _gateMesh.materials[0].color = new Color(0f, 0.69f, 0.12f, 1);
+            _gateMesh.materials[1].color = new Color(0.06f, 0.6f, 0.13f, 0.671f);
         }
     }
 

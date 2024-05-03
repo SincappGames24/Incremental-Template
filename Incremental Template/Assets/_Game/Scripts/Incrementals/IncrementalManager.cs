@@ -146,7 +146,6 @@ public class IncrementalManager : MonoBehaviour
         var persistData = PersistData.Instance;
 
         incremental += incrementAmount;
-        EventManager.OnIncrementalUpgrade?.Invoke();
         persistData.Save();
     }
 }

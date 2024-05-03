@@ -32,6 +32,20 @@ namespace ElephantSdkManager.Model
         public string googleAppIdIos;
         public string googleAppIdAndroid;
         public List<AdjustEvent> adjustEvents;
+        public string amazonAppIdIos;
+        public string amazonBannerSlotIdIos;
+        public string amazonInterstitialVideoSlotIdIos;
+        public string amazonRewardedVideoSlotIdIos;
+        public string amazonAppIdAndroid;
+        public string amazonBannerSlotIdAndroid;
+        public string amazonInterstitialVideoSlotIdAndroid;
+        public string amazonRewardedVideoSlotIdAndroid;
+        public string fitoBannerAdUnitIos;
+        public string fitoInterstitialAdUnitIos;
+        public string fitoRewardedAdUnitIos;
+        public string fitoBannerAdUnitAndroid;
+        public string fitoInterstitialAdUnitAndroid;
+        public string fitoRewardedAdUnitAndroid;
     }
     
     [Serializable]

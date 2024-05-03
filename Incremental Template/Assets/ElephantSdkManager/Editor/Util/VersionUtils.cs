@@ -175,6 +175,14 @@ namespace ElephantSdkManager.Util
                                 newLine = line.Replace("[TEMP_GAMEKIT_" + key2.name + "]", key2.token);    
                             }
                         }
+                        else if (line.Contains("[skan_cv_update]"))
+                        {
+                            var key3 = gameKitManifest.data.adjustEvents.Find(aEvent => aEvent.name.Equals("skan_cv_update"));
+                            if (key3 != null)
+                            {
+                                newLine = line.Replace("[skan_cv_update]", key3.token);    
+                            }
+                        }
                         else
                         {
                             newLine = line.Replace("[TEMP_GAMEKIT_" + key.name + "]", key.token);
@@ -270,6 +278,90 @@ namespace ElephantSdkManager.Util
                         newLine = line.Replace("[TEMP_GAMEKIT_GoogleAppIdAndroid]",
                             gameKitManifest.data.googleAppIdAndroid);
                         stringBuilder.Append("Android Google app ID: " + gameKitManifest.data.googleAppIdAndroid + "\n");
+                    }
+                    else if (line.Contains("[TEMP_GAMEKIT_AmazonAppIdIos]"))
+                    {
+                        newLine = line.Replace("[TEMP_GAMEKIT_AmazonAppIdIos]",
+                            gameKitManifest.data.amazonAppIdIos);
+                        stringBuilder.Append("iOS Amazon App ID: " + gameKitManifest.data.amazonAppIdIos + "\n");
+                    }
+                    else if (line.Contains("[TEMP_GAMEKIT_AmazonBannerSlotIdIos]"))
+                    {
+                        newLine = line.Replace("[TEMP_GAMEKIT_AmazonBannerSlotIdIos]",
+                            gameKitManifest.data.amazonBannerSlotIdIos);
+                        stringBuilder.Append("iOS Amazon Banner Slot ID: " + gameKitManifest.data.amazonBannerSlotIdIos + "\n");
+                    }
+                    else if (line.Contains("[TEMP_GAMEKIT_AmazonInterstitialVideoSlotIdIos]"))
+                    {
+                        newLine = line.Replace("[TEMP_GAMEKIT_AmazonInterstitialVideoSlotIdIos]",
+                            gameKitManifest.data.amazonInterstitialVideoSlotIdIos);
+                        stringBuilder.Append("iOS Amazon Interstitial Slot ID: " + gameKitManifest.data.amazonInterstitialVideoSlotIdIos + "\n");
+                    }
+                    else if (line.Contains("[TEMP_GAMEKIT_AmazonRewardedVideoSlotIdIos]"))
+                    {
+                        newLine = line.Replace("[TEMP_GAMEKIT_AmazonRewardedVideoSlotIdIos]",
+                            gameKitManifest.data.amazonRewardedVideoSlotIdIos);
+                        stringBuilder.Append("iOS Amazon Rewarded Slot ID: " + gameKitManifest.data.amazonRewardedVideoSlotIdIos + "\n");
+                    }
+                    else if (line.Contains("[TEMP_GAMEKIT_AmazonAppIdAndroid]"))
+                    {
+                        newLine = line.Replace("[TEMP_GAMEKIT_AmazonAppIdAndroid]",
+                            gameKitManifest.data.amazonAppIdAndroid);
+                        stringBuilder.Append("Android Amazon App ID: " + gameKitManifest.data.amazonAppIdAndroid + "\n");
+                    }
+                    else if (line.Contains("[TEMP_GAMEKIT_AmazonBannerSlotIdAndroid]"))
+                    {
+                        newLine = line.Replace("[TEMP_GAMEKIT_AmazonBannerSlotIdAndroid]",
+                            gameKitManifest.data.amazonBannerSlotIdAndroid);
+                        stringBuilder.Append("Android Amazon Banner Slot ID: " + gameKitManifest.data.amazonBannerSlotIdAndroid + "\n");
+                    }
+                    else if (line.Contains("[TEMP_GAMEKIT_AmazonInterstitialVideoSlotIdAndroid]"))
+                    {
+                        newLine = line.Replace("[TEMP_GAMEKIT_AmazonInterstitialVideoSlotIdAndroid]",
+                            gameKitManifest.data.amazonInterstitialVideoSlotIdAndroid);
+                        stringBuilder.Append("Android Amazon Interstitial Slot ID: " + gameKitManifest.data.amazonInterstitialVideoSlotIdAndroid + "\n");
+                    }
+                    else if (line.Contains("[TEMP_GAMEKIT_AmazonRewardedVideoSlotIdAndroid]"))
+                    {
+                        newLine = line.Replace("[TEMP_GAMEKIT_AmazonRewardedVideoSlotIdAndroid]",
+                            gameKitManifest.data.amazonRewardedVideoSlotIdAndroid);
+                        stringBuilder.Append("Android Amazon Rewarded Slot ID: " + gameKitManifest.data.amazonRewardedVideoSlotIdAndroid + "\n");
+                    }
+                    else if (line.Contains("[TEMP_GAMEKIT_FitoBannerAdUnitIos]"))
+                    {
+                        newLine = line.Replace("[TEMP_GAMEKIT_FitoBannerAdUnitIos]",
+                            gameKitManifest.data.fitoBannerAdUnitIos);
+                        stringBuilder.Append("iOS FITO Banner Slot ID: " + gameKitManifest.data.fitoBannerAdUnitIos + "\n");
+                    }
+                    else if (line.Contains("[TEMP_GAMEKIT_FitoInterstitialAdUnitIos]"))
+                    {
+                        newLine = line.Replace("[TEMP_GAMEKIT_FitoInterstitialAdUnitIos]",
+                            gameKitManifest.data.fitoInterstitialAdUnitIos);
+                        stringBuilder.Append("iOS FITO Interstitial Slot ID: " + gameKitManifest.data.fitoInterstitialAdUnitIos + "\n");
+                    }
+                    else if (line.Contains("[TEMP_GAMEKIT_FitoRewardedAdUnitIos]"))
+                    {
+                        newLine = line.Replace("[TEMP_GAMEKIT_FitoRewardedAdUnitIos]",
+                            gameKitManifest.data.fitoRewardedAdUnitIos);
+                        stringBuilder.Append("iOS FITO Rewarded Slot ID: " + gameKitManifest.data.fitoRewardedAdUnitIos + "\n");
+                    }
+                    else if (line.Contains("[TEMP_GAMEKIT_FitoBannerAdUnitAndroid]"))
+                    {
+                        newLine = line.Replace("[TEMP_GAMEKIT_FitoBannerAdUnitAndroid]",
+                            gameKitManifest.data.fitoBannerAdUnitAndroid);
+                        stringBuilder.Append("Android FITO Banner Slot ID: " + gameKitManifest.data.fitoBannerAdUnitAndroid + "\n");
+                    }
+                    else if (line.Contains("[TEMP_GAMEKIT_FitoInterstitialAdUnitAndroid]"))
+                    {
+                        newLine = line.Replace("[TEMP_GAMEKIT_FitoInterstitialAdUnitAndroid]",
+                            gameKitManifest.data.fitoInterstitialAdUnitAndroid);
+                        stringBuilder.Append("Android FITO Interstitial Slot ID: " + gameKitManifest.data.fitoInterstitialAdUnitAndroid + "\n");
+                    }
+                    else if (line.Contains("[TEMP_GAMEKIT_FitoRewardedAdUnitAndroid]"))
+                    {
+                        newLine = line.Replace("[TEMP_GAMEKIT_FitoRewardedAdUnitAndroid]",
+                            gameKitManifest.data.fitoRewardedAdUnitAndroid);
+                        stringBuilder.Append("Android FITO Rewarded Slot ID: " + gameKitManifest.data.fitoRewardedAdUnitAndroid + "\n");
                     }
                     else
                     {

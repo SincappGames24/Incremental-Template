@@ -11,7 +11,7 @@ using UnityEngine.UI;
 using Random = UnityEngine.Random;
 
 
-public class InGameUIManager : MonoBehaviour
+public class InGameUIManager : MonoSingleton<InGameUIManager>
 {
     [SerializeField] private GameObject _tapToStart;
     [SerializeField] private TextMeshProUGUI _playerMoney;
