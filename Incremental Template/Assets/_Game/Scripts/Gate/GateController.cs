@@ -46,9 +46,15 @@ public class GateController : MonoBehaviour
     
     public void UseSkill()
     {
+        transform.DOKill();
+
+        transform.DOMoveY(-5, .4f).OnComplete(() =>
+        {
+            Destroy(gameObject);
+        }).SetEase(Ease.InBack);
+        
         MMVibrationManager.Haptic(HapticTypes.MediumImpact);
         EventManager.OnGateCollect?.Invoke(_skillType, _skillAmount);
-        transform.DOKill();
     }
     
     private void SetGateTexts()

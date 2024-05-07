@@ -1,9 +1,8 @@
-﻿using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CollectableController : BaseInteractableController
+public class EnemyController : BaseInteractableController
 {
     public override void TakeBulletDamage(float damageAmount, BulletController bullet)
     {

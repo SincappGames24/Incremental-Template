@@ -3,7 +3,7 @@ using DG.Tweening;
 using Sirenix.OdinInspector;
 using UnityEngine;
 
-public class GateGroupController : MonoBehaviour, IDataCollectable, IDamageable, IInteractable
+public class GateGroupController : BaseInteractableController, IDataCollectable
 {
     public enum SkillTypes
     {
@@ -107,15 +107,20 @@ public class GateGroupController : MonoBehaviour, IDataCollectable, IDamageable,
         return _firstGateController;
     }
     
-    public void TakeBulletDamage(float damageAmount, BulletController bullet)
+    public override void TakeBulletDamage(float damageAmount, BulletController bullet)
     {
+        base.TakeBulletDamage(damageAmount, bullet);
+        
         GateController hittedGate = FindInteractedGate(bullet.transform.position.x);
         hittedGate.IncreaseSkillAmountOnBulletHit(bullet.transform.position);
         _interactableMovementController.Move();
+        ParticleManager.Instance.GateParticle(bullet.transform.position);
     }
     
-    public void InteractPlayer(Transform playerTransform)
+    public override void InteractPlayer(Transform playerTransform)
     {
+        base.InteractPlayer(playerTransform);
+        
         GateController hittedGate = FindInteractedGate(playerTransform.position.x);
         hittedGate.UseSkill();
         transform.DOKill();
@@ -124,8 +129,6 @@ public class GateGroupController : MonoBehaviour, IDataCollectable, IDamageable,
         {
             gateController.DestroyGate();
         }
-        
-        Destroy(gameObject);
     }
 
     public InteractableData GetInteractableData()

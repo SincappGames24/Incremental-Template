@@ -7,12 +7,11 @@ using TMPro;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
-public class EndGameObstacle : MonoBehaviour, IDamageable, IInteractable
+public class EndGameObstacleController : BaseInteractableController
 {
     public float EndGameObstacleNumber;
     [SerializeField] private Transform _moneyTransform;
     [SerializeField] private GameObject _endGameObstacle;
-    private bool _isHit;
     private TextMeshPro _numberText;
     private float _startScaleX;
 
@@ -23,8 +22,10 @@ public class EndGameObstacle : MonoBehaviour, IDamageable, IInteractable
         _startScaleX = transform.localScale.x;
     }
 
-    public void TakeBulletDamage(float damageAmount, BulletController bullet)
+    public override void TakeBulletDamage(float damageAmount, BulletController bullet)
     {
+        base.TakeBulletDamage(damageAmount, bullet);
+        
         MMVibrationManager.Haptic(HapticTypes.SoftImpact);
         transform.DOKill();
         transform.DOScale(_startScaleX + .05f, .07f).OnComplete(() => { transform.DOScale(_startScaleX, .07f); });
@@ -42,12 +43,14 @@ public class EndGameObstacle : MonoBehaviour, IDamageable, IInteractable
         _numberText.SetText($"{Mathf.Ceil(EndGameObstacleNumber)}");
     }
 
-    public void InteractPlayer(Transform playerTransform)
+    public override void InteractPlayer(Transform playerTransform)
     {
         if (_isHit) return;
 
+        base.InteractPlayer(playerTransform);
+        
         var playerController = playerTransform.GetComponent<PlayerController>();
         playerController.Die(0);
-        _isHit = true;
+        Debug.Log("v");
     }
 }

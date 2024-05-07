@@ -3892,6 +3892,16 @@ PrefabInstance:
       propertyPath: m_Name
       value: DoubleGate
       objectReference: {fileID: 0}
+    - target: {fileID: 9097915021064742270, guid: e6097b4b3f025404aa7f57095456e51c,
+        type: 3}
+      propertyPath: _secondGatePowerAmount
+      value: 2.91
+      objectReference: {fileID: 0}
+    - target: {fileID: 9097915021064742270, guid: e6097b4b3f025404aa7f57095456e51c,
+        type: 3}
+      propertyPath: _secondGateSkillAmount
+      value: 2.1
+      objectReference: {fileID: 0}
     - target: {fileID: 9097915021064742271, guid: e6097b4b3f025404aa7f57095456e51c,
         type: 3}
       propertyPath: m_RootOrder
@@ -3910,7 +3920,7 @@ PrefabInstance:
     - target: {fileID: 9097915021064742271, guid: e6097b4b3f025404aa7f57095456e51c,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 28.893547
+      value: 17.06
       objectReference: {fileID: 0}
     - target: {fileID: 9097915021064742271, guid: e6097b4b3f025404aa7f57095456e51c,
         type: 3}
@@ -8728,6 +8738,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _moneyParticle: {fileID: 9112458071301981527, guid: da6d92f0817477843b1bf0a1cb18546d,
+    type: 3}
+  _gateParticle: {fileID: 9159357506058570534, guid: 01fdda5b97ac4c94d96ca9a29fbf49a0,
     type: 3}
 --- !u!1 &1240941034
 GameObject:

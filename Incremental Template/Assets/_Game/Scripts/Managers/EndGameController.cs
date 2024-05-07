@@ -113,7 +113,7 @@ public class EndGameController : MonoBehaviour
 
                 PersistData persistData = PersistData.Instance;
 
-                foreach (var obstacles in spawnedObstacleRow.GetComponentsInChildren<EndGameObstacle>())
+                foreach (var obstacles in spawnedObstacleRow.GetComponentsInChildren<EndGameObstacleController>())
                 {
                     var endGameReachedCount = persistData.EndGameReachCount;
                     int diffReachedCount =
